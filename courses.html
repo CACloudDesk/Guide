@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CA Cloud Desk – Courses</title>
+  <meta name="description" content="Udemy courses for CA Cloud Desk – Employee Induction and HR Module.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --card: #ffffff;
+      --radius: 12px;
+    }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: var(--foreground); line-height: 1.6; }
+
+    .top-header {
+      background: rgba(10, 33, 35, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #25b7a7;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 0.75rem 1.5rem;
+    }
+    .logo-container a { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; }
+    .logo-container img { height: 69px; width: auto; object-fit: contain; }
+    .logo-text { font-size: 1.25rem; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
+    .nav-menu { display: flex; align-items: center; gap: 0.5rem; }
+    .nav-menu a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-menu a { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .nav-menu a .nav-icon { width: 18px; height: 18px; flex-shrink: 0; }
+    .nav-menu a:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+    .nav-menu a.guide-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(37, 183, 167, 0.5); color: white; }
+    .nav-menu a.guide-btn:hover { background: rgba(37, 183, 167, 0.3); color: white; }
+    .nav-menu a.videos-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(37, 183, 167, 0.5); color: white; }
+    .nav-menu a.videos-btn:hover { background: rgba(37, 183, 167, 0.3); color: white; }
+    .nav-menu a.courses-btn { background: var(--primary); color: white; }
+    .nav-menu a.courses-btn:hover { background: var(--primary-dark); color: white; }
+    .search-row {
+      background: rgba(0, 0, 0, 0.15);
+      padding: 0.5rem 1.5rem;
+    }
+    .search-row .search-wrapper { max-width: 600px; margin: 0 auto; position: relative; }
+    .search-row .search-container {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(2, 218, 197, 0.3);
+      border-radius: 50px;
+      padding: 0.25rem;
+    }
+    .search-bar { flex: 1; padding: 0.75rem 1rem; border: none; background: transparent; color: rgba(255,255,255,0.9); font-size: 0.9375rem; outline: none; }
+    .search-bar::placeholder { color: rgba(255,255,255,0.5); }
+    .search-icon { width: 20px; height: 20px; color: rgba(255,255,255,0.7); margin-left: 1rem; flex-shrink: 0; }
+    .search-button {
+      width: 40px; height: 40px; background: var(--primary); border: none; border-radius: 50%; color: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; margin-right: 0.25rem;
+    }
+    .search-button:hover { background: var(--primary-dark); }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; }
+    .section-title { font-size: 2rem; font-weight: 700; color: var(--dark); margin-bottom: 0.5rem; text-align: center; }
+    .section-subtitle { text-align: center; color: var(--muted-foreground); margin-bottom: 2rem; font-size: 1.125rem; }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .module-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .module-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .module-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 8px 24px rgba(37, 183, 167, 0.15);
+    }
+    .module-card:hover::before { transform: scaleX(1); }
+    .module-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .module-icon svg { width: 32px; height: 32px; color: white; }
+    .module-card h3 { font-size: 1.375rem; font-weight: 600; color: var(--dark); margin-bottom: 0.75rem; }
+    .module-card p { color: var(--muted-foreground); font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1rem; }
+    .module-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+    .module-badge.course {
+      background: rgba(37, 183, 167, 0.12);
+      color: var(--primary);
+      border: 1px solid rgba(37, 183, 167, 0.25);
+    }
+
+    .footer {
+      background: #f0fdfb;
+      color: var(--foreground);
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(37, 183, 167, 0.2);
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; max-width: 1000px; margin: 0 auto 2rem; }
+    .footer-section h4 { color: var(--dark); margin-bottom: 1rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer-section ul { list-style: none; padding: 0; margin: 0; }
+    .footer-section li { margin-bottom: 0.5rem; }
+    .footer-section a { color: var(--muted-foreground); text-decoration: none; transition: color 0.2s; }
+    .footer-section a:hover { color: var(--primary); }
+    .contact-info p { margin-bottom: 0.5rem; font-size: 0.9375rem; color: var(--muted-foreground); }
+    .contact-info a { color: var(--primary); text-decoration: underline; }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(37, 183, 167, 0.15); font-size: 0.875rem; color: var(--muted-foreground); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } .modules-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-container">
+      <div class="logo-container">
+        <a href="index.html" class="logo-link" aria-label="CA Cloud Desk – Guide">
+          <img src="transparent%20logo.png" alt="CA Cloud Desk Logo" onerror="this.src='cacloud.svg'">
+          <div class="logo-text">CA Cloud Desk</div>
+        </a>
+      </div>
+      <nav class="nav-menu">
+        <a href="index.html" class="guide-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h8"/></svg>
+          Guide
+        </a>
+        <a href="videos.html" class="videos-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Videos
+        </a>
+        <a href="courses.html" class="courses-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Courses
+        </a>
+      </nav>
+    </div>
+    <div class="search-row">
+      <div class="search-wrapper">
+        <div class="search-container">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="search" class="search-bar" id="main-search" placeholder="Search help articles, modules, and guides...">
+          <button class="search-button" id="main-search-btn" onclick="window.location.href='index.html'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="modules-section">
+      <h2 class="section-title">Courses</h2>
+      <p class="section-subtitle">Udemy courses for CA Cloud Desk – employee induction and HR module</p>
+      <div class="modules-grid">
+        <a href="https://www.udemy.com/course/cacloud-emp/" target="_blank" rel="noopener noreferrer" class="module-card">
+          <div class="module-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>Employee Induction Course</h3>
+          <p>Complete onboarding and induction training for CA Cloud Desk on Udemy.</p>
+          <span class="module-badge course">Udemy Course</span>
+        </a>
+        <a href="https://www.udemy.com/course/cacloud-hr/" target="_blank" rel="noopener noreferrer" class="module-card">
+          <div class="module-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>HR Module Course</h3>
+          <p>Full HR module training for CA Cloud Desk on Udemy.</p>
+          <span class="module-badge course">Udemy Course</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>More</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
+            <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
+            <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
+            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
+            <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Essential Resources</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/free-tools-and-utilities/">Free Tools and Utilities</a></li>
+            <li><a href="https://caclouddesk.com/use-cases/">Use Cases</a></li>
+            <li><a href="https://caclouddesk.com/features/">Features</a></li>
+            <li><a href="https://caclouddesk.com/modules/">Modules</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <div class="contact-info">
+            <p><strong>Law Seva Management (P) Ltd</strong></p>
+            <p>Address: BM-08 Ansal Sumedha Building RDC Ghaziabad Delhi NCR India 201001</p>
+            <p>Phone: 0120-4308902</p>
+            <p>Email: <a href="mailto:info@caclouddesk.com">info@caclouddesk.com</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Task — CA Cloud Desk Help</title>
+
+  <!-- SEO Meta -->
+  <meta name="description" content="Step-by-step instructions to create and manage tasks in CA Cloud Desk. Learn how tax professionals and CAs can create tasks, assign work, attach documents, set reminders, and track task history.">
+  <meta name="keywords" content="CA Cloud Desk, create task, task management, task module, tax professionals, chartered accountants, help guide">
+  <meta name="author" content="CA Cloud Desk">
+
+  <!-- Social Meta -->
+  <meta property="og:title" content="Create Task — CA Cloud Desk Help">
+  <meta property="og:description" content="Step-by-step guide for CAs and tax professionals to create and manage tasks in CA Cloud Desk.">
+  <meta property="og:type" content="article">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-light: #3b82f6;
+      --background: #ffffff;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --accent: #f8fafc;
+      --border: #e2e8f0;
+      --card: #ffffff;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --radius: 8px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* Top Header */
+    .top-header {
+      background: rgba(10, 33, 35, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #25b7a7;
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo-container img {
+      height: 49px;
+      width: auto;
+      object-fit: contain;
+      background: transparent;
+      mix-blend-mode: normal;
+    }
+
+    .logo-text {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #25b7a7;
+      letter-spacing: -0.02em;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .breadcrumb a {
+      color: #25b7a7;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .breadcrumb a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
+    .breadcrumb span {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .header::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .header > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.15;
+      z-index: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+      background-size: 100% 100%, 100% 100%, 200px 200px;
+      background-position: 0 0, 0 0, 0 0;
+    }
+
+    .header-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .header-icon {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      opacity: 0.18;
+      color: white;
+    }
+
+    .header-icon-1 { top: 15%; left: 8%; }
+    .header-icon-2 { top: 25%; left: 15%; }
+    .header-icon-3 { top: 35%; left: 5%; }
+    .header-icon-4 { top: 45%; left: 12%; }
+    .header-icon-5 { top: 20%; left: 3%; }
+    .header-icon-6 { top: 30%; left: 20%; }
+    .header-icon-7 { top: 40%; left: 7%; }
+    .header-icon-8 { top: 50%; left: 18%; }
+    .header-icon-9 { top: 15%; right: 10%; }
+    .header-icon-10 { top: 25%; right: 5%; }
+    .header-icon-11 { top: 35%; right: 18%; }
+    .header-icon-12 { top: 45%; right: 8%; }
+    .header-icon-13 { top: 20%; right: 15%; }
+    .header-icon-14 { top: 30%; right: 2%; }
+    .header-icon-15 { top: 40%; right: 12%; }
+    .header-icon-16 { top: 50%; right: 6%; }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-weight: 500;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header p {
+      font-size: 1.125rem;
+      opacity: 0.9;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* Table of Contents */
+    .toc {
+      background: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+    }
+
+    .toc a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toc a::before {
+      content: "•";
+      color: #25b7a7;
+      font-size: 1.3rem;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-title svg {
+      width: 24px;
+      height: 24px;
+      color: #25b7a7;
+    }
+
+    .prose {
+      color: var(--muted-foreground);
+    }
+
+    .prose p {
+      margin-bottom: 1rem;
+    }
+
+    /* Feature cards in Overview */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--accent);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: left;
+    }
+
+    .feature-card svg {
+      width: 32px;
+      height: 32px;
+      color: #25b7a7;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card h4 {
+      font-weight: 500;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    /* Step Cards (timeline style) */
+    .steps-container {
+      margin-top: 0.5rem;
+    }
+
+    .step-card {
+      position: relative;
+      padding-left: 4rem;
+      padding-bottom: 2rem;
+      border-left: 2px solid var(--border);
+      margin-left: 1rem;
+    }
+
+    .step-card:last-child {
+      border-left-color: transparent;
+      padding-bottom: 0;
+    }
+
+    .step-number {
+      position: absolute;
+      left: -1.25rem;
+      top: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: #25b7a7;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .step-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-card > p {
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+    }
+
+    /* Callouts */
+    .callout {
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .callout svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .callout-tip {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+    }
+
+    .callout-tip svg {
+      color: #f59e0b;
+    }
+
+    .callout-info {
+      background: #dbeafe;
+      border-left: 4px solid #25b7a7;
+    }
+
+    .callout-info svg {
+      color: #25b7a7;
+    }
+
+    .callout-success {
+      background: #d1fae5;
+      border-left: 4px solid #10b981;
+    }
+
+    .callout-success svg {
+      color: #10b981;
+    }
+
+    .callout-content {
+      flex: 1;
+    }
+
+    .callout-title {
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+
+    .callout p {
+      color: var(--foreground);
+      font-size: 0.9375rem;
+    }
+
+    kbd {
+      background: var(--muted);
+      padding: 0.125rem 0.5rem;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.8125rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Screenshots */
+    .screenshot {
+      margin: 1rem 0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .screenshot img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .screenshot-caption {
+      background: var(--muted);
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    /* Field List (for task fields) */
+    .field-list {
+      background: var(--muted);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin-top: 0.75rem;
+    }
+
+    .field-item {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .field-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .field-label {
+      width: 120px;
+      flex-shrink: 0;
+      font-weight: 500;
+      color: var(--foreground);
+    }
+
+    .field-desc {
+      color: var(--muted-foreground);
+    }
+
+    /* Best Practices */
+    .practices-list {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .practice-item {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .practice-item:last-child {
+      border-bottom: none;
+    }
+
+    .practice-item h4 {
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .practice-item p {
+      color: var(--muted-foreground);
+    }
+
+    /* FAQ */
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: var(--card);
+      border: none;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--foreground);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: inherit;
+    }
+
+    .faq-question:hover {
+      background: var(--accent);
+    }
+
+    .faq-question svg {
+      width: 20px;
+      height: 20px;
+      color: var(--muted-foreground);
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-question svg {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      color: var(--muted-foreground);
+      background: var(--card);
+    }
+
+    .faq-answer ul {
+      margin-left: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .faq-answer li {
+      margin-bottom: 0.4rem;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* Related Links */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .related-card:hover {
+      border-color: #25b7a7;
+      box-shadow: 0 4px 12px rgba(2, 218, 197, 0.15);
+    }
+
+    .related-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .related-icon svg {
+      width: 20px;
+      height: 20px;
+      color: #25b7a7;
+    }
+
+    .related-card h4 {
+      font-weight: 500;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+
+    .related-card p {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer-meta {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .footer-meta a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .footer-meta a:hover {
+      text-decoration: underline;
+    }
+
+    /* Professional Footer */
+    .footer {
+      background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .footer::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .footer > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      margin-bottom: 2rem;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-section {
+      text-align: left;
+    }
+
+    .footer-section h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.95;
+      text-align: left;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .footer-section li {
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9375rem;
+      display: inline-block;
+    }
+
+    .footer-section a:hover {
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .contact-info {
+      text-align: left;
+    }
+
+    .contact-info p {
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .contact-info a {
+      color: white;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .contact-info a:hover {
+      opacity: 0.9;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer-decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.15;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+        linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+      background-size: 100% 100%, 100% 100%, 200px 200px;
+      overflow: hidden;
+    }
+
+    .footer-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .footer-icon {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      opacity: 0.15;
+      color: white;
+    }
+
+    .footer-icon-1 { top: 10%; left: 5%; }
+    .footer-icon-2 { top: 15%; left: 12%; }
+    .footer-icon-3 { top: 20%; left: 8%; }
+    .footer-icon-4 { top: 25%; left: 15%; }
+    .footer-icon-5 { top: 30%; left: 3%; }
+    .footer-icon-6 { top: 35%; left: 10%; }
+    .footer-icon-7 { top: 40%; left: 7%; }
+    .footer-icon-8 { top: 45%; left: 13%; }
+    .footer-icon-9 { top: 50%; left: 6%; }
+    .footer-icon-10 { top: 55%; left: 11%; }
+    .footer-icon-11 { top: 60%; left: 4%; }
+    .footer-icon-12 { top: 65%; left: 9%; }
+    .footer-icon-13 { top: 70%; left: 14%; }
+    .footer-icon-14 { top: 75%; left: 2%; }
+    .footer-icon-15 { top: 80%; left: 16%; }
+    .footer-icon-16 { top: 12%; right: 8%; }
+    .footer-icon-17 { top: 18%; right: 12%; }
+    .footer-icon-18 { top: 22%; right: 5%; }
+    .footer-icon-19 { top: 28%; right: 15%; }
+    .footer-icon-20 { top: 32%; right: 3%; }
+    .footer-icon-21 { top: 38%; right: 10%; }
+    .footer-icon-22 { top: 42%; right: 7%; }
+    .footer-icon-23 { top: 48%; right: 13%; }
+    .footer-icon-24 { top: 52%; right: 6%; }
+    .footer-icon-25 { top: 58%; right: 11%; }
+
+    /* Icon text helper */
+    .icon-text {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      color: var(--muted-foreground);
+    }
+
+    .icon-text svg {
+      width: 20px;
+      height: 20px;
+      color: #25b7a7;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .header h1 {
+        font-size: 1.75rem;
+      }
+
+      .toc ul {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .step-card {
+        padding-left: 3rem;
+      }
+
+      .field-item {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .field-label {
+        width: auto;
+      }
+
+      .footer {
+        padding: 2rem 1rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <!-- Top Header with Logo -->
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../transparent%20logo.png" alt="CA Cloud Desk Logo" onerror="this.src='../../cacloud.svg'">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span>/</span>
+        <span>Create Task</span>
+      </nav>
+    </div>
+  </header>
+
+  <header class="header">
+    <div class="header-decoration"></div>
+    <div class="header-icons">
+      <!-- Calculator -->
+      <svg class="header-icon header-icon-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      <!-- Laptop -->
+      <svg class="header-icon header-icon-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="12" rx="2" ry="2"/><line x1="2" y1="16" x2="22" y2="16"/><line x1="6" y1="20" x2="18" y2="20"/></svg>
+      <!-- Balance Sheet / Chart -->
+      <svg class="header-icon header-icon-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/><line x1="3" y1="20" x2="21" y2="20"/></svg>
+      <!-- Document -->
+      <svg class="header-icon header-icon-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <!-- Task / Checklist -->
+      <svg class="header-icon header-icon-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <!-- Report / File Text -->
+      <svg class="header-icon header-icon-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <!-- Calculator 2 -->
+      <svg class="header-icon header-icon-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      <!-- Pie Chart -->
+      <svg class="header-icon header-icon-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+      <!-- Folder -->
+      <svg class="header-icon header-icon-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <!-- Receipt -->
+      <svg class="header-icon header-icon-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><line x1="6" y1="7" x2="18" y2="7"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="15" x2="18" y2="15"/></svg>
+      <!-- Bar Chart -->
+      <svg class="header-icon header-icon-11" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+      <!-- File Spreadsheet -->
+      <svg class="header-icon header-icon-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+      <!-- Calculator 3 -->
+      <svg class="header-icon header-icon-13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      <!-- Briefcase -->
+      <svg class="header-icon header-icon-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <!-- Trending Up -->
+      <svg class="header-icon header-icon-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      <!-- Calculator 4 -->
+      <svg class="header-icon header-icon-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+    </div>
+    <div class="header-badge">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      CA Cloud Desk Help
+    </div>
+    <h1>Create Task</h1>
+    <p>Step-by-step instructions to create and manage tasks in CA Cloud Desk for CAs and tax professionals.</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h3>On This Page</h3>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#steps">Step-by-Step Instructions</a></li>
+        <li><a href="#best-practices">Best Practices</a></li>
+        <li><a href="#faq">FAQs</a></li>
+        <li><a href="#related">Related Articles</a></li>
+      </ul>
+    </nav>
+
+    <!-- Overview -->
+    <section id="overview" class="section">
+      <h2 class="section-title">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Overview
+      </h2>
+      <div class="prose">
+        <p>
+          In CA Cloud Desk, a <strong>Task</strong> is a structured work item used to track client work such as ITR filing, GST returns, audits, and compliance activities.
+          Tasks help tax professionals break work into clear, assignable items with due dates and priorities.
+        </p>
+        <p>
+          Using the Task Module, partners and team members get a single view of all open work, who is responsible, and what is due when.
+          This is critical during peak seasons when you need to manage hundreds of client deliverables without missing a deadline.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <h4>Stay on top of deadlines</h4>
+          <p>Track due dates for every client task in one place.</p>
+        </div>
+        <div class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h4>Assign ownership</h4>
+          <p>Delegate work to team members with clear responsibility.</p>
+        </div>
+        <div class="feature-card">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          <h4>Maintain audit trail</h4>
+          <p>View full task history, comments, and document changes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step-by-Step Instructions -->
+    <section id="steps" class="section">
+      <h2 class="section-title">Step-by-Step Instructions</h2>
+
+      <div class="steps-container">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Navigate to Task Module</h3>
+          <p>
+            From the main CA Cloud Desk dashboard, open the Task Module to see all tasks across your firm.
+          </p>
+
+          <div class="icon-text">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M14 14h7v7h-7z"/><path d="M3 14h7v7H3z"/></svg>
+            <p>
+              In the left navigation, click <strong>Tasks</strong> under the <strong>Task Management</strong> section to open the Task Module dashboard.
+            </p>
+          </div>
+
+          <div class="screenshot">
+            <img src="images/task-module-dashboard.png" alt="Task Module Dashboard with sidebar navigation and task list">
+            <div class="screenshot-caption">Figure 1: Task Module dashboard with navigation highlighted.</div>
+          </div>
+
+          <div class="callout callout-tip">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m8 22 4-10 4 10"/></svg>
+            <div class="callout-content">
+              <p>
+                You can also use the keyboard shortcut <kbd>Ctrl + T</kbd> (Windows) or <kbd>Cmd + T</kbd> (Mac) to open the Task Module directly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Click “Add New Task”</h3>
+          <p>
+            Use the main action button to start creating a new task.
+          </p>
+
+          <div class="screenshot">
+            <img src="images/add-new-task-button.png" alt="Add New Task button in the Task Module">
+            <div class="screenshot-caption">Figure 2: “Add New Task” button in the top-right corner.</div>
+          </div>
+
+          <div class="callout callout-tip">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+            <div class="callout-content">
+              <p>
+                You can also right‑click in the task list and select <strong>New Task</strong>, or use the shortcut <kbd>N</kbd> when focused on the task grid.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Enter Task Details (Title, Due Date, Assigned To, Priority)</h3>
+          <p>
+            In the task creation form, fill in the key fields so your team understands exactly what needs to be done.
+          </p>
+
+          <div class="field-list">
+            <div class="field-item">
+              <div class="field-label">Title *</div>
+              <div class="field-desc">
+                A clear, descriptive task name. Example: <em>“ITR Filing – Sharma Enterprises – AY 2024‑25”</em>.
+              </div>
+            </div>
+            <div class="field-item">
+              <div class="field-label">Due Date *</div>
+              <div class="field-desc">
+                The final date by which this task must be completed. Use internal review buffers before statutory deadlines.
+              </div>
+            </div>
+            <div class="field-item">
+              <div class="field-label">Assigned To</div>
+              <div class="field-desc">
+                Select one or more team members responsible for the task. You can also assign it to yourself.
+              </div>
+            </div>
+            <div class="field-item">
+              <div class="field-label">Priority</div>
+              <div class="field-desc">
+                Choose <strong>Low</strong>, <strong>Medium</strong>, <strong>High</strong>, or <strong>Critical</strong> based on the importance and urgency of the work.
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot">
+            <img src="images/create-task-form-details.png" alt="Create Task form with title, due date, assignee and priority fields">
+            <div class="screenshot-caption">Figure 3: Create Task form with core task details.</div>
+          </div>
+
+          <div class="callout callout-info">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <div class="callout-content">
+              <p>
+                Avoid vague titles like “Work on taxes”. Instead, specify client, period, and activity – for example,
+                “Prepare GST-3B – ABC Traders – March 2026”.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3>Add Description & Attach Documents</h3>
+          <p>
+            Use the description and attachments to give assignees everything they need to complete the task without back‑and‑forth.
+          </p>
+
+          <div class="icon-text">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            <p>
+              Add clear instructions, client context (PAN, GSTIN, case IDs), and any special notes. Attach supporting documents such as working papers, previous year returns, ledger extracts, or client emails.
+            </p>
+          </div>
+
+          <div class="screenshot">
+            <img src="images/task-description-attachments.png" alt="Task form showing description box and attachments area">
+            <div class="screenshot-caption">Figure 4: Description and attachment section in the task form.</div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <h3>Save and Notify Assignees</h3>
+          <p>
+            Once all details are filled, save the task and notify assignees so work can begin.
+          </p>
+
+          <div class="icon-text">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <p>
+              Check <strong>Notify Assignees</strong> (if available) so the assigned users receive an email and in‑app alert about the new task.
+            </p>
+          </div>
+
+          <div class="screenshot">
+            <img src="images/save-notify-assignees.png" alt="Save task button with Notify Assignees option">
+            <div class="screenshot-caption">Figure 5: Save & notify options while creating the task.</div>
+          </div>
+
+          <div class="callout callout-success">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div class="callout-content">
+              <div class="callout-title">Your task is now live</div>
+              <p>
+                The task will appear on the assignee’s task list and dashboards. They can start work, add comments, and update the status as they progress.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Best Practices -->
+    <section id="best-practices" class="section">
+      <h2 class="section-title">Best Practices</h2>
+
+      <div class="practices-list">
+        <div class="practice-item">
+          <h4>📌 Use descriptive, client‑specific task titles</h4>
+          <p>Include client name, work type, and period in every task title. This makes search, filters, and reporting significantly easier.</p>
+        </div>
+        <div class="practice-item">
+          <h4>🏷️ Tag clients and services consistently</h4>
+          <p>Use standard tags such as <em>ITR</em>, <em>GST</em>, <em>Audit</em>, <em>TDS</em>, and client groups so partners can filter tasks during review.</p>
+        </div>
+        <div class="practice-item">
+          <h4>⏰ Set reminders ahead of statutory deadlines</h4>
+          <p>Configure reminders a few days before filing dates to allow for internal review, corrections, and final sign‑off.</p>
+        </div>
+        <div class="practice-item">
+          <h4>👥 Balance workload across team members</h4>
+          <p>Before assigning, quickly check workload views so no one is overloaded during peak periods.</p>
+        </div>
+        <div class="practice-item">
+          <h4>📁 Attach working papers and approvals</h4>
+          <p>Attach key working files and approvals to the task so the complete audit trail stays with the work item.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <h2 class="section-title">FAQs</h2>
+
+      <div class="faq-list">
+        <!-- FAQ 1: Edit a task -->
+        <div class="faq-item">
+          <button class="faq-question">
+            How do I edit a task after it has been created?
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>To edit an existing task:</p>
+            <ul>
+              <li>Open the <strong>Task Module</strong> and search or filter for the task.</li>
+              <li>Click the task row or title to open the task details panel.</li>
+              <li>Click <strong>Edit</strong>, update any fields (title, due date, assignee, priority, description, etc.).</li>
+              <li>Click <strong>Save</strong> to apply your changes.</li>
+              <li>If notifications are enabled, assignees will be informed about critical updates (like due date changes).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- FAQ 2: View task history -->
+        <div class="faq-item">
+          <button class="faq-question">
+            How can I view the task history and activity log?
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Each task maintains a full history so you always know who did what and when:</p>
+            <ul>
+              <li>Open the task from the Task Module.</li>
+              <li>Go to the <strong>Activity</strong> or <strong>History</strong> tab within the task details.</li>
+              <li>Review entries for creation, status changes, reassignment, due date updates, and comments.</li>
+              <li>Use filters (where available) to show only comments, status changes, or file updates.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- FAQ 3: Common errors -->
+        <div class="faq-item">
+          <button class="faq-question">
+            What are common errors when creating tasks and how do I fix them?
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p>Common issues and their solutions:</p>
+            <ul>
+              <li><strong>“Due date cannot be in the past”</strong> – Select today or a future date; back‑dating may be restricted by your admin.</li>
+              <li><strong>“File size exceeds limit”</strong> – Compress large PDFs or split files; consider linking to a shared drive for very large data sets.</li>
+              <li><strong>“Assignee not found”</strong> – Ensure the user is active in CA Cloud Desk and has access to the workspace/client.</li>
+              <li><strong>Task not visible to team member</strong> – Check filters, status (e.g., Closed), and whether the user has permission for that client or project.</li>
+              <li><strong>Notifications not received</strong> – Confirm the “Notify Assignees” option and verify the user’s email notification settings.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Links -->
+    <section id="related" class="section">
+      <h2 class="section-title">Related Articles</h2>
+
+      <div class="related-grid">
+        <a href="#" class="related-card">
+          <div class="related-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div>
+            <h4>Task Management Module Overview</h4>
+            <p>Understand views, filters, and reporting options in the Task Module.</p>
+          </div>
+        </a>
+
+        <a href="#" class="related-card">
+          <div class="related-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div>
+            <h4>CA Cloud Desk Help Home</h4>
+            <p>Browse all help articles, FAQs, and how‑to guides.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Professional Footer -->
+  <footer class="footer">
+    <div class="footer-decoration"></div>
+    <div class="footer-icons">
+      <!-- Calculator -->
+      <svg class="footer-icon footer-icon-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      <!-- Laptop -->
+      <svg class="footer-icon footer-icon-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="12" rx="2" ry="2"/><line x1="2" y1="16" x2="22" y2="16"/><line x1="6" y1="20" x2="18" y2="20"/></svg>
+      <!-- Balance Sheet / Chart -->
+      <svg class="footer-icon footer-icon-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/><line x1="3" y1="20" x2="21" y2="20"/></svg>
+      <!-- Document -->
+      <svg class="footer-icon footer-icon-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <!-- Task / Checklist -->
+      <svg class="footer-icon footer-icon-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <!-- Report / File Text -->
+      <svg class="footer-icon footer-icon-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <!-- Calculator 2 -->
+      <svg class="footer-icon footer-icon-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      <!-- Pie Chart -->
+      <svg class="footer-icon footer-icon-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+      <!-- Folder -->
+      <svg class="footer-icon footer-icon-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <!-- Receipt -->
+      <svg class="footer-icon footer-icon-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><line x1="6" y1="7" x2="18" y2="7"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="15" x2="18" y2="15"/></svg>
+      <!-- Bar Chart -->
+      <svg class="footer-icon footer-icon-11" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+      <!-- File Spreadsheet -->
+      <svg class="footer-icon footer-icon-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+      <!-- Calculator 3 -->
+      <svg class="footer-icon footer-icon-13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      <!-- Briefcase -->
+      <svg class="footer-icon footer-icon-14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <!-- Trending Up -->
+      <svg class="footer-icon footer-icon-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      <!-- Calculator 4 -->
+      <svg class="footer-icon footer-icon-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
+      <!-- Laptop 2 -->
+      <svg class="footer-icon footer-icon-17" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="12" rx="2" ry="2"/><line x1="2" y1="16" x2="22" y2="16"/><line x1="6" y1="20" x2="18" y2="20"/></svg>
+      <!-- File Check -->
+      <svg class="footer-icon footer-icon-18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 12 18 22 8"/></svg>
+      <!-- Bar Chart 2 -->
+      <svg class="footer-icon footer-icon-19" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+      <!-- Document 2 -->
+      <svg class="footer-icon footer-icon-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <!-- Pie Chart 2 -->
+      <svg class="footer-icon footer-icon-21" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+      <!-- Folder 2 -->
+      <svg class="footer-icon footer-icon-22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <!-- Receipt 2 -->
+      <svg class="footer-icon footer-icon-23" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><line x1="6" y1="7" x2="18" y2="7"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="15" x2="18" y2="15"/></svg>
+      <!-- Task 2 -->
+      <svg class="footer-icon footer-icon-24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <!-- Report 2 -->
+      <svg class="footer-icon footer-icon-25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    </div>
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>More</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
+            <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
+            <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
+            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
+            <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Essential Resources</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/free-tools-and-utilities/">Free Tools and Utilities</a></li>
+            <li><a href="https://caclouddesk.com/use-cases/">Use Cases</a></li>
+            <li><a href="https://caclouddesk.com/features/">Features</a></li>
+            <li><a href="../../index.html">Modules</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <div class="contact-info">
+            <p><strong>Law Seva Management (P) Ltd</strong></p>
+            <p>Address: BM-08 Ansal Sumedha Building RDC Ghaziabad Delhi NCR India 201001</p>
+            <p>Phone: 0120-4308902</p>
+            <p>Email: <a href="mailto:info@caclouddesk.com">info@caclouddesk.com</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var faqItem = button.parentElement;
+        faqItem.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
+
