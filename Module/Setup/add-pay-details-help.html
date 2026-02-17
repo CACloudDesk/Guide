@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Pay Details — CA Cloud Desk Help</title>
+  <meta name="description" content="Step-by-step guide to add pay details in CA Cloud Desk. Part A: Profile → Payroll → Account setting → Pay details (manual). Part B: Import utility → HRMS → upload pay details Excel.">
+  <meta name="keywords" content="CA Cloud Desk, setup, pay details, payroll, account setting, payment mode, bank account, IFSC, PAN, UAN, Aadhar, import utility, HRMS">
+  <link rel="icon" href="../../cacloud.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary: #25b7a7; --primary-dark: #00b8a9; --dark: #0a2123; --foreground: #0f172a; --muted: #f1f5f9; --muted-foreground: #64748b; --border: #e2e8f0; --radius: 12px; --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px rgb(0 0 0 / 0.1); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; color: var(--foreground); line-height: 1.6; }
+    .top-header { background: rgba(10, 33, 35, 0.98); border-bottom: 2px solid var(--primary); padding: 0.75rem 1.5rem; position: sticky; top: 0; z-index: 1000; min-height: 70px; }
+    .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .logo-container { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .logo-container img { height: 45px; }
+    .logo-text { color: white; font-weight: 700; font-size: 1.25rem; }
+    .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.875rem; color: rgba(255, 255, 255, 0.7); }
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .layout { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; display: grid; grid-template-columns: 280px 1fr; gap: 3rem; }
+    .sidebar { position: sticky; top: 100px; height: fit-content; background: white; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
+    .sidebar-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-foreground); margin-bottom: 1rem; font-weight: 700; }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin-bottom: 0.5rem; }
+    .sidebar-nav a { color: var(--foreground); text-decoration: none; font-size: 0.9375rem; display: block; padding: 0.5rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
+    .sidebar-nav a:hover { background: var(--muted); color: var(--primary-dark); }
+    .sidebar-nav a.active { background: rgba(2, 218, 197, 0.1); color: var(--primary-dark); font-weight: 600; }
+    .path-indicator { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--muted); padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600; color: var(--dark); margin-bottom: 1.5rem; }
+    .path-indicator span { color: var(--primary-dark); }
+    .content h1 { font-size: 2.2rem; margin-bottom: 1rem; color: var(--dark); display: flex; align-items: center; gap: 1rem; }
+    .content h1 svg { color: var(--primary); width: 40px; height: 40px; }
+    .content .lead { font-size: 1.125rem; color: var(--muted-foreground); margin-bottom: 2.5rem; }
+    .section { margin-bottom: 4rem; scroll-margin-top: 100px; }
+    .section-title { font-size: 1.65rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); color: var(--dark); display: flex; align-items: center; gap: 0.75rem; }
+    .section-title svg { color: var(--primary); width: 24px; height: 24px; }
+    .steps-container { margin-top: 0.5rem; }
+    .step-card { position: relative; padding-left: 4rem; padding-bottom: 2rem; border-left: 2px solid var(--border); margin-left: 1rem; }
+    .step-card:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .step-number { position: absolute; left: -1.25rem; top: 0; width: 2.5rem; height: 2.5rem; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1rem; }
+    .step-card h3 { font-size: 1.125rem; font-weight: 600; color: var(--foreground); margin-bottom: 0.5rem; }
+    .step-card > p { color: var(--muted-foreground); margin-bottom: 1rem; }
+    .success-message { background: rgba(37, 183, 167, 0.12); border: 1px solid var(--primary); border-radius: var(--radius); padding: 1rem 1.25rem; color: var(--dark); font-weight: 500; margin-top: 0.5rem; }
+    .form-fields { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin: 1rem 0; box-shadow: var(--shadow); }
+    .form-fields h4 { font-size: 1rem; color: var(--primary-dark); margin-bottom: 1rem; }
+    .form-fields ul { list-style: none; padding-left: 0; }
+    .form-fields li { padding: 0.35rem 0; border-bottom: 1px solid var(--muted); font-size: 0.9375rem; }
+    .form-fields li:last-child { border-bottom: none; }
+    .form-fields table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.9375rem; }
+    .form-fields th, .form-fields td { padding: 0.5rem 0.75rem; text-align: left; border: 1px solid var(--border); }
+    .form-fields th { background: var(--muted); font-weight: 600; color: var(--dark); }
+    .media-box { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin: 1rem 0; box-shadow: var(--shadow); }
+    .media-box img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+    .media-caption { margin-top: 0.75rem; font-size: 0.875rem; color: var(--muted-foreground); text-align: center; }
+    .footer { background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%); color: white; padding: 3rem 1.5rem; margin-top: 4rem; }
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; max-width: 1000px; margin: 0 auto 2rem; }
+    .footer-section h4 { color: white; margin-bottom: 1rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.95; }
+    .footer-section ul { list-style: none; padding: 0; margin: 0; }
+    .footer-section li { margin-bottom: 0.5rem; }
+    .footer-section a { color: rgba(255, 255, 255, 0.85); text-decoration: none; font-size: 0.9375rem; }
+    .footer-section a:hover { color: white; }
+    .contact-info p { margin-bottom: 0.5rem; font-size: 0.9375rem; line-height: 1.5; }
+    .contact-info a { color: white; text-decoration: underline; }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.875rem; color: rgba(255, 255, 255, 0.8); }
+    .upload-options { list-style: none; padding-left: 0; margin: 0.75rem 0; }
+    .upload-options li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; font-size: 0.9375rem; }
+    .upload-options li::before { content: "•"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+    @media (max-width: 968px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../transparent%20logo.png" alt="Logo" onerror="this.src='../../cacloud.svg'">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="setup-help.html">Setup</a> / <span>Add Pay Details</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div style="margin-bottom: 1.5rem; color: var(--primary); opacity: 0.8;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><line x1="6" y1="7" x2="18" y2="7"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="15" x2="18" y2="15"/></svg>
+      </div>
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#path" class="active">Path</a></li>
+        <li><a href="#part-a">Part A — Manual (Steps 1–4)</a></li>
+        <li><a href="#part-b">Part B — Import (Steps 1–3)</a></li>
+        <li><a href="#related">Related</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><line x1="6" y1="7" x2="18" y2="7"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="15" x2="18" y2="15"/></svg>
+        Add Pay Details
+      </h1>
+      <p class="lead">You can add pay details in two ways. <strong>Part A (Manual)</strong>: go to Profile setting → Payroll → Account setting → Pay details, click the plus icon, fill the form and save. <strong>Part B (Bulk)</strong>: use Import utility → HRMS → upload pay details via a sample Excel file.</p>
+
+      <section id="path" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Path
+        </h2>
+        <div class="path-indicator" style="margin-bottom: 0.75rem;">
+          <strong>Part A:</strong> <span>Dashboard</span> → <span>Profile setting</span> → <span>Payroll</span> → <span>Account setting</span> → <span>Pay details</span> → <span>+</span>
+        </div>
+        <div class="path-indicator">
+          <strong>Part B:</strong> <span>Dashboard</span> → <span>Profile setting</span> → <span>Import utility</span> → <span>HRMS</span> → <span>Upload pay details</span>
+        </div>
+      </section>
+
+      <section id="part-a" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Part A
+        </h2>
+        <p class="lead" style="margin-bottom: 1.5rem;">Add pay details manually from the CA Cloud Desk dashboard: go to Profile setting → Payroll → Account setting → Pay details, click the plus icon, fill all fields and save.</p>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Go to CA Cloud Desk dashboard, then go to Profile setting</h3>
+            <p>Open the <strong>CA Cloud Desk dashboard</strong>, then click <strong>Profile setting</strong> (profile icon in the top right) to open your profile and organization settings.</p>
+            <div class="media-box">
+              <img src="../../assets/pay-details-step1.png" alt="CA Cloud Desk dashboard with Dashboard selected and Profile setting (top right) for Pay details" onerror="this.style.display='none'">
+              <p class="media-caption">Step 1 — Dashboard (1); click the profile area (2) in the top right for Profile setting.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Select Payroll, then select Account setting</h3>
+            <p>From the menu, select <strong>Payroll</strong>, then select <strong>Account setting</strong> to access payroll and account configuration.</p>
+            <div class="media-box">
+              <img src="../../assets/pay-details-step2.png" alt="Payroll tab selected with Account Settings card highlighted" onerror="this.style.display='none'">
+              <p class="media-caption">Step 2 — Select Payroll, then click the <strong>ACCOUNT SETTINGS</strong> card.</p>
+            </div>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>From Account setting, select Pay details, then click the plus icon</h3>
+            <p>Under <strong>Account setting</strong>, select <strong>Pay details</strong>, then click the <strong>+</strong> (plus) icon to add new pay details.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3>Fill all the details and click Save</h3>
+            <p>Fill in all required and optional fields in the form, then click <strong>Save</strong>.</p>
+            <div class="form-fields">
+              <h4>Pay details form fields</h4>
+              <ul>
+                <li><strong>Valid From</strong> — effective date for the pay details</li>
+                <li><strong>Employee</strong> / <strong>Select Employee</strong> — choose the employee</li>
+                <li><strong>Payment Mode</strong> — select payment mode (e.g. Bank Transfer, Cash, Cheque)</li>
+                <li><strong>Account Name</strong> — name of the bank account</li>
+                <li><strong>Bank Account Number</strong></li>
+                <li><strong>IFSC Code</strong></li>
+                <li><strong>PAN No</strong></li>
+                <li><strong>UAN No</strong> — Universal Account Number (PF)</li>
+                <li><strong>Aadhar No</strong></li>
+                <li><strong>Constant Deductions</strong> — optional constant deduction amount or toggle</li>
+                <li><strong>Component</strong> — salary components with Name and Value (e.g. HRA, DA, Gross Salary)</li>
+                <li><strong>Notes</strong> — optional notes</li>
+              </ul>
+              <p style="margin-top: 1rem; font-size: 0.9375rem; color: var(--muted-foreground);">Component table example:</p>
+              <table>
+                <thead>
+                  <tr><th>Name</th><th>Value</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>HRA</td><td>—</td></tr>
+                  <tr><td>DA</td><td>—</td></tr>
+                  <tr><td>Gross Salary</td><td>—</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="success-message">Pay details saved successfully.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="part-b" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Part B
+        </h2>
+        <p class="lead" style="margin-bottom: 1.5rem;">Upload pay details in bulk using the Import utility. Go to Profile setting → Import utility → HRMS, select Pay details, download the sample Excel file, prepare your file as per the guidelines, and upload.</p>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Go to the dashboard, then select Profile setting</h3>
+            <p>From the <strong>Dashboard</strong>, click <strong>Profile setting</strong> (profile icon in the top right) to open your profile and organization settings.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Select Import utility, then from Clients, Task, Billing, HRMS and Document vault select HRMS</h3>
+            <p>Select <strong>Import utility</strong>. From the options (Clients, Task, Billing, <strong>HRMS</strong>, Document vault), select <strong>HRMS</strong> to import HRMS data.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Upload pay details</h3>
+            <p>From the options given, select <strong>Pay details</strong>. The import options under HRMS typically include:</p>
+            <ul class="upload-options">
+              <li><strong>1. Employee</strong></li>
+              <li><strong>2. Pay Details</strong></li>
+              <li><strong>3. Payable Days</strong></li>
+            </ul>
+            <p style="margin-top: 1rem;">Then:</p>
+            <ul class="upload-options">
+              <li><strong>Download the sample Excel file</strong> and prepare your data according to the guidelines mentioned in the sample Excel file.</li>
+              <li>Click <strong>Click to upload</strong> and upload your prepared Excel file.</li>
+            </ul>
+            <p style="margin-top: 1rem;">Your pay details will be imported in bulk according to the uploaded file.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="related" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Related
+        </h2>
+        <p><a href="setup-help.html">Setup</a> — Designation, Add Employees, Add Holidays, Add Shift, Add Leaves, Allocate Leaves to Employee.</p>
+        <p><a href="../HRMS/add-employee-help.html">Add Employees</a> — Add employees before assigning pay details.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>More</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
+            <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
+            <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="../../index.html">Modules</a></li>
+            <li><a href="setup-help.html">Setup</a></li>
+            <li><a href="../HRMS/add-employee-help.html">Add Employees</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <div class="contact-info">
+            <p>Law Seva Management (P) Ltd</p>
+            <p>Phone: 0120-4308902</p>
+            <p>Email: <a href="mailto:info@caclouddesk.com">info@caclouddesk.com</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+    window.onscroll = function() {
+      var current = '';
+      sections.forEach(function(section) {
+        if (pageYOffset >= section.offsetTop - 150) current = section.getAttribute('id');
+      });
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    };
+  </script>
+</body>
+</html>

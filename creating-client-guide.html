@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Create a Client — CA Cloud Desk Help</title>
+  <meta name="description" content="Step-by-step guide to create clients in CA Cloud Desk. Covers quick client creation, detailed client information, bulk onboarding, and client management.">
+  <meta name="keywords" content="CA Cloud Desk, CRM, create client, add client, client onboarding, bulk upload, client management">
+  <link rel="icon" href="cacloud.svg" type="image/svg+xml">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --background: #ffffff;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fcfcfc;
+      color: var(--foreground);
+      line-height: 1.6;
+    }
+
+    .top-header {
+      background: rgba(10, 33, 35, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-container img { height: 45px; }
+
+    .logo-text { color: white; font-weight: 700; font-size: 1.25rem; }
+
+    .breadcrumb {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .sidebar-nav { list-style: none; }
+
+    .sidebar-nav li { margin-bottom: 0.5rem; }
+
+    .sidebar-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--muted);
+      color: var(--primary-dark);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(2, 218, 197, 0.1);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* PDF Button in Sidebar */
+    .sidebar-pdf-button {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .sidebar-pdf-button .pdf-cart-button {
+      width: 100%;
+      justify-content: center;
+      margin: 0;
+      font-size: 0.9375rem;
+      padding: 0.875rem 1.25rem;
+    }
+
+    /* PDF Cart Button */
+    .pdf-cart-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      border: none;
+      margin: 1.5rem 0;
+    }
+
+    .pdf-cart-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.15), 0 4px 8px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .pdf-cart-button svg { width: 24px; height: 24px; }
+
+    /* PDF Viewer Modal */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+
+    .pdf-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pdf-modal-content {
+      position: relative;
+      width: 95%;
+      height: 95%;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .pdf-modal-header {
+      background: var(--dark);
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .pdf-modal-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .pdf-modal-close {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .pdf-modal-close:hover { background: rgba(255, 255, 255, 0.1); }
+
+    .pdf-modal-actions {
+      padding: 1rem 1.5rem;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pdf-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .pdf-download-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    .pdf-modal-body { flex: 1; padding: 0; }
+
+    .pdf-viewer { width: 100%; height: 100%; border: none; }
+
+    .path-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .path-indicator span { color: var(--primary-dark); }
+
+    .content h1 { font-size: 2.2rem; margin-bottom: 1rem; color: var(--dark); display: flex; align-items: center; gap: 1rem; }
+    .content h1 svg { color: var(--primary); width: 40px; height: 40px; }
+    .content .lead { font-size: 1.125rem; color: var(--muted-foreground); margin-bottom: 2.5rem; }
+
+    .section { margin-bottom: 4rem; scroll-margin-top: 100px; position: relative; }
+
+    .section-title {
+      font-size: 1.65rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title svg { color: var(--primary); width: 24px; height: 24px; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .info-card h4 {
+      color: var(--primary-dark);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-card ul { list-style: none; padding-left: 0.5rem; }
+    .info-card ul li {
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    .info-card ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .permission-category {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .permission-category h4 {
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .permission-category ul { list-style: none; padding-left: 0; }
+    .permission-category ul li {
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .permission-category ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .data-table-container {
+      overflow-x: auto;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-top: 1.5rem;
+    }
+
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .data-table th {
+      background: var(--muted);
+      text-align: left;
+      padding: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .data-table td { padding: 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+
+    .callout {
+      padding: 1.25rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      background: rgba(2, 218, 197, 0.05);
+      margin: 1.5rem 0;
+    }
+
+    .callout h5 { margin-bottom: 0.5rem; color: var(--primary-dark); }
+
+    .badge-mandatory { background: #dc2626; color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; }
+    .badge-optional { background: var(--muted-foreground); color: white; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600; }
+
+    .media-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .media-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .media-caption {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .progress-step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+    }
+
+    .progress-step:not(:last-child):after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .progress-step.active:not(:last-child):after {
+      background: var(--primary);
+    }
+
+    .progress-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--muted);
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted-foreground);
+      font-weight: bold;
+      position: relative;
+      z-index: 1;
+      font-size: 0.875rem;
+    }
+
+    .progress-step.active .progress-dot {
+      background: var(--primary);
+      color: white;
+    }
+
+    .progress-label {
+      font-size: 0.8rem;
+      color: var(--muted-foreground);
+      font-weight: 500;
+    }
+
+    .progress-step.active .progress-label {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .footer::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .footer > * { position: relative; z-index: 1; }
+    .footer-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.95;
+    }
+
+    .footer-section ul { list-style: none; padding: 0; margin: 0; }
+    .footer-section li { margin-bottom: 0.5rem; }
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9375rem;
+      display: inline-block;
+    }
+
+    .footer-section a:hover { color: white; transform: translateX(4px); }
+    .contact-info p { margin-bottom: 0.5rem; font-size: 0.9375rem; line-height: 1.5; }
+    .contact-info a { color: white; text-decoration: underline; text-underline-offset: 2px; }
+    .contact-info a:hover { opacity: 0.9; }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer-icons { position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; pointer-events: none; }
+    .footer-icon { position: absolute; width: 26px; height: 26px; opacity: 0.15; color: white; }
+    .footer-icon-1 { top: 10%; left: 5%; }
+    .footer-icon-2 { top: 15%; left: 12%; }
+    .footer-icon-3 { top: 20%; right: 8%; }
+    .footer-icon-4 { top: 25%; right: 15%; }
+    .footer-icon-5 { top: 60%; left: 5%; }
+    .footer-icon-6 { top: 65%; right: 10%; }
+
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    @media (max-width: 968px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="header-container">
+      <a href="index.html" class="logo-container">
+        <img src="transparent%20logo.png" alt="Logo" onerror="this.src='cacloud.svg'">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a> / <a href="Module/Setup/setup-help.html">Setup</a> / <span>Add Client</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div style="margin-bottom: 1.5rem; color: var(--primary); opacity: 0.8;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#path" class="active">Path</a></li>
+        <li><a href="#part-a">Part A: Create Client 1 by 1</a></li>
+        <li><a href="#quick-client">Quick Client Form</a></li>
+        <li><a href="#step-1">Step 1: Basic Information</a></li>
+        <li><a href="#step-2">Step 2: Authorized Sig Details</a></li>
+        <li><a href="#step-3">Step 3: Documents</a></li>
+        <li><a href="#step-4">Step 4: ID and Password</a></li>
+        <li><a href="#step-5">Step 5: Services</a></li>
+        <li><a href="#step-6">Step 6: Other</a></li>
+        <li><a href="#part-b">Part B: Bulk Onboarding</a></li>
+        <li><a href="#tutorial">Video Tutorial</a></li>
+      </ul>
+      <div class="sidebar-pdf-button">
+        <button class="pdf-cart-button" onclick="openPDFViewer()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          View Client Guide PDF
+        </button>
+      </div>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        How to Create a Client in CA Cloud Desk
+      </h1>
+      <p class="lead">A comprehensive guide to creating clients individually or through bulk onboarding. Includes quick client creation, detailed client information setup, and Excel-based bulk upload.</p>
+
+      <section id="path" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Path
+        </h2>
+        <div class="path-indicator">
+          <span>Left Panel</span> → <span>CRM</span> → <span>"+" (Add Icon)</span> → <span>Add Quick Client</span>
+        </div>
+        <div class="callout">
+          <h5>Alternative Path for Bulk Onboarding</h5>
+          <p><strong>Profile Setting</strong> → <strong>Import Utility</strong> → <strong>Clients</strong> → <strong>1. Client</strong> → <strong>Upload Client</strong> → <strong>Sample Excel File</strong></p>
+        </div>
+      </section>
+
+      <section id="part-a" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Part A: Create Client 1 by 1
+        </h2>
+        <p>Follow these steps to create clients individually with comprehensive details.</p>
+        
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Step A1
+            </h4>
+            <ul>
+              <li>Select <strong>CRM</strong> in the left panel</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h4>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Step A2
+            </h4>
+            <ul>
+              <li>Click on the <strong>"+"</strong> (add icon)</li>
+              <li>Select <strong>"Add Quick Client"</strong> from the dropdown</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="quick-client" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          Quick Client Form
+        </h2>
+        <p>Fill in the basic information to quickly create a client:</p>
+        
+        <div class="permission-category">
+          <h4>Quick Client Fields</h4>
+          <ul>
+            <li><strong>GSTIN:</strong> Enter GST number to automatically fetch all public data available from the GST website</li>
+            <li><strong>Name:</strong> Enter client name</li>
+            <li><strong>Email:</strong> Enter client email address</li>
+            <li><strong>Mobile No.:</strong> Enter client mobile number</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <h5>After Filling Quick Client Form</h5>
+          <p>You have two options:</p>
+          <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+            <li>Click <strong>Submit</strong> to add the quick client immediately</li>
+            <li>Click <strong>Other Details</strong> to add comprehensive information through a 6-step process</li>
+          </ul>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-bf6878af-34c4-476c-9a49-f70a61049caa.png" alt="Add Quick Client dropdown menu">
+          <div class="media-caption">Add Quick Client dropdown menu</div>
+        </div>
+      </section>
+
+      <section id="detailed-steps" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Detailed Client Information (6 Steps)
+        </h2>
+        <p>If you clicked "Other Details", you'll proceed through these 6 sequential steps:</p>
+        
+        <div class="progress-steps">
+          <div class="progress-step active">
+            <div class="progress-dot">1</div>
+            <div class="progress-label">Basic Information</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-dot">2</div>
+            <div class="progress-label">Authorized Sig Details</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-dot">3</div>
+            <div class="progress-label">Documents</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-dot">4</div>
+            <div class="progress-label">ID and Password</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-dot">5</div>
+            <div class="progress-label">Services</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-dot">6</div>
+            <div class="progress-label">Other</div>
+          </div>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-3193febb-6810-446f-8b17-dacebe9b16fa.png" alt="Progress steps indicator">
+          <div class="media-caption">Progress steps indicator showing all 6 steps</div>
+        </div>
+      </section>
+
+      <section id="step-1" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Step 1: Basic Information <span class="badge-mandatory">Mandatory</span>
+        </h2>
+        <p>Enter the fundamental client details:</p>
+        
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>Client Setup & Contact</h4>
+            <ul>
+              <li><strong>Relationship Manager:</strong> Select from dropdown</li>
+              <li><strong>Team:</strong> Select from dropdown</li>
+              <li><strong>File Number:</strong> Auto-generated (e.g., A119151)</li>
+              <li><strong>Mobile No:</strong> Enter mobile number</li>
+              <li><strong>Alternate No:</strong> Enter alternate contact</li>
+              <li><strong>Client Type:</strong> Business or Non-Business</li>
+              <li><strong>Allow auto Invoice:</strong> Yes or No</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h4>Personal Details</h4>
+            <ul>
+              <li><strong>Name:</strong> Enter client name</li>
+              <li><strong>Email:</strong> Enter email address</li>
+              <li><strong>Father Name:</strong> Enter father's name</li>
+              <li><strong>DOB:</strong> Select date of birth</li>
+              <li><strong>PAN:</strong> Enter PAN number</li>
+              <li><strong>Aadhaar:</strong> Enter Aadhaar number</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="permission-category">
+          <h4>Address Information</h4>
+          <ul>
+            <li><strong>Address:</strong> Enter complete address</li>
+            <li><strong>Country:</strong> Select country (default: INDIA)</li>
+            <li><strong>State:</strong> Select state</li>
+            <li><strong>District:</strong> Select district</li>
+            <li><strong>Pin Code:</strong> Enter pin code</li>
+            <li><strong>Upload Photograph:</strong> Click to upload client photograph</li>
+          </ul>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-43084f2c-c31b-4eba-a166-7cb7e9d9a9ab.png" alt="Basic Information form">
+          <div class="media-caption">Step 1: Basic Information form</div>
+        </div>
+      </section>
+
+      <section id="step-2" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Step 2: Authorized Sig Details <span class="badge-optional">Optional</span>
+        </h2>
+        <p>Enter details for authorized signatories:</p>
+        
+        <div class="permission-category">
+          <h4>Authorised Signatory 1</h4>
+          <ul>
+            <li><strong>Name:</strong> Enter signatory name</li>
+            <li><strong>Designation:</strong> Enter designation</li>
+            <li><strong>Mobile:</strong> Enter mobile number</li>
+            <li><strong>Email:</strong> Enter email address</li>
+            <li><strong>Pan No.:</strong> Enter PAN number</li>
+            <li><strong>Aadhar:</strong> Enter Aadhaar number</li>
+            <li><strong>Make Primary for Communication:</strong> Yes or No</li>
+            <li><strong>Din No:</strong> Enter DIN number</li>
+            <li><strong>Address:</strong> Enter address</li>
+            <li><strong>Other:</strong> Enter any other relevant information</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <h5>Add More Signatories</h5>
+          <p>You can add additional authorized signatories by clicking the <strong>"+ Add Other authorised"</strong> button.</p>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-59bd85ad-dd4c-4fba-b759-d2fce9c75b6f.png" alt="Authorized Sig Details form">
+          <div class="media-caption">Step 2: Authorized Sig Details form</div>
+        </div>
+      </section>
+
+      <section id="step-3" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Step 3: Documents <span class="badge-optional">Optional</span>
+        </h2>
+        <p>Upload and manage client documents:</p>
+        
+        <div class="permission-category">
+          <h4>Document Management Features</h4>
+          <ul>
+            <li><strong>Customer:</strong> Select customer from dropdown (shows File Number)</li>
+            <li><strong>Search Document:</strong> Search for existing documents</li>
+            <li><strong>Upload:</strong> Upload new documents</li>
+            <li><strong>Add:</strong> Add document entries</li>
+            <li><strong>Download:</strong> Download existing documents</li>
+            <li><strong>Share via WhatsApp:</strong> Share documents via WhatsApp</li>
+            <li><strong>Share via Email:</strong> Share documents via email</li>
+            <li><strong>Table View:</strong> Toggle table view on/off</li>
+            <li><strong>Client Access:</strong> Control client access to documents</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>Document Table Columns</h4>
+          <ul>
+            <li>File Name</li>
+            <li>Expiry</li>
+            <li>Tags</li>
+            <li>Actions</li>
+            <li>Client Access</li>
+          </ul>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-1569e76c-8a5b-451c-aab4-17a5d3f73986.png" alt="Documents section">
+          <div class="media-caption">Step 3: Documents management interface</div>
+        </div>
+      </section>
+
+      <section id="step-4" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Step 4: ID and Password <span class="badge-optional">Optional</span>
+        </h2>
+        <p>Set up client portal login credentials:</p>
+        
+        <div class="permission-category">
+          <h4>Client Software Login Credentials</h4>
+          <ul>
+            <li><strong>LOGIN PORTAL:</strong> Select login portal from dropdown (required field)</li>
+            <li><strong>Username:</strong> Enter username for client portal</li>
+            <li><strong>Password:</strong> Enter password (with visibility toggle)</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <h5>Submit Credentials</h5>
+          <p>Click <strong>Submit</strong> to save the login credentials for the client portal.</p>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-909b1d14-9032-4102-912b-8148380ebbaf.png" alt="ID and Password modal">
+          <div class="media-caption">Step 4: ID and Password setup modal</div>
+        </div>
+      </section>
+
+      <section id="step-5" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Step 5: Services <span class="badge-optional">Optional</span>
+        </h2>
+        <p>Select and configure services for the client:</p>
+        
+        <div class="permission-category">
+          <h4>Service Selection</h4>
+          <ul>
+            <li>Click <strong>"Add Services"</strong> link to add services</li>
+            <li>Select services from the available list</li>
+            <li>For each service, select the <strong>Frequency</strong> from dropdown</li>
+            <li>Check the <strong>Add</strong> checkbox to enable the service for the client</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>Available Services Include</h4>
+          <ul>
+            <li>ITR</li>
+            <li>Incorporation of Pvt Ltd / LLP</li>
+            <li>GST License</li>
+            <li>GST Filing</li>
+            <li>FSSAI - Food License</li>
+            <li>And more...</li>
+          </ul>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-7ffb2571-1b70-4847-a07f-e3bde09d54ef.png" alt="Services selection">
+          <div class="media-caption">Step 5: Services selection interface</div>
+        </div>
+      </section>
+
+      <section id="step-6" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Step 6: Other <span class="badge-optional">Optional</span>
+        </h2>
+        <p>Additional settings and preferences:</p>
+        
+        <div class="permission-category">
+          <h4>Additional Settings</h4>
+          <ul>
+            <li><strong>alternate gst:</strong> Enter alternate GST information</li>
+            <li><strong>Custom Field:</strong> Click "Add Custom Fields" to add client-specific custom fields</li>
+            <li><strong>Client Group:</strong> Select Client Group from dropdown</li>
+            <li><strong>Local Links:</strong> Click "Add Local Path" to add FTP or local file paths</li>
+          </ul>
+        </div>
+
+        <div class="permission-category">
+          <h4>Communication Preferences</h4>
+          <ul>
+            <li><strong>☐ Allow Email:</strong> Enable/disable email communication</li>
+            <li><strong>☐ Allow Notifications:</strong> Enable/disable notifications</li>
+            <li><strong>☐ Allow SMS:</strong> Enable/disable SMS communication</li>
+            <li><strong>☐ Send Ledger Monthly:</strong> Enable/disable monthly ledger sending</li>
+          </ul>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>Action Buttons</h4>
+            <ul>
+              <li><strong>Previous:</strong> Go back to Services step</li>
+              <li><strong>Save & Allow Login:</strong> Save and enable client login</li>
+              <li><strong>Finish:</strong> Complete the client creation process</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-78adc045-0351-4a09-8883-984d4547209a.png" alt="Other settings">
+          <div class="media-caption">Step 6: Other settings and preferences</div>
+        </div>
+      </section>
+
+      <section id="part-b" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Part B: Bulk Onboarding
+        </h2>
+        <p>Upload multiple clients at once using an Excel file:</p>
+        
+        <div class="path-indicator">
+          <span>Profile Setting</span> → <span>Import Utility</span> → <span>Clients</span> → <span>1. Client</span> → <span>Upload Client</span> → <span>Sample Excel File</span>
+        </div>
+
+        <div class="progress-steps">
+          <div class="progress-step active">
+            <div class="progress-dot">1</div>
+            <div class="progress-label">Upload</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-dot">2</div>
+            <div class="progress-label">Excel Mapping</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-dot">3</div>
+            <div class="progress-label">Data Validation</div>
+          </div>
+        </div>
+
+        <div class="permission-category">
+          <h4>Step 1: Upload</h4>
+          <ul>
+            <li>Download the <strong>sample Excel file</strong> (clickable link)</li>
+            <li>Prepare your Excel file according to the guidelines in the sample file</li>
+            <li>Click <strong>"Click to Upload"</strong> to select your prepared Excel file</li>
+            <li>Click <strong>"Upload & Next"</strong> to proceed to Excel Mapping</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h4>Detailed Client Upload Information</h4>
+          <ul>
+            <li><strong>Best For:</strong> Compliance, reporting, internal client management</li>
+            <li><strong>Mandatory Field:</strong> <span style="background: #dc2626; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">Legal Name of Business</span></li>
+            <li><strong>Optional Data:</strong> GST, PAN, contact details, address, internal mapping</li>
+            <li>Click <strong>"View all available fields"</strong> to see the complete list</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <h5>Important Note (For Existing Client Data)</h5>
+          <p>If you are modifying an exported client list from CA CloudDesk, do not change the position of the "File No" column adjacent to the client name. This ensures data integrity during re-import.</p>
+        </div>
+
+        <div class="info-card">
+          <h4>Add Custom Fields (If Required)</h4>
+          <p>You can add more client-specific fields anytime:</p>
+          <div class="path-indicator" style="margin-top: 1rem;">
+            <span>Settings</span> → <span>Custom Field</span> → <span>Select Client</span> → <span>Add Field</span>
+          </div>
+        </div>
+
+        <div class="callout">
+          <h5>Recommendation</h5>
+          <p>Our recommendation is to use Google Sheets while adding or updating data:</p>
+          <p><strong>File → Open → Upload</strong> - Select the downloaded sample file</p>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-877b84ec-0785-4799-ba2d-0a5e7baa549c.png" alt="Client Upload with Excel">
+          <div class="media-caption">Bulk onboarding: Client Upload with Excel interface</div>
+        </div>
+
+        <div class="media-box">
+          <img src="assets/image-77da12f3-f264-4bf3-9d8b-fc87cd857e1e.png" alt="Custom fields and important notes">
+          <div class="media-caption">Additional information: Custom fields and important notes</div>
+        </div>
+      </section>
+
+      <section id="tutorial" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          Video Tutorial
+        </h2>
+        <p><strong>Description:</strong> For a complete walkthrough of the bulk onboarding process, refer to the YouTube video:</p>
+        <div class="callout">
+          <h5>Video Reference</h5>
+          <p><a href="https://www.youtube.com/watch?v=hevBSbOlcRA" target="_blank" style="color: var(--primary-dark); text-decoration: underline;">https://www.youtube.com/watch?v=hevBSbOlcRA</a></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-icons">
+      <svg class="footer-icon footer-icon-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <svg class="footer-icon footer-icon-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      <svg class="footer-icon footer-icon-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <svg class="footer-icon footer-icon-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      <svg class="footer-icon footer-icon-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <svg class="footer-icon footer-icon-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    </div>
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>More</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
+            <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
+            <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
+            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
+            <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Essential Resources</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/free-tools-and-utilities/">Free Tools and Utilities</a></li>
+            <li><a href="#">Use Cases</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="index.html">Modules</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <div class="contact-info">
+            <p><strong>Law Seva Management (P) Ltd</strong></p>
+            <p>Address: BM-08 Ansal Sumedha Building RDC Ghaziabad Delhi NCR India 201001</p>
+            <p>Phone: 0120-4308902</p>
+            <p>Email: <a href="mailto:info@caclouddesk.com">info@caclouddesk.com</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PDF Viewer Modal -->
+  <div id="pdfModal" class="pdf-modal">
+    <div class="pdf-modal-content">
+      <div class="pdf-modal-header">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          Client Guide PDF
+        </h3>
+        <button class="pdf-modal-close" onclick="closePDFViewer()" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="pdf-modal-actions">
+        <a href="ca_cloud_desk_client copy.pdf" download="Client-Guide.pdf" class="pdf-download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+      <div class="pdf-modal-body">
+        <iframe src="ca_cloud_desk_client copy.pdf#toolbar=1" class="pdf-viewer" type="application/pdf"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+    window.onscroll = () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    };
+
+    // PDF Viewer Functions
+    function openPDFViewer() {
+      const modal = document.getElementById('pdfModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePDFViewer() {
+      const modal = document.getElementById('pdfModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('pdfModal').addEventListener('click', function(e) {
+      if (e.target === this) closePDFViewer();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePDFViewer();
+    });
+  </script>
+</body>
+</html>
