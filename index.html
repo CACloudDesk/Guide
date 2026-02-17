@@ -6,6 +6,7 @@
   <title>CA Cloud Desk Help Guide</title>
   <meta name="description" content="Complete help guide and documentation for CA Cloud Desk - Task Management, HRMS, Billing, Document Management, CRM, Litigation, and Marketing modules.">
   <meta name="keywords" content="CA Cloud Desk, help guide, documentation, task management, HRMS, billing, CRM">
+  <link rel="icon" href="cacloud.svg" type="image/svg+xml">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,6 +121,17 @@
     }
 
     .nav-menu a.courses-btn:hover {
+      background: rgba(37, 183, 167, 0.3);
+      color: white;
+    }
+
+    .nav-menu a.games-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(37, 183, 167, 0.5);
+      color: white;
+    }
+
+    .nav-menu a.games-btn:hover {
       background: rgba(37, 183, 167, 0.3);
       color: white;
     }
@@ -1076,6 +1088,10 @@
           <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           Courses
         </a>
+        <a href="games.html" class="games-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          Games
+        </a>
       </nav>
     </div>
     <div class="search-row">
@@ -1461,7 +1477,8 @@
         { name: 'Document Management', url: 'Module/Docs/document-help.html', keywords: ['document', 'file', 'upload', 'storage', 'pdf', 'customer documents', 'dsc tracker', 'udin', 'peer review', 'fixed asset', '15ca', '15cb'] },
         { name: 'CRM : Client Desk', url: 'Module/CRM/crm-help.html', keywords: ['crm', 'client', 'customer', 'relationship', 'desk', 'add clients', 'view clients', 'client group', 'custom field', 'bulk dsc', 'bulk password'] },
         { name: 'Litigation', url: 'Module/Litigation/litigation-help.html', keywords: ['litigation', 'legal', 'case', 'court', 'law', 'notice', 'gst', 'itr', 'tds', 'tax'] },
-        { name: 'Marketing', url: 'Module/Marketing/marketing-help.html', keywords: ['marketing', 'campaign', 'outreach', 'promotion', 'website', 'lead management', 'community', 'infographic', 'sms', 'notification', 'email', 'whatsapp', 'google ads', 'meta ads', 'broadcast'] }
+        { name: 'Marketing', url: 'Module/Marketing/marketing-help.html', keywords: ['marketing', 'campaign', 'outreach', 'promotion', 'website', 'lead management', 'community', 'infographic', 'sms', 'notification', 'email', 'whatsapp', 'google ads', 'meta ads', 'broadcast'] },
+        { name: 'Games', url: 'games.html', keywords: ['games', 'balance the books', 'match the ledger', 'accounting', 'learning', 'practice', 'debit', 'credit', 'ledger'] }
       ],
       articles: [
         { title: 'Task Management', url: 'Module/Task/task-help.html', keywords: ['task', 'tasks', 'management', 'overview', 'guide', 'help'] },

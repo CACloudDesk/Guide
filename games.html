@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CA Cloud Desk – Accounting Games</title>
+  <meta name="description" content="Interactive accounting learning games – Balance the Books and Match the Ledger Entries for CA students and professionals.">
+  <link rel="icon" href="cacloud.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --card: #ffffff;
+      --radius: 12px;
+      --success: #10b981;
+      --error: #ef4444;
+    }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: var(--foreground); line-height: 1.6; }
+
+    /* Header - matches guide pages */
+    .top-header {
+      background: rgba(10, 33, 35, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #25b7a7;
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 0.75rem 1.5rem;
+    }
+    .logo-container a { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; }
+    .logo-container img { height: 69px; width: auto; object-fit: contain; }
+    .logo-text { font-size: 1.25rem; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
+    .nav-menu { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .nav-menu a {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9375rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-menu a .nav-icon { width: 18px; height: 18px; flex-shrink: 0; }
+    .nav-menu a:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+    .nav-menu a.guide-btn, .nav-menu a.videos-btn, .nav-menu a.courses-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(37, 183, 167, 0.5);
+      color: white;
+    }
+    .nav-menu a.guide-btn:hover, .nav-menu a.videos-btn:hover, .nav-menu a.courses-btn:hover {
+      background: rgba(37, 183, 167, 0.3);
+      color: white;
+    }
+    .nav-menu a.games-btn { background: var(--primary); color: white; }
+    .nav-menu a.games-btn:hover { background: var(--primary-dark); color: white; }
+
+    .search-row {
+      background: rgba(0, 0, 0, 0.15);
+      padding: 0.5rem 1.5rem;
+    }
+    .search-row .search-wrapper { max-width: 600px; margin: 0 auto; position: relative; }
+    .search-row .search-container {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(2, 218, 197, 0.3);
+      border-radius: 50px;
+      padding: 0.25rem;
+    }
+    .search-bar { flex: 1; padding: 0.75rem 1rem; border: none; background: transparent; color: rgba(255,255,255,0.9); font-size: 0.9375rem; outline: none; }
+    .search-bar::placeholder { color: rgba(255,255,255,0.5); }
+    .search-icon { width: 20px; height: 20px; color: rgba(255,255,255,0.7); margin-left: 1rem; flex-shrink: 0; }
+    .search-button {
+      width: 40px; height: 40px; background: var(--primary); border: none; border-radius: 50%; color: white; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; margin-right: 0.25rem;
+    }
+    .search-button:hover { background: var(--primary-dark); }
+
+    /* Games Layout */
+    .games-container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .games-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .games-tab {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--border);
+      background: var(--card);
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .games-tab:hover { border-color: var(--primary); color: var(--primary); }
+    .games-tab.active {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border-color: var(--primary);
+      color: white;
+    }
+    .game-panel { display: none; }
+    .game-panel.active { display: block; }
+
+    /* Balance the Books - Game UI */
+    .game-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .game-title { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
+    .score-panel {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .score-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .score-item span { color: var(--primary); }
+    .timer { font-family: monospace; font-size: 1.25rem; }
+
+    .transaction-panel {
+      background: linear-gradient(135deg, rgba(37, 183, 167, 0.06) 0%, rgba(10, 33, 35, 0.04) 100%);
+      border: 1px solid rgba(37, 183, 167, 0.2);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .transaction-desc { font-size: 1.125rem; font-weight: 500; color: var(--dark); margin-bottom: 1rem; }
+    .accounts-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+    @media (max-width: 600px) { .accounts-row { grid-template-columns: 1fr; } }
+    .account-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--muted-foreground); }
+    .account-group input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    .account-group input.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.08); }
+    .account-group input.incorrect { border-color: var(--error); background: rgba(239, 68, 68, 0.08); animation: shake 0.4s; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .equals-sign { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-align: center; }
+
+    .feedback-area {
+      min-height: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .feedback-area.success { color: var(--success); }
+    .feedback-area.error { color: var(--error); }
+
+    .game-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.75rem 1.25rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37, 183, 167, 0.4); }
+    .btn-secondary { background: var(--muted); color: var(--foreground); border: 2px solid var(--border); }
+    .btn-secondary:hover { background: var(--border); }
+    .btn-hint { background: rgba(245, 158, 11, 0.2); color: #b45309; border: 2px solid rgba(245, 158, 11, 0.4); }
+    .btn-hint:hover { background: rgba(245, 158, 11, 0.3); }
+
+    .leaderboard-panel {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: var(--muted);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .leaderboard-panel h3 { font-size: 1.125rem; margin-bottom: 1rem; color: var(--dark); }
+    .leaderboard-list { list-style: none; }
+    .leaderboard-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9375rem;
+    }
+    .leaderboard-list li:last-child { border-bottom: none; }
+
+    .results-summary {
+      display: none;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(37, 183, 167, 0.1) 0%, rgba(10, 33, 35, 0.05) 100%);
+      border-radius: var(--radius);
+      border: 2px solid var(--primary);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .results-summary.show { display: block; }
+    .results-summary h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--dark); }
+    .results-summary .stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 1rem 0; }
+    .results-summary .stat { font-weight: 600; color: var(--primary); }
+
+    /* Match the Ledger - Game UI */
+    .ledger-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      min-height: 400px;
+    }
+    @media (max-width: 768px) { .ledger-layout { grid-template-columns: 1fr; } }
+    .ledger-panel {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      min-height: 320px;
+    }
+    .ledger-panel h4 { font-size: 0.875rem; font-weight: 600; color: var(--muted-foreground); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .ledger-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .ledger-desc-text { font-size: 0.9375rem; color: var(--dark); font-weight: 500; }
+    .ledger-account-item {
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      cursor: grab;
+      transition: all 0.2s;
+      font-size: 0.9375rem;
+      background: white;
+      user-select: none;
+    }
+    .ledger-account-item.dragging { opacity: 0.5; }
+    .ledger-account-item.used { opacity: 0.4; pointer-events: none; }
+    .drop-zone {
+      min-height: 2.5rem;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.2s;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+    .drop-zone.drag-over { border-color: var(--primary); background: rgba(37, 183, 167, 0.08); color: var(--foreground); }
+    .drop-zone.matched { border-style: solid; border-color: var(--success); background: rgba(16, 185, 129, 0.15); color: var(--success); font-weight: 600; }
+
+    .level-complete {
+      display: none;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(37, 183, 167, 0.1) 0%, rgba(10, 33, 35, 0.05) 100%);
+      border-radius: var(--radius);
+      border: 2px solid var(--primary);
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .level-complete.show { display: block; }
+
+    .footer {
+      background: #f0fdfb;
+      color: var(--foreground);
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+      border-top: 1px solid rgba(37, 183, 167, 0.2);
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; max-width: 1000px; margin: 0 auto 2rem; }
+    .footer-section h4 { color: var(--dark); margin-bottom: 1rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer-section ul { list-style: none; padding: 0; margin: 0; }
+    .footer-section li { margin-bottom: 0.5rem; }
+    .footer-section a { color: var(--muted-foreground); text-decoration: none; transition: color 0.2s; }
+    .footer-section a:hover { color: var(--primary); }
+    .contact-info p { margin-bottom: 0.5rem; font-size: 0.9375rem; color: var(--muted-foreground); }
+    .contact-info a { color: var(--primary); text-decoration: underline; }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(37, 183, 167, 0.15); font-size: 0.875rem; color: var(--muted-foreground); }
+    @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-container">
+      <div class="logo-container">
+        <a href="index.html" class="logo-link" aria-label="CA Cloud Desk – Guide">
+          <img src="transparent%20logo.png" alt="CA Cloud Desk Logo" onerror="this.src='cacloud.svg'">
+          <div class="logo-text">CA Cloud Desk</div>
+        </a>
+      </div>
+      <nav class="nav-menu">
+        <a href="index.html" class="guide-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h8"/></svg>
+          Guide
+        </a>
+        <a href="videos.html" class="videos-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Videos
+        </a>
+        <a href="courses.html" class="courses-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          Courses
+        </a>
+        <a href="games.html" class="games-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          Games
+        </a>
+      </nav>
+    </div>
+    <div class="search-row">
+      <div class="search-wrapper">
+        <div class="search-container">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="search" class="search-bar" placeholder="Search help articles..." onclick="window.location.href='index.html'">
+          <button class="search-button" onclick="window.location.href='index.html'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="games-container">
+    <div class="games-tabs">
+      <button class="games-tab active" data-game="balance">Balance the Books</button>
+      <button class="games-tab" data-game="ledger">Match the Ledger Entries</button>
+    </div>
+
+    <!-- Game 1: Balance the Books -->
+    <div id="game-balance" class="game-panel active">
+      <div class="game-card">
+        <div class="game-header">
+          <h2 class="game-title">Balance the Books</h2>
+          <div class="score-panel">
+            <div class="score-item">Score: <span id="btb-score">0</span></div>
+            <div class="score-item">Question: <span id="btb-question">1</span>/10</div>
+            <div class="score-item">Time: <span id="btb-timer" class="timer">0:00</span></div>
+            <div class="score-item">Mistakes: <span id="btb-mistakes">0</span></div>
+          </div>
+        </div>
+
+        <div id="btb-game-area">
+          <div class="transaction-panel">
+            <p class="transaction-desc" id="btb-desc"></p>
+            <div class="accounts-row">
+              <div class="account-group">
+                <label id="btb-debit-label">Debit</label>
+                <input type="number" id="btb-debit" placeholder="Enter amount" min="0" step="1">
+              </div>
+              <div class="equals-sign">=</div>
+              <div class="account-group">
+                <label id="btb-credit-label">Credit</label>
+                <input type="number" id="btb-credit" placeholder="Enter amount" min="0" step="1">
+              </div>
+            </div>
+          </div>
+          <div class="feedback-area" id="btb-feedback"></div>
+          <div class="game-buttons">
+            <button class="btn btn-primary" id="btb-submit">Submit</button>
+            <button class="btn btn-hint" id="btb-hint">Show Hint</button>
+            <button class="btn btn-secondary" id="btb-next">Next Question</button>
+            <button class="btn btn-secondary" id="btb-restart">Restart</button>
+          </div>
+        </div>
+
+        <div id="btb-results" class="results-summary">
+          <h3>Session Complete!</h3>
+          <p>Your final results:</p>
+          <div class="stats">
+            <span class="stat">Score: <span id="btb-final-score">0</span></span>
+            <span class="stat">Time: <span id="btb-final-time">0:00</span></span>
+            <span class="stat">Mistakes: <span id="btb-final-mistakes">0</span></span>
+          </div>
+          <p style="margin-top: 1rem;">Enter your name to save to leaderboard:</p>
+          <input type="text" id="btb-name" placeholder="Your name" style="padding: 0.5rem 1rem; margin: 0.5rem; border: 2px solid var(--border); border-radius: 8px; font-size: 1rem;">
+          <button class="btn btn-primary" id="btb-save-score" style="margin-top: 0.5rem;">Save Score</button>
+        </div>
+
+        <div class="leaderboard-panel">
+          <h3>Top Scores</h3>
+          <ul class="leaderboard-list" id="btb-leaderboard"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game 2: Match the Ledger Entries -->
+    <div id="game-ledger" class="game-panel">
+      <div class="game-card">
+        <div class="game-header">
+          <h2 class="game-title">Match the Ledger Entries</h2>
+          <div class="score-panel">
+            <div class="score-item">Matches: <span id="ledger-matches">0</span>/<span id="ledger-total">10</span></div>
+            <div class="score-item">Time: <span id="ledger-timer" class="timer">0:00</span></div>
+            <div class="score-item">Attempts: <span id="ledger-attempts">0</span></div>
+          </div>
+        </div>
+
+        <div id="ledger-game-area">
+          <div class="ledger-layout">
+            <div class="ledger-panel">
+              <h4>Transaction Descriptions</h4>
+              <div id="ledger-descriptions"></div>
+            </div>
+            <div class="ledger-panel">
+              <h4>Ledger Accounts</h4>
+              <div id="ledger-accounts"></div>
+            </div>
+          </div>
+          <div class="feedback-area" id="ledger-feedback"></div>
+          <div class="game-buttons" style="margin-top: 1rem;">
+            <button class="btn btn-hint" id="ledger-hint">Show Hint</button>
+            <button class="btn btn-secondary" id="ledger-reset">Reset Game</button>
+            <button class="btn btn-primary" id="ledger-next-level">Next Level</button>
+          </div>
+        </div>
+
+        <div id="ledger-complete" class="level-complete">
+          <h3>Level Complete!</h3>
+          <p>All entries matched correctly.</p>
+          <div class="stats">
+            <span class="stat">Time: <span id="ledger-final-time">0:00</span></span>
+            <span class="stat">Attempts: <span id="ledger-final-attempts">0</span></span>
+          </div>
+          <p style="margin-top: 1rem;">Enter your name to save score:</p>
+          <input type="text" id="ledger-name" placeholder="Your name" style="padding: 0.5rem 1rem; margin: 0.5rem; border: 2px solid var(--border); border-radius: 8px; font-size: 1rem;">
+          <button class="btn btn-primary" id="ledger-save-score" style="margin-top: 0.5rem;">Save Score</button>
+        </div>
+
+        <div class="leaderboard-panel" style="margin-top: 1.5rem;">
+          <h3>Top Scores (Match the Ledger)</h3>
+          <ul class="leaderboard-list" id="ledger-leaderboard"></ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>More</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
+            <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
+            <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
+            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
+            <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Essential Resources</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/free-tools-and-utilities/">Free Tools and Utilities</a></li>
+            <li><a href="https://caclouddesk.com/use-cases/">Use Cases</a></li>
+            <li><a href="https://caclouddesk.com/features/">Features</a></li>
+            <li><a href="https://caclouddesk.com/modules/">Modules</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <div class="contact-info">
+            <p><strong>Law Seva Management (P) Ltd</strong></p>
+            <p>Address: BM-08 Ansal Sumedha Building RDC Ghaziabad Delhi NCR India 201001</p>
+            <p>Phone: 0120-4308902</p>
+            <p>Email: <a href="mailto:info@caclouddesk.com">info@caclouddesk.com</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ========== GAME TABS ========== */
+    document.querySelectorAll('.games-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.games-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.game-panel').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('game-' + this.dataset.game).classList.add('active');
+      });
+    });
+
+    /* ========== BALANCE THE BOOKS ========== */
+    (function() {
+      // Realistic accounting transactions: { desc, debitAccount, creditAccount, amount }
+      var transactions = [
+        { desc: "Purchase equipment for ₹25,000 on credit", debitAccount: "Equipment", creditAccount: "Accounts Payable", amount: 25000 },
+        { desc: "Received cash ₹50,000 from client for services", debitAccount: "Cash", creditAccount: "Service Revenue", amount: 50000 },
+        { desc: "Paid rent ₹15,000 by cheque", debitAccount: "Rent Expense", creditAccount: "Bank", amount: 15000 },
+        { desc: "Purchased inventory for ₹80,000 cash", debitAccount: "Inventory", creditAccount: "Cash", amount: 80000 },
+        { desc: "Sold goods for ₹45,000 on credit", debitAccount: "Accounts Receivable", creditAccount: "Sales Revenue", amount: 45000 },
+        { desc: "Owner invested ₹1,00,000 in the business", debitAccount: "Cash", creditAccount: "Capital", amount: 100000 },
+        { desc: "Paid salaries ₹35,000", debitAccount: "Salary Expense", creditAccount: "Bank", amount: 35000 },
+        { desc: "Received ₹20,000 from debtor", debitAccount: "Cash", creditAccount: "Accounts Receivable", amount: 20000 },
+        { desc: "Paid supplier ₹30,000", debitAccount: "Accounts Payable", creditAccount: "Bank", amount: 30000 },
+        { desc: "Depreciation on equipment ₹5,000", debitAccount: "Depreciation Expense", creditAccount: "Accumulated Depreciation", amount: 5000 },
+        { desc: "Interest received ₹3,000", debitAccount: "Bank", creditAccount: "Interest Income", amount: 3000 },
+        { desc: "Electricity bill paid ₹4,000", debitAccount: "Utilities Expense", creditAccount: "Cash", amount: 4000 },
+        { desc: "Commission earned ₹12,000", debitAccount: "Cash", creditAccount: "Commission Revenue", amount: 12000 },
+        { desc: "Prepaid insurance ₹6,000", debitAccount: "Prepaid Insurance", creditAccount: "Cash", amount: 6000 },
+        { desc: "Loan taken from bank ₹2,00,000", debitAccount: "Bank", creditAccount: "Bank Loan", amount: 200000 }
+      ];
+
+      var state = {
+        score: 0,
+        questionNum: 0,
+        mistakes: 0,
+        startTime: null,
+        timerInterval: null,
+        currentTransaction: null,
+        usedIndices: []
+      };
+
+      function formatTime(sec) {
+        var m = Math.floor(sec / 60);
+        var s = sec % 60;
+        return m + ':' + (s < 10 ? '0' : '') + s;
+      }
+
+      function updateTimer() {
+        if (!state.startTime) return;
+        var elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+        document.getElementById('btb-timer').textContent = formatTime(elapsed);
+      }
+
+      function getRandomTransaction() {
+        var available = transactions.filter(function(_, i) { return state.usedIndices.indexOf(i) === -1; });
+        if (available.length === 0) state.usedIndices = [];
+        var idx = Math.floor(Math.random() * transactions.length);
+        state.usedIndices.push(idx);
+        return transactions[idx];
+      }
+
+      function loadQuestion() {
+        state.currentTransaction = getRandomTransaction();
+        document.getElementById('btb-desc').textContent = state.currentTransaction.desc;
+        document.getElementById('btb-debit-label').textContent = state.currentTransaction.debitAccount + ' (Debit)';
+        document.getElementById('btb-credit-label').textContent = state.currentTransaction.creditAccount + ' (Credit)';
+        document.getElementById('btb-debit').value = '';
+        document.getElementById('btb-credit').value = '';
+        document.getElementById('btb-debit').classList.remove('correct', 'incorrect');
+        document.getElementById('btb-credit').classList.remove('correct', 'incorrect');
+        document.getElementById('btb-feedback').textContent = '';
+        document.getElementById('btb-feedback').className = 'feedback-area';
+      }
+
+      function showResults() {
+        document.getElementById('btb-game-area').style.display = 'none';
+        document.getElementById('btb-results').classList.add('show');
+        document.getElementById('btb-final-score').textContent = state.score;
+        document.getElementById('btb-final-time').textContent = formatTime(Math.floor((Date.now() - state.startTime) / 1000));
+        document.getElementById('btb-final-mistakes').textContent = state.mistakes;
+        if (state.timerInterval) clearInterval(state.timerInterval);
+      }
+
+      function nextQuestion() {
+        state.questionNum++;
+        document.getElementById('btb-question').textContent = state.questionNum;
+        if (state.questionNum > 10) {
+          showResults();
+          return;
+        }
+        loadQuestion();
+      }
+
+      function restart() {
+        state.score = 0;
+        state.questionNum = 1;
+        state.mistakes = 0;
+        state.startTime = Date.now();
+        state.usedIndices = [];
+        document.getElementById('btb-score').textContent = '0';
+        document.getElementById('btb-question').textContent = '1';
+        document.getElementById('btb-mistakes').textContent = '0';
+        document.getElementById('btb-results').classList.remove('show');
+        document.getElementById('btb-game-area').style.display = 'block';
+        if (state.timerInterval) clearInterval(state.timerInterval);
+        state.timerInterval = setInterval(updateTimer, 1000);
+        loadQuestion();
+      }
+
+      function validate() {
+        var debitVal = parseInt(document.getElementById('btb-debit').value, 10) || 0;
+        var creditVal = parseInt(document.getElementById('btb-credit').value, 10) || 0;
+        var amount = state.currentTransaction.amount;
+        var fb = document.getElementById('btb-feedback');
+
+        if (debitVal === amount && creditVal === amount) {
+          document.getElementById('btb-debit').classList.add('correct');
+          document.getElementById('btb-credit').classList.add('correct');
+          fb.textContent = 'Correct! Debits = Credits. Well done!';
+          fb.className = 'feedback-area success';
+          state.score += 10;
+          document.getElementById('btb-score').textContent = state.score;
+          setTimeout(nextQuestion, 1200);
+        } else {
+          document.getElementById('btb-debit').classList.add('incorrect');
+          document.getElementById('btb-credit').classList.add('incorrect');
+          fb.textContent = 'Incorrect. Each side should be ₹' + amount.toLocaleString('en-IN') + '. Try again!';
+          fb.className = 'feedback-area error';
+          state.mistakes++;
+          document.getElementById('btb-mistakes').textContent = state.mistakes;
+          state.score = Math.max(0, state.score - 2);
+          document.getElementById('btb-score').textContent = state.score;
+        }
+      }
+
+      function showHint() {
+        var t = state.currentTransaction;
+        document.getElementById('btb-feedback').textContent = 'Hint: Both Debit and Credit should be ₹' + t.amount.toLocaleString('en-IN');
+        document.getElementById('btb-feedback').className = 'feedback-area';
+        state.score = Math.max(0, state.score - 3);
+        document.getElementById('btb-score').textContent = state.score;
+      }
+
+      function loadLeaderboard() {
+        var data = JSON.parse(localStorage.getItem('btb_leaderboard') || '[]');
+        var html = data.slice(0, 10).map(function(item, i) {
+          return '<li>' + (i + 1) + '. ' + item.name + ' — ' + item.score + ' pts</li>';
+        }).join('');
+        document.getElementById('btb-leaderboard').innerHTML = html || '<li>No scores yet. Play to be first!</li>';
+      }
+
+      function saveScore() {
+        var name = (document.getElementById('btb-name').value || 'Anonymous').trim();
+        var data = JSON.parse(localStorage.getItem('btb_leaderboard') || '[]');
+        data.push({ name: name, score: state.score, time: formatTime(Math.floor((Date.now() - state.startTime) / 1000)) });
+        data.sort(function(a, b) { return b.score - a.score; });
+        localStorage.setItem('btb_leaderboard', JSON.stringify(data.slice(0, 20)));
+        loadLeaderboard();
+        document.getElementById('btb-save-score').textContent = 'Saved!';
+      }
+
+      document.getElementById('btb-submit').addEventListener('click', validate);
+      document.getElementById('btb-hint').addEventListener('click', showHint);
+      document.getElementById('btb-next').addEventListener('click', nextQuestion);
+      document.getElementById('btb-restart').addEventListener('click', restart);
+      document.getElementById('btb-save-score').addEventListener('click', saveScore);
+      document.getElementById('btb-debit').addEventListener('keypress', function(e) { if (e.key === 'Enter') validate(); });
+      document.getElementById('btb-credit').addEventListener('keypress', function(e) { if (e.key === 'Enter') validate(); });
+
+      loadLeaderboard();
+      restart();
+    })();
+
+    /* ========== MATCH THE LEDGER ENTRIES ========== */
+    (function() {
+      // Scenarios: { desc, correctAccount }
+      var scenarios = [
+        { desc: "Invoice received from supplier ₹15,000", account: "Accounts Payable" },
+        { desc: "Cash received from customer ₹25,000", account: "Cash" },
+        { desc: "Goods sold on credit ₹40,000", account: "Accounts Receivable" },
+        { desc: "Rent paid by cheque ₹12,000", account: "Rent Expense" },
+        { desc: "Salary paid to employees ₹30,000", account: "Salary Expense" },
+        { desc: "Equipment purchased for ₹50,000", account: "Equipment" },
+        { desc: "Loan repayment to bank ₹20,000", account: "Bank Loan" },
+        { desc: "Interest earned on fixed deposit ₹2,000", account: "Interest Income" },
+        { desc: "Commission received ₹8,000", account: "Commission Revenue" },
+        { desc: "Electricity bill paid ₹3,000", account: "Utilities Expense" },
+        { desc: "Owner withdrew ₹10,000", account: "Drawings" },
+        { desc: "Capital introduced ₹1,00,000", account: "Capital" },
+        { desc: "Prepaid insurance ₹6,000", account: "Prepaid Insurance" },
+        { desc: "Depreciation charged ₹4,000", account: "Depreciation Expense" },
+        { desc: "Bad debt written off ₹5,000", account: "Bad Debt Expense" }
+      ];
+
+      var allAccounts = ["Cash", "Bank", "Accounts Receivable", "Accounts Payable", "Inventory", "Equipment", "Capital", "Drawings", "Sales Revenue", "Service Revenue", "Rent Expense", "Salary Expense", "Utilities Expense", "Interest Income", "Commission Revenue", "Prepaid Insurance", "Accumulated Depreciation", "Depreciation Expense", "Bank Loan", "Bad Debt Expense"];
+
+      var state = {
+        currentScenarios: [],
+        matches: 0,
+        attempts: 0,
+        startTime: null,
+        timerInterval: null,
+        matchedPairs: {},
+        draggedAccount: null
+      };
+
+      function formatTime(sec) {
+        var m = Math.floor(sec / 60);
+        var s = sec % 60;
+        return m + ':' + (s < 10 ? '0' : '') + s;
+      }
+
+      function updateTimer() {
+        if (!state.startTime) return;
+        var elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+        document.getElementById('ledger-timer').textContent = formatTime(elapsed);
+      }
+
+      function shuffle(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = a[i];
+          a[i] = a[j];
+          a[j] = t;
+        }
+        return a;
+      }
+
+      function initGame() {
+        state.matchedPairs = {};
+        state.matches = 0;
+        state.attempts = 0;
+        state.startTime = Date.now();
+        state.currentScenarios = shuffle(scenarios).slice(0, 10);
+
+        var descsDiv = document.getElementById('ledger-descriptions');
+        var accountsDiv = document.getElementById('ledger-accounts');
+        descsDiv.innerHTML = '';
+        accountsDiv.innerHTML = '';
+
+        var usedAccounts = state.currentScenarios.map(function(s) { return s.account; });
+        var extraAccounts = allAccounts.filter(function(a) { return usedAccounts.indexOf(a) === -1; });
+        var accountPool = shuffle(usedAccounts.concat(extraAccounts.slice(0, 5)));
+
+        state.currentScenarios.forEach(function(s, i) {
+          var row = document.createElement('div');
+          row.className = 'ledger-row';
+          row.innerHTML = '<span class="ledger-desc-text">' + s.desc + '</span>';
+          var drop = document.createElement('div');
+          drop.className = 'drop-zone';
+          drop.dataset.descIndex = i;
+          drop.textContent = 'Drop account here';
+          drop.addEventListener('dragover', onDragOver);
+          drop.addEventListener('dragleave', onDragLeave);
+          drop.addEventListener('drop', onDrop);
+          row.appendChild(drop);
+          descsDiv.appendChild(row);
+        });
+
+        accountPool.forEach(function(acc) {
+          var el = document.createElement('div');
+          el.className = 'ledger-account-item';
+          el.textContent = acc;
+          el.draggable = true;
+          el.dataset.account = acc;
+          el.addEventListener('dragstart', onDragStart);
+          el.addEventListener('dragend', onDragEnd);
+          accountsDiv.appendChild(el);
+        });
+
+
+        document.getElementById('ledger-matches').textContent = '0';
+        document.getElementById('ledger-total').textContent = '10';
+        document.getElementById('ledger-attempts').textContent = '0';
+        document.getElementById('ledger-feedback').textContent = '';
+        document.getElementById('ledger-game-area').style.display = 'block';
+        document.getElementById('ledger-complete').classList.remove('show');
+
+        if (state.timerInterval) clearInterval(state.timerInterval);
+        state.timerInterval = setInterval(updateTimer, 1000);
+      }
+
+      function onDragStart(e) {
+        if (e.target.classList.contains('used')) return;
+        state.draggedAccount = e.target.dataset.account;
+        e.target.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', e.target.dataset.account);
+      }
+
+      function onDragEnd(e) {
+        e.target.classList.remove('dragging');
+        document.querySelectorAll('.drop-zone').forEach(function(z) { z.classList.remove('drag-over'); });
+      }
+
+      function onDragOver(e) {
+        e.preventDefault();
+        if (!e.currentTarget.classList.contains('matched')) {
+          e.currentTarget.classList.add('drag-over');
+        }
+      }
+
+      function onDragLeave(e) {
+        e.currentTarget.classList.remove('drag-over');
+      }
+
+      function onDrop(e) {
+        e.preventDefault();
+        e.currentTarget.classList.remove('drag-over');
+        var zone = e.currentTarget;
+        var descIndex = parseInt(zone.dataset.descIndex, 10);
+        var scenario = state.currentScenarios[descIndex];
+        var account = state.draggedAccount;
+
+        if (state.matchedPairs[descIndex]) return;
+
+        state.attempts++;
+        document.getElementById('ledger-attempts').textContent = state.attempts;
+
+        if (account === scenario.account) {
+          state.matchedPairs[descIndex] = true;
+          state.matches++;
+          zone.classList.add('matched');
+          zone.textContent = account + ' ✓';
+          var usedEl = Array.from(document.querySelectorAll('[data-account="' + account + '"]')).find(function(el) { return !el.classList.contains('used'); });
+          if (usedEl) usedEl.classList.add('used');
+          document.getElementById('ledger-matches').textContent = state.matches;
+          document.getElementById('ledger-feedback').textContent = 'Correct match!';
+          document.getElementById('ledger-feedback').className = 'feedback-area success';
+
+          if (state.matches === 10) {
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            document.getElementById('ledger-final-time').textContent = formatTime(Math.floor((Date.now() - state.startTime) / 1000));
+            document.getElementById('ledger-final-attempts').textContent = state.attempts;
+            document.getElementById('ledger-complete').classList.add('show');
+            document.getElementById('ledger-game-area').style.display = 'none';
+          }
+        } else {
+          document.getElementById('ledger-feedback').textContent = 'Incorrect. Try again!';
+          document.getElementById('ledger-feedback').className = 'feedback-area error';
+          setTimeout(function() {
+            document.getElementById('ledger-feedback').textContent = '';
+          }, 1500);
+        }
+      }
+
+      function showHint() {
+        var unmatched = state.currentScenarios.findIndex(function(_, i) { return !state.matchedPairs[i]; });
+        if (unmatched === -1) return;
+        var s = state.currentScenarios[unmatched];
+        document.getElementById('ledger-feedback').textContent = 'Hint: "' + s.desc + '" matches with ' + s.account;
+        document.getElementById('ledger-feedback').className = 'feedback-area';
+      }
+
+      function loadLeaderboard() {
+        var data = JSON.parse(localStorage.getItem('ledger_leaderboard') || '[]');
+        var html = data.slice(0, 10).map(function(item, i) {
+          return '<li>' + (i + 1) + '. ' + item.name + ' — ' + item.attempts + ' attempts, ' + item.time + '</li>';
+        }).join('');
+        document.getElementById('ledger-leaderboard').innerHTML = html || '<li>No scores yet. Play to be first!</li>';
+      }
+
+      function saveScore() {
+        var name = (document.getElementById('ledger-name').value || 'Anonymous').trim();
+        var data = JSON.parse(localStorage.getItem('ledger_leaderboard') || '[]');
+        data.push({ name: name, attempts: state.attempts, time: formatTime(Math.floor((Date.now() - state.startTime) / 1000)) });
+        data.sort(function(a, b) { return a.attempts - b.attempts; });
+        localStorage.setItem('ledger_leaderboard', JSON.stringify(data.slice(0, 20)));
+        loadLeaderboard();
+        document.getElementById('ledger-save-score').textContent = 'Saved!';
+      }
+
+      document.getElementById('ledger-hint').addEventListener('click', showHint);
+      document.getElementById('ledger-reset').addEventListener('click', initGame);
+      document.getElementById('ledger-next-level').addEventListener('click', initGame);
+      document.getElementById('ledger-save-score').addEventListener('click', saveScore);
+
+      loadLeaderboard();
+      initGame();
+    })();
+  </script>
+</body>
+</html>
