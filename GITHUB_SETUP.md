@@ -73,19 +73,49 @@ git remote add origin https://github.com/YOUR_USERNAME/REPO_NAME.git
 git push -u origin main
 ```
 
-**Example:** if your username is `johndoe` and repo name is `cacloud-guide`:
+**This project is linked to:** [https://github.com/CACloudDesk/Guide](https://github.com/CACloudDesk/Guide)
 
 ```bash
-git remote add origin https://github.com/johndoe/cacloud-guide.git
+git remote add origin https://github.com/CACloudDesk/Guide.git
 git push -u origin main
 ```
 
-- If GitHub asks to log in, use your GitHub username and a **Personal access token** (not your password).  
-  Create a token: **GitHub → Settings → Developer settings → Personal access tokens → Generate new token**.
-- If the branch on GitHub is `master` instead of `main`, use:  
-  `git push -u origin main:master`  
-  or rename locally:  
-  `git branch -M master` then `git push -u origin master`.
+**If the branch on GitHub is `master` instead of `main`:**  
+Use `git push -u origin main:master`, or run `git branch -M master` then `git push -u origin master`.
+
+---
+
+### Authentication: Git might not ask for a password
+
+Git often does **not** show a “password” prompt in the terminal. It may:
+
+- Open a **browser** for GitHub login, or  
+- Use **saved credentials** (macOS Keychain, Windows Credential Manager), or  
+- Use **SSH** if you added an SSH remote.
+
+**To use a Personal access token (recommended):**
+
+1. On GitHub: **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)** → **Generate new token**. Give it a name, choose an expiry, and tick **repo**.
+2. Copy the token (you won’t see it again).
+
+**Option A — Use the token in the URL (recommended):**  
+Use your **personal GitHub username** (the account that can push to CACloudDesk/Guide), not the org name. Replace `YOUR_GITHUB_USERNAME` and `YOUR_TOKEN`:
+
+```bash
+git remote set-url origin https://YOUR_GITHUB_USERNAME:YOUR_TOKEN@github.com/CACloudDesk/Guide.git
+git push -u origin main
+```
+
+Example: if your GitHub login is `johndoe` and your token is `ghp_xxxx...`:
+
+```bash
+git remote set-url origin https://johndoe:ghp_xxxx...@github.com/CACloudDesk/Guide.git
+git push -u origin main
+```
+
+**Option B — Let Git prompt you:**  
+Use the normal URL (`https://github.com/YOUR_USERNAME/REPO_NAME.git`). When you run `git push`, if Git asks for **username**, enter your GitHub username; if it asks for **password**, paste the **token** (not your GitHub password).  
+If Git never asks, use Option A.
 
 ---
 
@@ -136,7 +166,9 @@ cd REPO_NAME
 
 | Issue | What to do |
 |-------|------------|
+| `Invalid username or token. Password authentication is not supported` | Use a **Personal access token** (never your GitHub password). Set the remote with: `git remote set-url origin https://YOUR_GITHUB_USERNAME:YOUR_TOKEN@github.com/CACloudDesk/Guide.git` then `git push -u origin main`. Use your **personal** GitHub username (the one that has access to the repo). |
+| Git never asks for password | Use **Option A** in the Authentication section above: put your token in the remote URL, then `git push`. |
 | `remote origin already exists` | Use: `git remote set-url origin https://github.com/YOUR_USERNAME/REPO_NAME.git` then `git push -u origin main` |
-| Authentication failed | Use a **Personal access token** instead of password when Git asks for credentials. |
+| Authentication failed | Use a **Personal access token** (not your GitHub password). Create one under GitHub → Settings → Developer settings → Personal access tokens. Use your **personal** username in the URL. |
 | `failed to push some refs` | Run `git pull origin main --rebase`, then `git push -u origin main`. |
 | Wrong files committed | Edit or add to `.gitignore`, then `git add .` and `git commit -m "Update .gitignore"` and `git push`. |
