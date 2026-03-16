@@ -6,7 +6,7 @@
   <title>HRMS Management — CA Cloud Desk Help</title>
   <meta name="description" content="Comprehensive guide for HRMS, payroll, and HR desk operations in CA Cloud Desk. Manage employees, attendance, leaves, and payroll efficiently.">
   <meta name="keywords" content="CA Cloud Desk, HRMS, payroll, employee management, attendance, leave management">
-  <link rel="icon" href="../../cacloud.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,16 +34,16 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       background-color: #f8fafc;
       color: var(--foreground);
-      line-height: 1.6;
-      font-size: 16px;
+      line-height: 1.47;
+      font-size: 17px;
     }
 
     /* Minimal Professional Top Header */
     .top-header {
-      background: rgba(10, 33, 35, 0.98);
+      background: #f0fdfb;
       backdrop-filter: blur(10px);
       border-bottom: 2px solid #25b7a7;
       padding: 0.75rem 1.5rem;
@@ -77,8 +77,8 @@
     }
 
     .logo-text {
-      color: white;
-      font-weight: 700;
+      color: var(--dark);
+      font-weight: 600;
       font-size: 1.25rem;
       letter-spacing: -0.025em;
     }
@@ -87,7 +87,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--muted-foreground);
       font-size: 0.875rem;
     }
 
@@ -98,7 +98,7 @@
     }
 
     .breadcrumb a:hover {
-      color: white;
+      color: var(--primary-dark);
     }
 
     /* Main Container */
@@ -149,8 +149,10 @@
     }
 
     .module-hero h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
+      font-size: 3.25rem;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
       margin-bottom: 1rem;
     }
 
@@ -170,7 +172,7 @@
 
     .section-header h2 {
       font-size: 1.75rem;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--dark);
       display: flex;
       align-items: center;
@@ -266,7 +268,7 @@
     .sub-module-card p {
       color: var(--muted-foreground);
       font-size: 0.9375rem;
-      line-height: 1.6;
+      line-height: 1.47;
       margin-bottom: 1rem;
     }
 
@@ -393,7 +395,7 @@
 
     .footer-section h4 {
       font-size: 1.125rem;
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 1.5rem;
       position: relative;
       padding-bottom: 0.5rem;
@@ -455,7 +457,7 @@
 
     @media (max-width: 768px) {
       .header-container { flex-direction: column; gap: 1rem; }
-      .module-hero h1 { font-size: 2rem; }
+      .module-hero h1 { font-size: 2.25rem; letter-spacing: -0.03em; }
       .sub-modules-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -465,7 +467,7 @@
   <header class="top-header">
     <div class="header-container">
       <a href="../../index.html" class="logo-container">
-        <img src="../../transparent%20logo.png" alt="CA Cloud Desk Logo" onerror="this.src='../../cacloud.svg'">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
         <div class="logo-text">CA Cloud Desk</div>
       </a>
       <nav class="breadcrumb">
@@ -490,13 +492,13 @@
       </div>
     </section>
 
-    <!-- Part A: HRMS -->
+    <!-- Part A: HRMS for employees -->
     <div class="section-header">
-      <h2><span class="section-badge">Part A</span> HRMS</h2>
+      <h2><span class="section-badge">Part A</span> HRMS for employees</h2>
     </div>
     <div class="sub-modules-grid">
       <!-- View Employee -->
-      <div class="sub-module-card disabled">
+      <a href="view-employee-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
@@ -504,12 +506,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg>
         </div>
         <h3>View Employee</h3>
-        <p>View and manage employee profiles, details, and information.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>View and manage employee profiles, details, designations, and permissions. Edit, delete, reset password.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Expense -->
-      <div class="sub-module-card disabled">
+      <a href="my-expense-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
@@ -517,12 +519,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/></svg>
         </div>
         <h3>Expense</h3>
-        <p>Submit, track, and manage employee expense claims and reimbursements.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Submit, track, and manage employee expense claims. HRMS → My Expense: Pending, Approved, Rejected; Add Expense with Client, Amount, Bill, Remark, Billable.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Raise Grievances -->
-      <div class="sub-module-card disabled">
+      <a href="raise-grievance-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/><line x1="12" y1="7" x2="12" y2="13"/></svg>
         </div>
@@ -530,12 +532,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
         <h3>Raise Grievances</h3>
-        <p>Submit and track employee grievances and concerns.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Submit and track employee grievances. HRMS → Raise Grievances: view by status, add with +, fill form and save.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Employee Hierarchy -->
-      <div class="sub-module-card disabled">
+      <a href="employee-hierarchy-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M22 21v-2a4 4 0 0 0-4-4h-2"/></svg>
         </div>
@@ -543,12 +545,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg>
         </div>
         <h3>Employee Hierarchy</h3>
-        <p>View and manage organizational structure and reporting relationships.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>View hierarchy by designation, create teams with + icon; Team Name, Team Incharge, Team Members, Save.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Manager Approval -->
-      <div class="sub-module-card disabled">
+      <a href="manager-approval-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
@@ -557,11 +559,11 @@
         </div>
         <h3>Manager Approval</h3>
         <p>Approve attendance, leave, on duty, comp off, timesheet, grievance, expense, and probation requests.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- My Leave -->
-      <div class="sub-module-card disabled">
+      <a href="my-leave-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
@@ -569,12 +571,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/></svg>
         </div>
         <h3>My Leave</h3>
-        <p>View leave balance, apply for leaves, and track leave history.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>View leave balance, apply for leaves, and track leave history. Dashboard → HRMS → My Leave; use + to apply leave with type, dates, half-day, reason, proof.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Manager Reports -->
-      <div class="sub-module-card disabled">
+      <a href="manager-reports-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
         </div>
@@ -583,11 +585,11 @@
         </div>
         <h3>Manager Reports</h3>
         <p>Generate and view reports for task, HRMS, timesheet, and attendance summary.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- My Attendance -->
-      <div class="sub-module-card disabled">
+      <a href="my-attendance-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
@@ -595,12 +597,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
         </div>
         <h3>My Attendance</h3>
-        <p>View attendance records, check-in/check-out times, and attendance history.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Mark attendance from desktop (Check In on Dashboard) or mobile (Mark Attendance with face upload). View check-in/check-out and status in HRMS → My Attendance.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Timesheet -->
-      <div class="sub-module-card disabled">
+      <a href="timesheet-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
         </div>
@@ -608,14 +610,14 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
         </div>
         <h3>Timesheet</h3>
-        <p>Log work hours, track time spent on projects, and manage timesheet entries.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Log work hours, select status and date range, add entries with client, branch, service, task; view employee summary.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
     </div>
 
-    <!-- Part B: Payroll -->
+    <!-- Part B: Payroll for Employees -->
     <div class="section-header">
-      <h2><span class="section-badge">Part B</span> Payroll</h2>
+      <h2><span class="section-badge">Part B</span> Payroll for Employees</h2>
     </div>
     <div class="sub-modules-grid">
       <!-- Salary Slips -->
@@ -632,7 +634,7 @@
       </div>
 
       <!-- Form 12B -->
-      <div class="sub-module-card disabled">
+      <a href="form-12b-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
         </div>
@@ -640,12 +642,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
         </div>
         <h3>Form 12B</h3>
-        <p>Submit and manage Form 12B for tax declaration and investment proofs.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Fill Form 12B in three parts: Previous Employer Details, Annexure, and Remarks and Declarations. Branch, Financial Year, upload proof and declaration.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Form 12BB -->
-      <div class="sub-module-card disabled">
+      <a href="form-12bb-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
         </div>
@@ -653,14 +655,14 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
         </div>
         <h3>Form 12BB</h3>
-        <p>Submit and manage Form 12BB for tax deduction claims and declarations.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Fill Form 12BB: select Financial Year and Tax Regime (New/Old), House Rent Allowance (monthly rent, landlord details, Rent Receipt, Rent Agreement, PAN), then Remarks and Declarations.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
     </div>
 
-    <!-- Part C: HR Desk -->
+    <!-- Part C: HRMS for HRs -->
     <div class="section-header">
-      <h2><span class="section-badge">Part C</span> HR Desk</h2>
+      <h2><span class="section-badge">Part C</span> HRMS for HRs</h2>
     </div>
     <div class="sub-modules-grid">
       <!-- HRMS Setting -->
@@ -677,7 +679,7 @@
       </div>
 
       <!-- HRMS Leave -->
-      <div class="sub-module-card disabled">
+      <a href="hrms-leave-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
@@ -685,9 +687,9 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/></svg>
         </div>
         <h3>HRMS Leave</h3>
-        <p>Manage leave policies, leave types, and leave configurations.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Manage leave policies, leave types, and leave configurations. Dashboard → Profile settings → HRMS → HRMS Leave.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Add Employee -->
       <a href="add-employee-help.html" class="sub-module-card">
@@ -729,7 +731,7 @@
       </a>
 
       <!-- HR Grievance Approval -->
-      <div class="sub-module-card disabled">
+      <a href="hr-grievance-approval-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
@@ -737,12 +739,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/></svg>
         </div>
         <h3>HR Grievance Approval</h3>
-        <p>Review and approve employee grievance requests and resolutions.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Review and approve employee grievances. Dashboard → Profile settings → HRMS → HR Grievance Approval. Pending Grievance and Approve/Reject Grievance tabs.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Attendance Approval -->
-      <div class="sub-module-card disabled">
+      <a href="attendance-approval-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
@@ -750,9 +752,9 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
         </div>
         <h3>Attendance Approval</h3>
-        <p>Review and approve attendance corrections and regularization requests.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Dashboard → Profile settings → HRMS → Attendance approval. Pending checkin and Approved/Rejected checkin; use Select All to approve/reject all or Approve/Reject on each card.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- HR Probation Approval -->
       <div class="sub-module-card disabled">
@@ -768,7 +770,7 @@
       </div>
 
       <!-- HR Expense -->
-      <div class="sub-module-card disabled">
+      <a href="hr-expense-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
@@ -776,12 +778,18 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/></svg>
         </div>
         <h3>HR Expense</h3>
-        <p>Review and approve employee expense claims and reimbursements.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Review and manage employee expense claims. Dashboard → Profile settings → HRMS → HR Expense. Pending, Approved, and Rejected Expenses tabs.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
+    </div>
 
+    <!-- Part D: Payroll for HRs -->
+    <div class="section-header">
+      <h2><span class="section-badge">Part D</span> Payroll for HRs</h2>
+    </div>
+    <div class="sub-modules-grid">
       <!-- Payroll - Account Settings -->
-      <div class="sub-module-card disabled">
+      <a href="payroll-account-settings-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         </div>
@@ -789,9 +797,9 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/></svg>
         </div>
         <h3>Payroll - Account Settings</h3>
-        <p>Configure payroll account settings, bank details, and payment methods.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Configure payroll account settings from Settings → Payroll → Account Settings, and manage salary processing preferences.</p>
+        <span class="sub-module-badge">Guide</span>
+      </a>
 
       <!-- Payroll - Employee Declaration -->
       <div class="sub-module-card disabled">
@@ -853,12 +861,11 @@
     </div>
     <div class="footer-content">
       <div class="footer-section">
-        <h4>More</h4>
+        <h4>CA CloudDesk</h4>
         <ul class="footer-links">
           <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
           <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
           <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
-          <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
           <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
         </ul>
       </div>
@@ -866,9 +873,9 @@
       <div class="footer-section">
         <h4>Essential Resources</h4>
         <ul class="footer-links">
-          <li><a href="https://utility.caclouddesk.com/">Free Tools and Utilities</a></li>
-          <li><a href="https://caclouddesk.com/use-cases/">Use Cases</a></li>
-          <li><a href="https://caclouddesk.com/features/">Features</a></li>
+          <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
+          <li><a href="#">Use Cases</a></li>
+          <li><a href="#">Features</a></li>
           <li><a href="../../index.html">Modules</a></li>
         </ul>
       </div>

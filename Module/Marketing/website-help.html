@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website — Marketing Module Help | CA CloudDesk</title>
+  <meta name="description" content="Quick guide to set up and manage your CA CloudDesk website: company details, main dashboard content, and services list.">
+  <meta name="keywords" content="CA CloudDesk, marketing, website, company details, main dashboard, my services, ca24">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --background: #ffffff;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background-color: #fcfcfc;
+      color: var(--foreground);
+      line-height: 1.47;
+    }
+
+    .top-header {
+      background: #f0fdfb;
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-container img { height: 45px; }
+
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
+
+    .breadcrumb {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin-bottom: 0.5rem; }
+
+    .sidebar-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--muted);
+      color: var(--primary-dark);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(2, 218, 197, 0.1);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .path-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .path-indicator span { color: var(--primary-dark); }
+
+    .content h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .content h1 svg { color: var(--primary); width: 40px; height: 40px; }
+    .content .lead { font-size: 1.05rem; color: var(--muted-foreground); margin-bottom: 2.5rem; }
+
+    .section { margin-bottom: 3.5rem; scroll-margin-top: 100px; }
+
+    .section-title {
+      font-size: 1.55rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title svg { color: var(--primary); width: 24px; height: 24px; }
+
+    .steps-container { margin-top: 0.5rem; }
+
+    .step-card {
+      position: relative;
+      padding-left: 3.5rem;
+      padding-bottom: 1.75rem;
+      border-left: 2px solid var(--border);
+      margin-left: 1rem;
+    }
+
+    .step-card:last-child { border-left-color: transparent; padding-bottom: 0; }
+
+    .step-number {
+      position: absolute;
+      left: -1.35rem;
+      top: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .step-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--foreground); margin-bottom: 0.4rem; }
+    .step-card > p { color: var(--muted-foreground); margin-bottom: 0.75rem; }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.5rem 0.75rem;
+      margin: 0.75rem 0 0;
+      font-size: 0.9rem;
+    }
+
+    .field-pill {
+      background: var(--muted);
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .note-box {
+      background: #ecfeff;
+      border: 1px solid #a5f3fc;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      color: var(--muted-foreground);
+      margin-top: 0.75rem;
+    }
+
+    .media-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem;
+      margin: 1rem 0 0.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .media-box img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .media-caption {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    ul.simple-list {
+      padding-left: 1.2rem;
+      color: var(--muted-foreground);
+      font-size: 0.95rem;
+    }
+
+    ul.simple-list li { margin-bottom: 0.25rem; }
+
+    .sidebar-pdf-button {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .pdf-cart-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pdf-cart-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.15), 0 4px 8px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .pdf-cart-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    @media (max-width: 968px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="marketing-help.html">Marketing</a> / <span>Website</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#path" class="active">Path</a></li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#company-details">1. Company Details</a></li>
+        <li><a href="#main-dashboard">2. Main Dashboard</a></li>
+        <li><a href="#my-services">3. My Services</a></li>
+        <li><a href="#blogs">4. Blogs</a></li>
+        <li><a href="#about-us">5. About Us</a></li>
+        <li><a href="#gallery">6. Gallery</a></li>
+      </ul>
+      <div class="sidebar-pdf-button">
+        <a href="../../assets/guide_pdf_Website_v2.pdf" target="_blank" rel="noopener" class="pdf-cart-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          View PDF Guide
+        </a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Website (Marketing)
+      </h1>
+      <p class="lead">
+        Use the <strong>Website</strong> menu to manage your practice website on the CA CloudDesk <strong>ca24</strong> domain — update company details, homepage content, and the list of services your clients see.
+      </p>
+
+      <section id="path" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Path
+        </h2>
+        <div class="path-indicator">
+          <span>Login (Partner Desk)</span> → <span>Website</span>
+        </div>
+        <p class="content-text" style="color: var(--muted-foreground); font-size: 0.96rem; margin-top: 0.5rem;">
+          Log in to your CA CloudDesk Partner Desk account. From the left menu, click <strong>Website</strong> to open the Website module.
+        </p>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk-189f9992-3af7-4943-a802-44929f321bcf.png" alt="Dashboard with Website menu highlighted" onerror="this.style.display='none'">
+          <div class="media-caption">Dashboard — use the Website menu to manage your public site.</div>
+        </div>
+        <div class="note-box">
+          Want a one-time website created for your firm? Contact the CA CloudDesk team — your site will be set up on the <strong>ca24</strong> domain and you can then maintain it from this module.
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          Website tiles at a glance
+        </h2>
+        <p style="color: var(--muted-foreground); font-size: 0.96rem;">
+          Inside the Website module you will see tiles for the main sections of your site:
+          <strong>Company Details</strong>, <strong>Main Dashboard</strong>, <strong>My Services</strong>, <strong>Blogs</strong>, <strong>About Us</strong>, and <strong>Gallery</strong>.
+        </p>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk2-1729bcce-51f8-4289-b244-6363ae902df0.png" alt="Website module tiles for Company Details, Main Dashboard, My Services, Blogs, About Us, Gallery" onerror="this.style.display='none'">
+          <div class="media-caption">Website — choose the section you want to edit.</div>
+        </div>
+      </section>
+
+      <section id="company-details" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7a2 2 0 0 1 2-2h4l2-3 2 3h4a2 2 0 0 1 2 2v14"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h6"/></svg>
+          Step 1 — Company Details
+        </h2>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Open Company Details and edit your firm profile</h3>
+            <p>Click the <strong>Company Details</strong> tile, update the fields that should appear on your public website, then click <strong>Save</strong>.</p>
+            <div class="field-grid">
+              <span class="field-pill">Website Name</span>
+              <span class="field-pill">Domain Name</span>
+              <span class="field-pill">Mobile Number</span>
+              <span class="field-pill">Whatsapp Number</span>
+              <span class="field-pill">Email</span>
+              <span class="field-pill">Template Type</span>
+              <span class="field-pill">Google Map URL</span>
+              <span class="field-pill">Favicon</span>
+              <span class="field-pill">Logo</span>
+              <span class="field-pill">Footer Logo</span>
+              <span class="field-pill">Company Description</span>
+              <span class="field-pill">Address</span>
+            </div>
+            <div class="media-box">
+              <img src="../../assets/Website_CA_CloudDesk3-22bee1a5-f32b-446a-8bd2-e9057b420351.png" alt="Company details form with website name, domain, contact details and logos" onerror="this.style.display='none'">
+              <div class="media-caption">Company Details — fill how your firm should appear on the website.</div>
+            </div>
+            <div class="note-box">
+              Keep the <strong>Domain Name</strong> and <strong>Website Name</strong> short and professional — these appear in the browser and across your site.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="main-dashboard" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+          Step 2 — Main Dashboard content
+        </h2>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Edit homepage sections</h3>
+            <p>Open the <strong>Main Dashboard</strong> tile. Use the tabs to control what visitors see on your homepage.</p>
+            <ul class="simple-list">
+              <li><strong>Dashboard</strong> — main hero heading, description, key heading, and banner image.</li>
+              <li><strong>Client Logo</strong> — upload logos of your key clients to build trust.</li>
+              <li><strong>Portfolio</strong> and <strong>Carousel Portfolio</strong> — highlight services, case studies, or featured work.</li>
+              <li><strong>Services Header</strong> — heading/description shown above the services section.</li>
+              <li><strong>Client Feedback</strong> — add testimonials from your clients.</li>
+            </ul>
+            <div class="media-box">
+              <img src="../../assets/Website_CA_CloudDesk4-3223d14a-2d93-404d-8c13-c537e4a7f928.png" alt="Main Dashboard screen with tabs for dashboard, client logo, portfolio, services header and client feedback" onerror="this.style.display='none'">
+              <div class="media-caption">Main Dashboard — manage homepage text, images, logos and testimonials.</div>
+            </div>
+            <div class="media-box">
+              <img src="../../assets/Website_CA_CloudDesk5-964e4d9c-a772-423c-8f65-bf54b358c600.png" alt="Main Dashboard dashboard tab with heading, description, key heading and image upload" onerror="this.style.display='none'">
+              <div class="media-caption">Main Dashboard — Dashboard tab where you set heading, description, key heading and banner image.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="my-services" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18"/><path d="M6 3h12"/><path d="M4 21h16"/><path d="M6 17h12"/><rect x="5" y="8" width="14" height="8" rx="2"/></svg>
+          Step 3 — My Services
+        </h2>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Select service and category shown on website</h3>
+            <p>Click the <strong>My Services</strong> tile. Use the dropdowns to pick which services and categories you want to show on the website.</p>
+            <ul class="simple-list">
+              <li><strong>Select a Service*</strong> — choose the service (for example, Income Tax, GST, ROC, Audit).</li>
+              <li><strong>Select a Category*</strong> — map the service to a category (for example, Compliance, Advisory, Registration).</li>
+              <li>Repeat the selection process to add more services to your website listing.</li>
+            </ul>
+            <div class="media-box">
+              <img src="../../assets/Website_CA_CloudDesk6-be624e35-1eda-4488-bfd0-c613b70851af.png" alt="My Services screen with select a service and select a category dropdowns" onerror="this.style.display='none'">
+              <div class="media-caption">My Services — decide which services and categories appear online.</div>
+            </div>
+            <div class="media-box">
+              <img src="../../assets/Website_CA_CloudDesk7-f27edaae-b362-45de-b10d-58b2ed0b3d87.png" alt="My Services form showing Select a Service and Select a Category fields" onerror="this.style.display='none'">
+              <div class="media-caption">My Services — use the Select a Service and Select a Category dropdowns, then save.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="blogs" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18"/><path d="M3 8h18"/><path d="M7 12h10"/><path d="M7 16h6"/><path d="M5 20h14"/></svg>
+          4 — Blogs
+        </h2>
+        <p style="color: var(--muted-foreground); font-size: 0.95rem; margin-bottom: 0.75rem;">
+          Use the <strong>Blogs</strong> tile to publish articles that improve SEO and keep clients updated.
+        </p>
+        <ul class="simple-list">
+          <li>Open <strong>Website → Blogs</strong>.</li>
+          <li>Click the <strong>+</strong> button and choose <strong>Add New Tag</strong>, <strong>Add New Category</strong> or <strong>Add New Blog</strong>.</li>
+          <li>Fill the title, short description and other details, then save.</li>
+        </ul>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk8-9f36555b-5770-4182-b946-05fc3a5043e9.png" alt="Blogs list screen with plus button for adding tag, category or new blog" onerror="this.style.display='none'">
+          <div class="media-caption">Blogs — use the + button to add tags, categories, and new posts.</div>
+        </div>
+        <div class="media-box">
+          <img src="../../assets/Website_CA__CloudDesk9-503857c4-0afd-458f-97d7-ce4bd7a471e5.png" alt="Blogs screen highlighting add new tag, category and blog options" onerror="this.style.display='none'">
+          <div class="media-caption">Blogs — second view showing Add New Tag, Add New Category and Add New Blog options.</div>
+        </div>
+      </section>
+
+      <section id="about-us" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>
+          5 — About Us
+        </h2>
+        <p style="color: var(--muted-foreground); font-size: 0.95rem; margin-bottom: 0.75rem;">
+          The <strong>About Us</strong> tile controls your story page — why clients should choose you and who is in your team.
+        </p>
+        <ul class="simple-list">
+          <li>In <strong>Website → About Us</strong>, use the <strong>About Us</strong> tab for the main heading, description and image.</li>
+          <li>Use <strong>Why Us</strong> to highlight your strengths.</li>
+          <li>On the <strong>Mission &amp; Vision</strong> tab, add mission and vision headings with short descriptions.</li>
+          <li>On the <strong>Team Members</strong> tab, click <strong>Add Member</strong> to add name, designation, image and whether the member is team lead.</li>
+        </ul>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk10-e9e1ce8b-622f-4689-ab40-fc377d03f695.png" alt="About Us tab with heading, description and image upload" onerror="this.style.display='none'">
+          <div class="media-caption">About Us — add a heading, description and image for your firm.</div>
+        </div>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk11-d5c551b2-2638-4591-a83d-ac82f6832226.png" alt="Mission and Vision tab with mission and vision headings and descriptions" onerror="this.style.display='none'">
+          <div class="media-caption">Mission &amp; Vision — explain why you exist and how you serve clients.</div>
+        </div>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk12-158bc111-b8db-4418-af0b-4ff03f578c91.png" alt="Team members tab with add member form including name, designation and image" onerror="this.style.display='none'">
+          <div class="media-caption">Team Members — add your team’s names, designations and photos.</div>
+        </div>
+      </section>
+
+      <section id="gallery" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          6 — Gallery
+        </h2>
+        <p style="color: var(--muted-foreground); font-size: 0.95rem; margin-bottom: 0.75rem;">
+          Use the <strong>Gallery</strong> tile to share photos from events, seminars and office activities.
+        </p>
+        <ul class="simple-list">
+          <li>Open <strong>Website → Gallery</strong>.</li>
+          <li>Click <strong>Add New Event</strong>, give it a title, and upload one or more images.</li>
+          <li>Save to publish the event and its images on your website.</li>
+        </ul>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk14-39bdbd66-5183-44a4-b80b-4ca774393ef2.png" alt="Add event screen with title and multiple image upload options" onerror="this.style.display='none'">
+          <div class="media-caption">Add Event — give the event a title and upload multiple images.</div>
+        </div>
+        <div class="media-box">
+          <img src="../../assets/Website_CA_CloudDesk13-d8e245cc-df93-449f-95b2-ad53fc6e5aab.png" alt="Gallery tile selected in website module" onerror="this.style.display='none'">
+          <div class="media-caption">Gallery — open the Gallery tile to add events and photos.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

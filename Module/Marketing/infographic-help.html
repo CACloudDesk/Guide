@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infographic — Marketing Module Help | CA CloudDesk</title>
+  <meta name="description" content="Guide to use Infographic tools in CA CloudDesk: open templates, search by name or category, customise details and download or share ready infographics.">
+  <meta name="keywords" content="CA CloudDesk, marketing, infographic, templates, deadline reminder, partner desk, tools">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --background: #ffffff;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background-color: #fcfcfc;
+      color: var(--foreground);
+      line-height: 1.47;
+    }
+
+    .top-header {
+      background: #f0fdfb;
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-container img { height: 45px; }
+
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
+
+    .breadcrumb {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin-bottom: 0.5rem; }
+
+    .sidebar-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--muted);
+      color: var(--primary-dark);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(2, 218, 197, 0.1);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .path-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .path-indicator span { color: var(--primary-dark); }
+
+    .content h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .content h1 svg { color: var(--primary); width: 40px; height: 40px; }
+    .content .lead { font-size: 1.05rem; color: var(--muted-foreground); margin-bottom: 2.5rem; }
+
+    .section { margin-bottom: 3.5rem; scroll-margin-top: 100px; }
+
+    .section-title {
+      font-size: 1.55rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title svg { color: var(--primary); width: 24px; height: 24px; }
+
+    .steps-container { margin-top: 0.5rem; }
+
+    .step-card {
+      position: relative;
+      padding-left: 3.5rem;
+      padding-bottom: 1.75rem;
+      border-left: 2px solid var(--border);
+      margin-left: 1rem;
+    }
+
+    .step-card:last-child { border-left-color: transparent; padding-bottom: 0; }
+
+    .step-number {
+      position: absolute;
+      left: -1.35rem;
+      top: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .step-card h3 { font-size: 1.1rem; font-weight: 600; color: var(--foreground); margin-bottom: 0.4rem; }
+    .step-card > p { color: var(--muted-foreground); margin-bottom: 0.75rem; }
+
+    .note-box {
+      background: #ecfeff;
+      border: 1px solid #a5f3fc;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      color: var(--muted-foreground);
+      margin-top: 0.75rem;
+    }
+
+    .media-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem;
+      margin: 1rem 0 0.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .media-box img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .media-caption {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    ul.simple-list {
+      padding-left: 1.2rem;
+      color: var(--muted-foreground);
+      font-size: 0.95rem;
+    }
+
+    ul.simple-list li { margin-bottom: 0.25rem; }
+
+    .sidebar-pdf-button {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .pdf-cart-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .pdf-cart-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.15), 0 4px 8px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .pdf-cart-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+    .footer-bottom {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    @media (max-width: 968px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="marketing-help.html">Marketing</a> / <span>Infographic</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#path" class="active">Path</a></li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#select-template">1. Select infographic template</a></li>
+        <li><a href="#customise-details">2. Customise details</a></li>
+        <li><a href="#download-share">3. Download or share</a></li>
+      </ul>
+
+      <div class="sidebar-pdf-button">
+        <a href="../../assets/guide_pdf_Infographic.pdf" target="_blank" rel="noopener" class="pdf-cart-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          View PDF Guide
+        </a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Infographic (Marketing)
+      </h1>
+      <p class="lead">
+        Use the <strong>Infographic</strong> tool in Partner Desk to quickly create professional client‑ready visuals such as tax reminders and information cards, then download or share them in seconds.
+      </p>
+
+      <section id="path" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Path
+        </h2>
+        <div class="path-indicator">
+          <span>Login (Partner Desk)</span> → <span>Tools</span> → <span>Infographic</span>
+        </div>
+        <p style="color: var(--muted-foreground); font-size: 0.96rem; margin-top: 0.5rem;">
+          Log in to your CA CloudDesk <strong>Partner Desk</strong>. From the dashboard, scroll to the bottom navigation and click <strong>Tools</strong>. Under Tools, select <strong>Infographic</strong> to open the templates gallery.
+        </p>
+        <div class="media-box">
+          <img src="assets/Infographic_CA_CloudDesk-18d67f26-aff7-45dc-8aaf-7f9aca446387.png" alt="Partner Desk dashboard home screen" onerror="this.style.display='none'">
+          <div class="media-caption">Partner Desk — home dashboard.</div>
+        </div>
+        <div class="media-box">
+          <img src="assets/Infographic_CA_CloudDesk2-9eded998-258d-45e9-944c-aaa2e43b2e8a.png" alt="Footer navigation highlighting Tools and Infographic option" onerror="this.style.display='none'">
+          <div class="media-caption">From the bottom of the page choose <strong>Tools</strong> → <strong>Infographic</strong>.</div>
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          Infographic gallery at a glance
+        </h2>
+        <p style="color: var(--muted-foreground); font-size: 0.96rem;">
+          The Infographic page shows a gallery of ready‑made templates that you can search, filter by category and customise with your firm details.
+        </p>
+        <ul class="simple-list" style="margin-top: 0.5rem;">
+          <li>Use the <strong>Search</strong> bar at the top to find templates by keyword (for example, <strong>Deadline</strong>).</li>
+          <li>Use the <strong>Category</strong> dropdown to filter by type (GST, Festival, Tips, Marketing and more).</li>
+          <li>Click <strong>Select</strong> on any card to open the customisation screen.</li>
+        </ul>
+        <div class="media-box">
+          <img src="assets/Infographic_CA_CloudDesk3-d295de3d-92d8-4a5e-989e-dad8551529df.png" alt="Infographics landing page with search bar and featured templates" onerror="this.style.display='none'">
+          <div class="media-caption">Infographic homepage — search and browse featured templates.</div>
+        </div>
+        <div class="media-box">
+          <img src="assets/Infographic_CA_CloudDesk4-da098d5d-a386-4754-9ade-e5f94b8b4525.png" alt="Grid of infographic templates including Tax Tips and Financial Management" onerror="this.style.display='none'">
+          <div class="media-caption">Browse different designs such as Birthday wishes, Tax tips, Financial Management and more.</div>
+        </div>
+        <div class="media-box">
+          <img src="assets/Infographic_CA_CloudDesk5-06745377-3513-45b3-bd69-f2f42c323df8.png" alt="Best Infographics page with Category filter dropdown" onerror="this.style.display='none'">
+          <div class="media-caption">Use the category search on the right to filter templates (for example, <strong>GST</strong> for tax deadlines).</div>
+        </div>
+      </section>
+
+      <section id="select-template" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10"/><path d="M7 12h6"/><path d="M7 16h4"/></svg>
+          Step 1 — Select an infographic template
+        </h2>
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Search and choose a template (example — Deadline)</h3>
+            <p>
+              In the top <strong>Search</strong> bar, type the keyword for the design you need — for example, <strong>Deadline</strong> to show filing due‑date reminders. From the results, click <strong>Select</strong> on the template you want to use.
+            </p>
+            <p>
+              You can also narrow down the list using the <strong>Category</strong> search (for example, choose <strong>GST</strong> to see GST‑related reminders only).
+            </p>
+            <div class="media-box">
+              <img src="assets/Infographic_CA_CloudDesk6-28a11997-af48-43ce-b749-2db75a0e7682.png" alt="Selected deadline infographic showing customisation form on the right" onerror="this.style.display='none'">
+              <div class="media-caption">After you click <strong>Select</strong>, the chosen template opens with fields to enter your firm details.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="customise-details" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v4H3z"/><path d="M5 7v14"/><path d="M19 7v14"/><path d="M9 13h6"/><path d="M9 17h4"/></svg>
+          Step 2 — Enter firm details and branding
+        </h2>
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Fill the Deadline form</h3>
+            <p>
+              On the right side of the selected template you will see a simple form. Fill in the following details so that your infographic is branded with your firm information:
+            </p>
+            <ul class="simple-list" style="margin-top: 0.5rem;">
+              <li><strong>Firm Name*</strong> — your firm / practice name (mandatory).</li>
+              <li><strong>Phone*</strong> — contact number to display on the graphic.</li>
+              <li><strong>E‑mail</strong> — official email ID to show to clients.</li>
+              <li><strong>Logo Upload</strong> — upload your CA CloudDesk, CA or firm logo from your system.</li>
+              <li><strong>Select Colour</strong> — choose one of the colour circles to match your branding.</li>
+            </ul>
+            <div class="note-box">
+              Fields marked with <strong>*</strong> are mandatory. The preview on the left updates automatically with your firm name, phone and logo so you can confirm the design before downloading.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="download-share" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/><path d="M5 19h14"/></svg>
+          Step 3 — Download or share your infographic
+        </h2>
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Create and use the final image</h3>
+            <p>
+              After entering all required details and choosing the colour, click <strong>Download</strong> to save the infographic image to your device, or click <strong>Share</strong> to share it directly from the tool.
+            </p>
+            <p>
+              Your customised infographic is now ready to be used on WhatsApp, email, social media or any other client communication channel.
+            </p>
+            <div class="media-box">
+              <img src="assets/deadline-6394e622-f693-4f41-abfc-f1603ee2ea8d.png" alt="Final customised deadline infographic with firm name and contact details" onerror="this.style.display='none'">
+              <div class="media-caption">Example of a completed Deadline infographic with firm name and phone number.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

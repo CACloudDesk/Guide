@@ -6,24 +6,24 @@
   <title>Allocate Leaves to Employee — CA Cloud Desk Help</title>
   <meta name="description" content="Step-by-step guide to allocate leaves to employees in CA Cloud Desk. Part A: create leave quota (HRMS Setting → Leave Quota). Part B: bulk upload via HRMS Leave → Leave Credit/Debit and sample Excel.">
   <meta name="keywords" content="CA Cloud Desk, setup, allocate leaves, leave quota, HRMS Setting, HRMS Leave, leave credit debit, bulk upload, leave type, branch, designation, annual count">
-  <link rel="icon" href="../../cacloud.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { --primary: #25b7a7; --primary-dark: #00b8a9; --dark: #0a2123; --foreground: #0f172a; --muted: #f1f5f9; --muted-foreground: #64748b; --border: #e2e8f0; --radius: 12px; --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px rgb(0 0 0 / 0.1); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; color: var(--foreground); line-height: 1.6; }
-    .top-header { background: rgba(10, 33, 35, 0.98); border-bottom: 2px solid var(--primary); padding: 0.75rem 1.5rem; position: sticky; top: 0; z-index: 1000; min-height: 70px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background-color: #fcfcfc; color: var(--foreground); line-height: 1.47; font-size: 17px; }
+    .top-header { background: #f0fdfb; border-bottom: 2px solid var(--primary); padding: 0.75rem 1.5rem; position: sticky; top: 0; z-index: 1000; min-height: 70px; }
     .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .logo-container { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .logo-container img { height: 45px; }
-    .logo-text { color: white; font-weight: 700; font-size: 1.25rem; }
-    .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.875rem; color: rgba(255, 255, 255, 0.7); }
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
+    .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.875rem; color: var(--muted-foreground); }
     .breadcrumb a { color: var(--primary); text-decoration: none; }
     .layout { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; display: grid; grid-template-columns: 280px 1fr; gap: 3rem; }
     .sidebar { position: sticky; top: 100px; height: fit-content; background: white; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
-    .sidebar-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-foreground); margin-bottom: 1rem; font-weight: 700; }
+    .sidebar-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-foreground); margin-bottom: 1rem; font-weight: 600; }
     .sidebar-nav { list-style: none; }
     .sidebar-nav li { margin-bottom: 0.5rem; }
     .sidebar-nav a { color: var(--foreground); text-decoration: none; font-size: 0.9375rem; display: block; padding: 0.5rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
@@ -90,7 +90,7 @@
   <header class="top-header">
     <div class="header-container">
       <a href="../../index.html" class="logo-container">
-        <img src="../../transparent%20logo.png" alt="Logo" onerror="this.src='../../cacloud.svg'">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
         <div class="logo-text">CA Cloud Desk</div>
       </a>
       <nav class="breadcrumb">
@@ -113,7 +113,7 @@
         <li><a href="#related">Related</a></li>
       </ul>
       <div class="sidebar-pdf-button">
-        <button class="pdf-cart-button" onclick="openPDFViewer()">
+        <a href="../../assets/allocate-leaves-to-employee-guide.pdf" target="_blank" rel="noopener" class="pdf-cart-button" style="text-decoration: none;">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
@@ -121,7 +121,7 @@
             <line x1="16" y1="17" x2="8" y2="17"/>
           </svg>
           View PDF Guide
-        </button>
+        </a>
       </div>
     </aside>
 
@@ -151,6 +151,11 @@
           Part A
         </h2>
         <p class="lead" style="margin-bottom: 1.5rem;">Create a leave quota by defining leave type, branch, designation, and annual count. After saving, the leave quota setting is created successfully.</p>
+
+        <div class="media-box">
+          <img src="../../assets/allocate-leaves-part-a-flowchart.png" alt="Part A flowchart: Dashboard → Profile Setting → HRMS → HRMS Setting → Leave Quota → + Add Leave Quota">
+          <p class="media-caption">Part A — Dashboard → Profile Setting → HRMS → HRMS Setting → Leave Quota → + Add Leave Quota</p>
+        </div>
 
         <div class="steps-container">
           <div class="step-card">
@@ -200,6 +205,11 @@
         </h2>
         <p class="lead" style="margin-bottom: 1.5rem;">Allocate leaves to employees in bulk by uploading an Excel file. Use HRMS Leave → Leave Credit/Debit, then the plus icon beside the Remarks column to download the sample file and upload your data.</p>
 
+        <div class="media-box">
+          <img src="../../assets/allocate-leaves-part-b-flowchart.png" alt="Part B flowchart: Dashboard → Profile Setting → HRMS Leave → Leave Credit/Debit">
+          <p class="media-caption">Part B — Dashboard → Profile Setting → HRMS Leave → Leave Credit/Debit</p>
+        </div>
+
         <div class="steps-container">
           <div class="step-card">
             <div class="step-number">1</div>
@@ -240,8 +250,8 @@
             </ul>
             <p style="margin-top: 1rem;">Leave allocations will be applied in bulk according to your uploaded file.</p>
             <div class="media-box">
-              <img src="../../assets/Screenshot_2026-02-16_at_11.07.28_AM-a9d01bad-83a0-4143-9eae-b9a95cd52dd5.png" alt="Leave Credit/Debit — plus icon beside Remarks for bulk upload" onerror="this.style.display='none'">
-              <p class="media-caption">Step 4 — Click the + beside Remarks to download sample Excel, upload your file, add remarks, then Save.</p>
+              <img src="../../assets/allocate-leaves-part-b-step4-bulk-upload.png" alt="Bulk Upload dialog — download sample Excel, upload file, add remarks, then Save">
+              <p class="media-caption">Step 4 — Bulk Upload: download sample Excel, prepare your file, click to upload, add remarks, then Save.</p>
             </div>
           </div>
         </div>
@@ -293,7 +303,7 @@
     <div class="footer-content">
       <div class="footer-grid">
         <div class="footer-section">
-          <h4>More</h4>
+          <h4>CA CloudDesk</h4>
           <ul>
             <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
             <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
@@ -352,8 +362,10 @@
           </svg>
           Download PDF
         </a>
+        <a href="../../assets/allocate-leaves-to-employee-guide.pdf" target="_blank" rel="noopener" class="pdf-download-btn" style="margin-left: 0.5rem;">Open in new tab</a>
       </div>
       <div class="pdf-modal-body">
+        <p class="pdf-fallback-msg" style="margin:0 0 0.5rem 0; font-size:0.875rem; color:var(--muted-foreground);">If the PDF does not display below, use <strong>Open in new tab</strong> or <strong>Download PDF</strong> above.</p>
         <iframe src="../../assets/allocate-leaves-to-employee-guide.pdf#toolbar=1" class="pdf-viewer" id="pdfViewerIframe" type="application/pdf" title="Allocate Leaves to Employee Guide PDF"></iframe>
       </div>
     </div>

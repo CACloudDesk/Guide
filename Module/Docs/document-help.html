@@ -6,7 +6,7 @@
   <title>Document Management — CA Cloud Desk Help</title>
   <meta name="description" content="Manage your practice's documents, customer files, DSC tracking, UDIN repository, and compliance documents in CA Cloud Desk. Comprehensive guide for document management.">
   <meta name="keywords" content="CA Cloud Desk, document management, customer documents, DSC tracker, UDIN repository, peer review, fixed asset register, 15CA, 15CB">
-  <link rel="icon" href="../../cacloud.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,16 +34,16 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       background-color: #f8fafc;
       color: var(--foreground);
-      line-height: 1.6;
-      font-size: 16px;
+      line-height: 1.47;
+      font-size: 17px;
     }
 
     /* Minimal Professional Top Header */
     .top-header {
-      background: rgba(10, 33, 35, 0.98);
+      background: #f0fdfb;
       backdrop-filter: blur(10px);
       border-bottom: 2px solid #02dac5;
       padding: 0.75rem 1.5rem;
@@ -77,8 +77,8 @@
     }
 
     .logo-text {
-      color: white;
-      font-weight: 700;
+      color: var(--dark);
+      font-weight: 600;
       font-size: 1.25rem;
       letter-spacing: -0.025em;
     }
@@ -87,7 +87,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--muted-foreground);
       font-size: 0.875rem;
     }
 
@@ -98,7 +98,7 @@
     }
 
     .breadcrumb a:hover {
-      color: white;
+      color: var(--primary-dark);
     }
 
     /* Main Container */
@@ -149,8 +149,10 @@
     }
 
     .module-hero h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
+      font-size: 3.25rem;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
       margin-bottom: 1rem;
     }
 
@@ -239,7 +241,7 @@
     .sub-module-card p {
       color: var(--muted-foreground);
       font-size: 0.9375rem;
-      line-height: 1.6;
+      line-height: 1.47;
       margin-bottom: 1rem;
     }
 
@@ -366,7 +368,7 @@
 
     .footer-section h4 {
       font-size: 1.125rem;
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 1.5rem;
       position: relative;
       padding-bottom: 0.5rem;
@@ -428,7 +430,7 @@
 
     @media (max-width: 768px) {
       .header-container { flex-direction: column; gap: 1rem; }
-      .module-hero h1 { font-size: 2rem; }
+      .module-hero h1 { font-size: 2.25rem; letter-spacing: -0.03em; }
       .sub-modules-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -438,7 +440,7 @@
   <header class="top-header">
     <div class="header-container">
       <a href="../../index.html" class="logo-container">
-        <img src="../../transparent%20logo.png" alt="CA Cloud Desk Logo" onerror="this.src='../../cacloud.svg'">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
         <div class="logo-text">CA Cloud Desk</div>
       </a>
       <nav class="breadcrumb">
@@ -465,7 +467,7 @@
 
     <div class="sub-modules-grid">
       <!-- Customer Documents -->
-      <div class="sub-module-card disabled">
+      <a href="customer-document-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
@@ -473,12 +475,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg>
         </div>
         <h3>Customer Documents</h3>
-        <p>Organize and manage all client-related documents, files, and records in one centralized location.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Give clients access to documents and folders, use Master Access, and let clients share their files with you.</p>
+        <span class="sub-module-badge">View Guide</span>
+      </a>
 
       <!-- Create Documents -->
-      <div class="sub-module-card disabled">
+      <a href="create-document-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
         </div>
@@ -486,12 +488,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
         </div>
         <h3>Create Documents</h3>
-        <p>Generate and create new documents, templates, and forms for your practice and clients.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Create certificates, agreements, resolutions, and annexures quickly with ready templates.</p>
+        <span class="sub-module-badge">View Guide</span>
+      </a>
 
       <!-- Inward & Outward Documents -->
-      <div class="sub-module-card disabled">
+      <a href="inward-outward-document-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
         </div>
@@ -500,11 +502,11 @@
         </div>
         <h3>Inward & Outward Documents</h3>
         <p>Track and manage incoming and outgoing documents with proper categorization and status tracking.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <span class="sub-module-badge">View Guide</span>
+      </a>
 
       <!-- DSC Tracker -->
-      <div class="sub-module-card disabled">
+      <a href="dsc-tracker-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
@@ -513,11 +515,11 @@
         </div>
         <h3>DSC Tracker</h3>
         <p>Monitor and track Digital Signature Certificates, their validity, expiry dates, and renewal status.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <span class="sub-module-badge">View Guide</span>
+      </a>
 
       <!-- UDIN Repository -->
-      <div class="sub-module-card disabled">
+      <a href="udin-repository-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
         </div>
@@ -526,11 +528,11 @@
         </div>
         <h3>UDIN Repository</h3>
         <p>Store and manage Unique Document Identification Numbers for audit reports and certificates.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <span class="sub-module-badge">View Guide</span>
+      </a>
 
       <!-- Peer Review -->
-      <div class="sub-module-card disabled">
+      <a href="peer-review-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M9 9a2 2 0 0 0 0 4"/></svg>
         </div>
@@ -538,12 +540,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg>
         </div>
         <h3>Peer Review</h3>
-        <p>Manage peer review processes, track review status, and maintain review documentation.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <p>Create peer review entries, assign team members, and upload engagement documents with a fixed checklist.</p>
+        <span class="sub-module-badge">View Guide</span>
+      </a>
 
       <!-- Fixed Asset Register -->
-      <div class="sub-module-card disabled">
+      <a href="fixed-asset-register-help.html" class="sub-module-card">
         <div class="sub-module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
         </div>
@@ -552,8 +554,8 @@
         </div>
         <h3>Fixed Asset Register</h3>
         <p>Maintain comprehensive records of fixed assets, their valuation, depreciation, and documentation.</p>
-        <span class="sub-module-badge under-development">Under Development</span>
-      </div>
+        <span class="sub-module-badge">View Guide</span>
+      </a>
 
       <!-- 15CA & 15CB -->
       <div class="sub-module-card disabled">
@@ -626,12 +628,11 @@
     </div>
     <div class="footer-content">
       <div class="footer-section">
-        <h4>More</h4>
+        <h4>CA CloudDesk</h4>
         <ul class="footer-links">
           <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
           <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
           <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
-          <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
           <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
         </ul>
       </div>
@@ -639,9 +640,9 @@
       <div class="footer-section">
         <h4>Essential Resources</h4>
         <ul class="footer-links">
-          <li><a href="https://utility.caclouddesk.com/">Free Tools and Utilities</a></li>
-          <li><a href="https://caclouddesk.com/use-cases/">Use Cases</a></li>
-          <li><a href="https://caclouddesk.com/features/">Features</a></li>
+          <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
+          <li><a href="#">Use Cases</a></li>
+          <li><a href="#">Features</a></li>
           <li><a href="../../index.html">Modules</a></li>
         </ul>
       </div>

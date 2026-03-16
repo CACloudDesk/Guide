@@ -6,7 +6,7 @@
   <title>Add Branches — CA Cloud Desk Help</title>
   <meta name="description" content="Step-by-step guide to add branches in CA Cloud Desk. Navigate from Dashboard to Profile, Branch Data, then add a branch with Basic Details, Billing, Payment, Social Media, and Support.">
   <meta name="keywords" content="CA Cloud Desk, setup, add branch, branch data, basic details, billing, payment, social media, support, GST, invoice, payslip">
-  <link rel="icon" href="../../cacloud.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,14 +29,14 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       background-color: #fcfcfc;
       color: var(--foreground);
-      line-height: 1.6;
+      line-height: 1.47;
     }
 
     .top-header {
-      background: rgba(10, 33, 35, 0.98);
+      background: #f0fdfb;
       backdrop-filter: blur(10px);
       border-bottom: 2px solid var(--primary);
       padding: 0.75rem 1.5rem;
@@ -63,13 +63,13 @@
 
     .logo-container img { height: 45px; }
 
-    .logo-text { color: white; font-weight: 700; font-size: 1.25rem; }
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
 
     .breadcrumb {
       display: flex;
       gap: 0.5rem;
       font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--muted-foreground);
     }
 
     .breadcrumb a { color: var(--primary); text-decoration: none; }
@@ -100,7 +100,7 @@
       letter-spacing: 0.05em;
       color: var(--muted-foreground);
       margin-bottom: 1rem;
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .sidebar-nav { list-style: none; }
@@ -557,7 +557,7 @@
   <header class="top-header">
     <div class="header-container">
       <a href="../../index.html" class="logo-container">
-        <img src="../../transparent%20logo.png" alt="Logo" onerror="this.src='../../cacloud.svg'">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
         <div class="logo-text">CA Cloud Desk</div>
       </a>
       <nav class="breadcrumb">
@@ -577,18 +577,18 @@
         <li><a href="#steps">Steps 1–4</a></li>
         <li><a href="#basic-details">Basic Details (fields)</a></li>
         <li><a href="#save-next">Save and Next</a></li>
-        <li><a href="#tutorial">Video Tutorial</a></li>
+        <li><a href="#video-tutorial">Video Tutorial</a></li>
         <li><a href="#related">Related</a></li>
       </ul>
       <div class="sidebar-pdf-button">
-        <button class="pdf-cart-button" onclick="openPDFViewer()">
+        <button type="button" onclick="openPDFViewer()" class="pdf-cart-button" style="width: 100%; border: none; cursor: pointer;">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
             <line x1="16" y1="13" x2="8" y2="13"/>
             <line x1="16" y1="17" x2="8" y2="17"/>
           </svg>
-          View Guide PDF
+          View PDF
         </button>
       </div>
     </aside>
@@ -622,7 +622,7 @@
             <h3>Go to Dashboard, then go to Profile</h3>
             <p>From the main Dashboard, click your <strong>profile icon</strong> (user avatar) in the top-right corner to open your profile area.</p>
             <div class="media-box">
-              <img src="../../assets/Screenshot_2026-02-13_at_1.53.26_PM-3a81f817-1995-4309-a8b8-6bb717dabc3a.png" alt="Dashboard with profile icon in top right" onerror="this.style.display='none'">
+              <img src="../../assets/Attached_image-a05d601e-2a0d-4e06-934d-07336f9e6798.png" alt="Dashboard with profile icon in top right" onerror="this.style.display='none'">
               <div class="media-caption">Dashboard — use the profile icon (top right) to open Profile.</div>
             </div>
           </div>
@@ -632,7 +632,7 @@
             <h3>From My Profile, select Branch Data</h3>
             <p>On the Profile page, use the secondary navigation tabs and select <strong>Branch Data</strong> (alongside My Profile, Organization Data, Credits, Organization Document).</p>
             <div class="media-box">
-              <img src="../../assets/Screenshot_2026-02-13_at_1.57.19_PM-3eb097d2-60cd-46e3-9cd2-6f00c220d793.png" alt="My Profile page with Branch Data tab" onerror="this.style.display='none'">
+              <img src="../../assets/task_guide_ca_cloud_desk-9650150c-bdf1-4f7f-8090-669f958eb2b9.png" alt="My Profile page with Branch Data tab" onerror="this.style.display='none'">
               <div class="media-caption">My Profile — select <strong>Branch Data</strong> in the tabs.</div>
             </div>
           </div>
@@ -660,7 +660,7 @@
             </div>
             <div class="media-box">
               <img src="../../assets/Screenshot_2026-02-13_at_2.02.15_PM-59ab7898-66f3-465a-8c35-3815fa092ee4.png" alt="Add Branch stepper: Basic Details, Billing, Payment, Social Media, Support" onerror="this.style.display='none'">
-              <div class="media-caption">Add Branch — step-wise flow: Basic Details (active), then Billing, Payment, Social Media, Support.</div>
+              <div class="media-caption">              Add Branch — step-wise flow: Basic Details (active), then Billing, Payment, Social Media, Support.</div>
             </div>
           </div>
         </div>
@@ -773,28 +773,23 @@
         <p>After filling the Basic Details (and optionally setting default branch), click <strong>Save and Next</strong> to move to <strong>Billing</strong>. Then complete <strong>Payment</strong>, <strong>Social Media</strong>, and <strong>Support</strong> as required to finish adding the branch.</p>
       </section>
 
-      <section id="tutorial" class="section">
+      <section id="video-tutorial" class="section">
         <h2 class="section-title">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
           Video Tutorial
         </h2>
-        <p>Watch this video for a step-by-step walkthrough of adding branches in CA Cloud Desk—Dashboard → Profile → Branch Data → Add Branch, and the Basic Details, Billing, Payment, Social Media, and Support steps.</p>
-
+        <p>Watch this video for a step-by-step walkthrough of adding branches in CA Cloud Desk—Dashboard → Profile → Branch Data → Add Branch, and the Basic Details, Billing, Payment, Social Media, and Support steps. You can also use the <strong>View PDF</strong> button in the left sidebar to open or download the full guide.</p>
         <div class="media-box">
           <a href="https://www.youtube.com/watch?v=3BeAJXwIbb0" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
             <div class="video-wrapper" id="videoContainer">
-              <div class="video-preview" id="videoPreview">
-                <img src="https://img.youtube.com/vi/3BeAJXwIbb0/maxresdefault.jpg" alt="Video thumbnail" onerror="this.onerror=null; this.src='https://img.youtube.com/vi/3BeAJXwIbb0/hqdefault.jpg';" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; pointer-events: none;">
+              <div class="video-preview" id="videoPreview" style="background-image: url('../../assets/add-branch-video-thumb.png'); background-size: cover; background-position: center;">
                 <div class="play-button">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                 </div>
               </div>
             </div>
           </a>
           <div class="media-caption">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.5 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.5 0 0 0-1.94 2C1 8.14 1 11.75 1 11.75s0 3.61.46 5.33a2.78 2.5 0 0 0 1.94 2C5.12 19.5 12 19.5 12 19.5s6.88 0 8.6-.42a2.78 2.5 0 0 0 1.94-2c.46-1.72.46-5.33.46-5.33s0-3.61-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
             Tutorial: Add Branches in CA Cloud Desk
             <span style="margin-left: 1rem; font-size: 0.75rem; opacity: 0.7;">
               <a href="https://www.youtube.com/watch?v=3BeAJXwIbb0" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: underline;">Watch on YouTube</a>
@@ -817,7 +812,7 @@
     <div class="footer-content">
       <div class="footer-grid">
         <div class="footer-section">
-          <h4>More</h4>
+          <h4>CA CloudDesk</h4>
           <ul>
             <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
             <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
@@ -867,7 +862,7 @@
         </button>
       </div>
       <div class="pdf-modal-actions">
-        <a href="../../add-branch-guide.pdf" download="Add-Branch-Guide.pdf" class="pdf-download-btn">
+        <a href="../../assets/Guide%20PDF-%20Add%20Branch%20.pdf" download="Add-Branch-Guide.pdf" class="pdf-download-btn">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
@@ -875,9 +870,11 @@
           </svg>
           Download PDF
         </a>
+        <a href="../../assets/Guide%20PDF-%20Add%20Branch%20.pdf" target="_blank" rel="noopener" class="pdf-download-btn" style="margin-left: 0.5rem;">Open in new tab</a>
       </div>
       <div class="pdf-modal-body">
-        <iframe src="../../add-branch-guide.pdf#toolbar=1" class="pdf-viewer" type="application/pdf" title="Add Branch Guide PDF"></iframe>
+        <p class="pdf-fallback-msg" style="margin:0 0 0.5rem 0; font-size:0.875rem; color:var(--muted-foreground);">If the PDF does not display below, use <strong>Open in new tab</strong> or <strong>Download PDF</strong> above.</p>
+        <iframe src="../../assets/Guide%20PDF-%20Add%20Branch%20.pdf#toolbar=1" class="pdf-viewer" type="application/pdf" title="Add Branch Guide PDF"></iframe>
       </div>
     </div>
   </div>

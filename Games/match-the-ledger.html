@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match the Ledger Entries — CA Cloud Desk Games</title>
+  <meta name="description" content="Drag ledger accounts to match transaction descriptions. For CAs and accounting students.">
+  <link rel="icon" href="../assets/cacloud.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== CA Cloud Desk theme ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --correct: #10b981;
+      --incorrect: #ef4444;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f8fafc; color: var(--foreground); line-height: 1.6; min-height: 100vh; }
+
+    /* Header */
+    .game-header {
+      background: #f0fdfb;
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .game-header a { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .game-header a:hover { color: #5eead4; }
+    .game-title { color: var(--dark); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.025em; }
+
+    /* Scoreboard panel */
+    .scoreboard {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+    }
+    .scoreboard span { font-weight: 600; color: var(--dark); }
+    .scoreboard .val { color: var(--primary-dark); }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 1rem 1.5rem; }
+
+    /* Two panels: descriptions (left) and ledger accounts (right) */
+    .panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 700px) { .panels { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .panel h3 { font-size: 1rem; color: var(--dark); margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+
+    /* Description rows with drop zones */
+    .desc-list, .account-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .desc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      min-height: 52px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .desc-item.drag-over { border-color: var(--primary); background: rgba(37,183,167,0.08); }
+    .desc-item.matched { border-style: solid; border-color: var(--correct); background: rgba(16,185,129,0.1); }
+    .desc-item .desc-text { flex: 1; font-size: 0.9375rem; color: var(--foreground); }
+    .desc-item .drop-slot {
+      min-width: 140px;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-align: center;
+      background: var(--muted);
+      color: var(--muted-foreground);
+    }
+    .desc-item.matched .drop-slot { background: var(--correct); color: white; }
+
+    /* Draggable ledger account chips */
+    .account-chip {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .account-chip:hover { transform: scale(1.02); box-shadow: var(--shadow); }
+    .account-chip.dragging { opacity: 0.6; cursor: grabbing; }
+    .account-chip.used { opacity: 0.4; pointer-events: none; cursor: default; }
+
+    .account-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    /* Feedback area */
+    .feedback { min-height: 2rem; margin-bottom: 1rem; font-weight: 500; padding: 0.5rem; border-radius: 8px; font-size: 0.9375rem; }
+    .feedback.correct-msg { background: rgba(16,185,129,0.12); color: #047857; }
+    .feedback.incorrect-msg { background: rgba(239,68,68,0.12); color: #b91c1c; }
+
+    /* Footer buttons */
+    .footer-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .footer-buttons button {
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .btn-hint { background: var(--muted); color: var(--foreground); border: 2px solid var(--border); }
+    .btn-reset { background: var(--dark); color: white; }
+    .btn-reset:hover { background: #1e3a3d; }
+
+    /* Level complete overlay */
+    .level-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+    .level-overlay.show { display: flex; }
+    .level-overlay .celebration-wrap {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+    }
+    .level-overlay .level-box { position: relative; z-index: 1; }
+    .level-overlay .rocket {
+      position: absolute; top: 50%; font-size: 2.5rem; opacity: 0;
+      animation: rocketFlyL 1.2s ease-out forwards;
+    }
+    .level-overlay .rocket.rocket-left { left: -60px; animation-name: rocketFlyL; }
+    .level-overlay .rocket.rocket-right { right: -60px; animation-name: rocketFlyR; }
+    .level-overlay .rocket .rocket-emoji { display: block; filter: drop-shadow(0 0 6px rgba(255,180,0,0.8)); }
+    @keyframes rocketFlyL {
+      0% { left: -60px; opacity: 0; transform: translateY(-50%) scale(0.5); }
+      15% { opacity: 1; }
+      50% { left: 42%; transform: translateY(-50%) scale(1.15); }
+      100% { left: 42%; opacity: 1; transform: translateY(-50%) scale(1); }
+    }
+    @keyframes rocketFlyR {
+      0% { right: -60px; opacity: 0; transform: translateY(-50%) scale(0.5); }
+      15% { opacity: 1; }
+      50% { right: 42%; transform: translateY(-50%) scale(1.15); }
+      100% { right: 42%; opacity: 1; transform: translateY(-50%) scale(1); }
+    }
+    .level-overlay .confetti-piece {
+      position: absolute; width: 8px; height: 8px; border-radius: 1px;
+      top: 50%; left: 50%; opacity: 0; animation: confettiBurstM 2s ease-out forwards;
+    }
+    .level-overlay .confetti-piece.sprinkle { border-radius: 50%; width: 6px; height: 6px; }
+    @keyframes confettiBurstM {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(0); }
+      100% { opacity: 0.7; transform: translate(calc(-50% + var(--tx, 0px)), calc(-50% + var(--ty, 0px))) rotate(var(--rot, 0deg)) scale(1); }
+    }
+    .level-overlay .celebration-title { text-align: center; font-size: 1.25rem; font-weight: 600; color: var(--primary-dark); margin-bottom: 0.5rem; animation: titlePopM 0.6s ease-out 0.5s both; }
+    @keyframes titlePopM { 0% { transform: scale(0); opacity: 0; } 70% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
+    .level-box {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .level-box h2 { margin-bottom: 1rem; color: var(--correct); }
+    .level-box .stats { margin-bottom: 1.5rem; }
+    .level-box .stats p { margin-bottom: 0.35rem; }
+    .level-box button { width: 100%; padding: 0.75rem; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 0.5rem; }
+    .level-box button:hover { background: var(--primary-dark); }
+
+    /* Leaderboard */
+    .leaderboard-panel { margin-top: 2rem; background: white; border: 2px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
+    .leaderboard-panel h3 { font-size: 1rem; margin-bottom: 0.75rem; }
+    .leaderboard-list { list-style: none; }
+    .leaderboard-list li { padding: 0.4rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 0.9375rem; }
+  </style>
+</head>
+<body>
+  <header class="game-header">
+    <a href="./games.html">← Games</a>
+    <span class="game-title">Match the Ledger Entries</span>
+    <span style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">CA Cloud Desk</span>
+  </header>
+
+  <div class="container">
+    <div class="scoreboard">
+      <span>Time: <span class="val" id="timer">0:00</span></span>
+      <span>Matches: <span class="val" id="matchCount">0</span>/<span id="totalPairs">0</span></span>
+      <span>Attempts: <span class="val" id="attempts">0</span></span>
+      <span>Score: <span class="val" id="score">0</span></span>
+    </div>
+
+    <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+
+    <div class="panels">
+      <div class="panel">
+        <h3>Transaction descriptions</h3>
+        <div class="desc-list" id="descList"></div>
+      </div>
+      <div class="panel">
+        <h3>Ledger accounts (drag to description)</h3>
+        <div class="account-list" id="accountList"></div>
+      </div>
+    </div>
+
+    <div class="footer-buttons">
+      <button type="button" class="btn-hint" id="btnHint">Show Hint (−5 pts)</button>
+      <button type="button" class="btn-reset" id="btnReset">Reset game</button>
+    </div>
+
+    <section class="leaderboard-panel">
+      <h3>High scores</h3>
+      <ul class="leaderboard-list" id="leaderboardList"></ul>
+    </section>
+  </div>
+
+  <div class="level-overlay" id="levelOverlay">
+    <div class="celebration-wrap" id="celebrationWrap"></div>
+    <div class="level-box">
+      <p class="celebration-title" id="celebrationTitle">🎉 Level complete! 🎉</p>
+      <h2>Level complete</h2>
+      <div class="stats" id="levelStats"></div>
+      <input type="text" id="playerName" placeholder="Your name" maxlength="30" style="width:100%; padding:0.65rem; border:2px solid var(--border); border-radius:8px; margin-bottom:0.5rem;">
+      <button type="button" id="btnSaveScore">Save score</button>
+      <button type="button" id="btnNextLevel">Next level</button>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Match the Ledger Entries — Config and data
+     */
+    const SCENARIOS_PER_LEVEL = 10;
+    const POINTS_PER_MATCH = 10;
+    const HINT_PENALTY = 5;
+    const WRONG_PENALTY = 2;
+    const LEADERBOARD_KEY = 'matchLedgerLeaderboard';
+    const LEADERBOARD_MAX = 10;
+
+    /**
+     * Pool of transaction description → correct ledger account (primary account to match)
+     * We show one account per description; the "other" side can be inferred.
+     */
+    const SCENARIOS = [
+      { desc: 'Invoice received from supplier ₹15,000', account: 'Accounts Payable' },
+      { desc: 'Cash sales ₹25,000', account: 'Cash' },
+      { desc: 'Paid rent by cheque ₹18,000', account: 'Rent Expense' },
+      { desc: 'Purchased equipment on credit ₹40,000', account: 'Equipment' },
+      { desc: 'Received payment from debtor ₹12,000', account: 'Cash' },
+      { desc: 'Salary paid to staff ₹55,000', account: 'Salary Expense' },
+      { desc: 'Owner invested ₹1,00,000', account: 'Capital' },
+      { desc: 'Sold goods on credit ₹35,000', account: 'Accounts Receivable' },
+      { desc: 'Deposited cash in bank ₹30,000', account: 'Bank' },
+      { desc: 'Electricity bill paid ₹8,000', account: 'Utilities Expense' },
+      { desc: 'Commission earned, received in bank ₹10,000', account: 'Commission Income' },
+      { desc: 'Withdrew cash for personal use ₹15,000', account: 'Drawings' },
+      { desc: 'Interest on FD received ₹4,000', account: 'Interest Income' },
+      { desc: 'Insurance premium paid ₹9,000', account: 'Prepaid Insurance' },
+      { desc: 'Bad debt written off ₹3,000', account: 'Bad Debt Expense' },
+      { desc: 'Depreciation on machinery ₹6,000', account: 'Accumulated Depreciation' },
+      { desc: 'Office supplies purchased for cash ₹5,000', account: 'Office Supplies' },
+      { desc: 'Service revenue received ₹22,000', account: 'Service Revenue' },
+      { desc: 'Loan taken from bank ₹2,00,000', account: 'Bank Loan' },
+      { desc: 'GST paid to government ₹11,000', account: 'GST Payable' },
+    ];
+
+    let state = {
+      scenarios: [],
+      accounts: [],
+      matched: 0,
+      score: 0,
+      attempts: 0,
+      startTime: null,
+      timerInterval: null,
+      hintUsed: false,
+      draggedAccount: null,
+      draggedChipIndex: null,
+      usedChipIndices: [],
+    };
+
+    const descList = document.getElementById('descList');
+    const accountList = document.getElementById('accountList');
+    const feedbackEl = document.getElementById('feedback');
+    const timerEl = document.getElementById('timer');
+    const matchCountEl = document.getElementById('matchCount');
+    const totalPairsEl = document.getElementById('totalPairs');
+    const attemptsEl = document.getElementById('attempts');
+    const scoreEl = document.getElementById('score');
+    const btnHint = document.getElementById('btnHint');
+    const btnReset = document.getElementById('btnReset');
+    const levelOverlay = document.getElementById('levelOverlay');
+    const levelStats = document.getElementById('levelStats');
+    const playerNameInput = document.getElementById('playerName');
+    const btnSaveScore = document.getElementById('btnSaveScore');
+    const btnNextLevel = document.getElementById('btnNextLevel');
+    const leaderboardList = document.getElementById('leaderboardList');
+
+    /**
+     * Shuffle array (Fisher–Yates)
+     */
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    /**
+     * Pick SCENARIOS_PER_LEVEL random scenarios; one ledger chip per description (shuffled)
+     */
+    function buildRound() {
+      const pool = shuffle(SCENARIOS);
+      state.scenarios = pool.slice(0, SCENARIOS_PER_LEVEL).map(s => ({ ...s, matched: false }));
+      state.accounts = shuffle(state.scenarios.map(s => s.account));
+      state.matched = 0;
+      state.attempts = 0;
+      state.hintUsed = false;
+      state.usedChipIndices = [];
+      state.startTime = Date.now();
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      state.timerInterval = setInterval(() => {
+        const sec = Math.floor((Date.now() - state.startTime) / 1000);
+        timerEl.textContent = `${Math.floor(sec / 60)}:${(sec % 60).toString().padStart(2, '0')}`;
+      }, 500);
+    }
+
+    /**
+     * Optional: simple sound feedback (no external files)
+     */
+    function playCorrect() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.frequency.value = 523;
+        o.type = 'sine';
+        g.gain.setValueAtTime(0.15, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+        o.start(ctx.currentTime);
+        o.stop(ctx.currentTime + 0.15);
+      } catch (_) {}
+    }
+    function playIncorrect() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.frequency.value = 150;
+        o.type = 'sawtooth';
+        g.gain.setValueAtTime(0.1, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.2);
+        o.start(ctx.currentTime);
+        o.stop(ctx.currentTime + 0.2);
+      } catch (_) {}
+    }
+
+    /**
+     * Render description list with drop slots and account chips
+     */
+    function render() {
+      totalPairsEl.textContent = state.scenarios.length;
+      matchCountEl.textContent = state.matched;
+      attemptsEl.textContent = state.attempts;
+      scoreEl.textContent = state.score;
+
+      descList.innerHTML = state.scenarios.map((s, i) => {
+        const matched = s.matched === true;
+        return `
+          <div class="desc-item ${matched ? 'matched' : ''}" data-index="${i}">
+            <span class="desc-text">${s.desc}</span>
+            <span class="drop-slot" data-index="${i}">${matched ? s.account : 'Drop here'}</span>
+          </div>
+        `;
+      }).join('');
+
+      accountList.innerHTML = state.accounts.map((acc, chipIndex) => {
+        const used = state.usedChipIndices.includes(chipIndex);
+        return `<span class="account-chip ${used ? 'used' : ''}" data-account="${acc}" data-chip-index="${chipIndex}" draggable="true">${acc}</span>`;
+      }).join('');
+
+      // Attach drag and drop
+      document.querySelectorAll('.account-chip:not(.used)').forEach(el => {
+        el.addEventListener('dragstart', onDragStart);
+        el.addEventListener('dragend', onDragEnd);
+      });
+      document.querySelectorAll('.desc-item:not(.matched) .drop-slot').forEach(el => {
+        el.addEventListener('dragover', onDragOver);
+        el.addEventListener('dragleave', onDragLeave);
+        el.addEventListener('drop', onDrop);
+      });
+    }
+
+    function onDragStart(e) {
+      state.draggedAccount = e.target.dataset.account;
+      state.draggedChipIndex = parseInt(e.target.dataset.chipIndex, 10);
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', state.draggedAccount);
+    }
+
+    function onDragEnd(e) {
+      e.target.classList.remove('dragging');
+      state.draggedChipIndex = null;
+      state.draggedAccount = null;
+    }
+
+    function onDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const item = e.target.closest('.desc-item');
+      if (item && !item.classList.contains('matched')) item.classList.add('drag-over');
+    }
+
+    function onDragLeave(e) {
+      const item = e.target.closest('.desc-item');
+      if (item) item.classList.remove('drag-over');
+    }
+
+    function onDrop(e) {
+      e.preventDefault();
+      const item = e.target.closest('.desc-item');
+      if (!item || item.classList.contains('matched')) return;
+      item.classList.remove('drag-over');
+      const index = parseInt(item.dataset.index, 10);
+      const scenario = state.scenarios[index];
+      const account = state.draggedAccount;
+      state.attempts += 1;
+
+      if (scenario.account === account) {
+        scenario.matched = true;
+        if (state.draggedChipIndex != null) state.usedChipIndices.push(state.draggedChipIndex);
+        state.matched += 1;
+        state.score += POINTS_PER_MATCH;
+        feedbackEl.textContent = 'Correct match!';
+        feedbackEl.className = 'feedback correct-msg';
+        playCorrect();
+        render();
+        if (state.matched === state.scenarios.length) levelComplete();
+      } else {
+        state.score = Math.max(0, state.score - WRONG_PENALTY);
+        feedbackEl.textContent = `Wrong. "${account}" does not match this transaction. Try again.`;
+        feedbackEl.className = 'feedback incorrect-msg';
+        playIncorrect();
+        matchCountEl.textContent = state.matched;
+        attemptsEl.textContent = state.attempts;
+        scoreEl.textContent = state.score;
+      }
+    }
+
+    /**
+     * Hint: reveal one correct match with penalty
+     */
+    function showHint() {
+      if (state.hintUsed) return;
+      const unmatchedIndices = state.scenarios.map((s, i) => i).filter(i => !state.scenarios[i].matched);
+      if (unmatchedIndices.length === 0) return;
+      state.hintUsed = true;
+      state.score = Math.max(0, state.score - HINT_PENALTY);
+      const pickIndex = unmatchedIndices[Math.floor(Math.random() * unmatchedIndices.length)];
+      const pick = state.scenarios[pickIndex];
+      pick.matched = true;
+      const chipIndex = state.accounts.findIndex((acc, i) => acc === pick.account && !state.usedChipIndices.includes(i));
+      if (chipIndex >= 0) state.usedChipIndices.push(chipIndex);
+      state.matched += 1;
+      state.score += POINTS_PER_MATCH;
+      feedbackEl.textContent = `Hint used: "${pick.desc}" → ${pick.account}. (${HINT_PENALTY} pt penalty applied.)`;
+      feedbackEl.className = 'feedback correct-msg';
+      btnHint.disabled = true;
+      render();
+      if (state.matched === state.scenarios.length) levelComplete();
+    }
+
+    /**
+     * Win celebration: rockets + confetti
+     */
+    function startCelebration() {
+      const celebrationWrap = document.getElementById('celebrationWrap');
+      if (!celebrationWrap) return;
+      celebrationWrap.innerHTML = '';
+      const rocketLeft = document.createElement('div');
+      rocketLeft.className = 'rocket rocket-left';
+      rocketLeft.innerHTML = '<span class="rocket-emoji">🚀</span>';
+      const rocketRight = document.createElement('div');
+      rocketRight.className = 'rocket rocket-right';
+      rocketRight.innerHTML = '<span class="rocket-emoji">🚀</span>';
+      const confettiContainer = document.createElement('div');
+      confettiContainer.className = 'confetti-wrap';
+      confettiContainer.style.cssText = 'position:absolute;inset:0;pointer-events:none;';
+      celebrationWrap.appendChild(rocketLeft);
+      celebrationWrap.appendChild(rocketRight);
+      celebrationWrap.appendChild(confettiContainer);
+      const colors = ['#25b7a7', '#00b8a9', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+      for (let i = 0; i < 50; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece' + (Math.random() > 0.5 ? ' sprinkle' : '');
+        const angle = (Math.PI * 2 * i) / 50 + Math.random() * 2;
+        const dist = 60 + Math.random() * 150;
+        piece.style.setProperty('--tx', (Math.cos(angle) * dist * (Math.random() > 0.5 ? 1 : -1)) + 'px');
+        piece.style.setProperty('--ty', (Math.sin(angle) * dist - Math.random() * 60) + 'px');
+        piece.style.setProperty('--rot', ((Math.random() - 0.5) * 720) + 'deg');
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = (Math.random() * 0.25) + 's';
+        confettiContainer.appendChild(piece);
+      }
+    }
+
+    /**
+     * Level complete: show overlay with stats and save/next
+     */
+    function levelComplete() {
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      const sec = Math.floor((Date.now() - state.startTime) / 1000);
+      levelStats.innerHTML = `
+        <p><strong>Score:</strong> ${state.score}</p>
+        <p><strong>Time:</strong> ${Math.floor(sec / 60)}:${(sec % 60).toString().padStart(2, '0')}</p>
+        <p><strong>Attempts:</strong> ${state.attempts}</p>
+      `;
+      playerNameInput.value = '';
+      startCelebration();
+      levelOverlay.classList.add('show');
+    }
+
+    function closeLevelOverlay() {
+      levelOverlay.classList.remove('show');
+      const wrap = document.getElementById('celebrationWrap');
+      if (wrap) wrap.innerHTML = '';
+    }
+
+    function loadLeaderboard() {
+      let list = [];
+      try {
+        const raw = localStorage.getItem(LEADERBOARD_KEY);
+        if (raw) list = JSON.parse(raw);
+      } catch (_) {}
+      list.sort((a, b) => b.score - a.score);
+      leaderboardList.innerHTML = list.slice(0, LEADERBOARD_MAX).map((e, i) =>
+        `<li><span>${i + 1}. ${e.name || 'Anonymous'}</span> <strong>${e.score}</strong></li>`
+      ).join('') || '<li>No scores yet.</li>';
+    }
+
+    function saveScore() {
+      const name = (playerNameInput.value || 'Anonymous').trim().slice(0, 30);
+      let list = [];
+      try {
+        const raw = localStorage.getItem(LEADERBOARD_KEY);
+        if (raw) list = JSON.parse(raw);
+      } catch (_) {}
+      list.push({ name, score: state.score, date: new Date().toISOString() });
+      list.sort((a, b) => b.score - a.score);
+      localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(list.slice(0, LEADERBOARD_MAX)));
+      loadLeaderboard();
+      closeLevelOverlay();
+    }
+
+    function nextLevel() {
+      closeLevelOverlay();
+      buildRound();
+      render();
+      feedbackEl.textContent = '';
+      feedbackEl.className = 'feedback';
+      btnHint.disabled = false;
+    }
+
+    function resetGame() {
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      buildRound();
+      render();
+      feedbackEl.textContent = '';
+      feedbackEl.className = 'feedback';
+      btnHint.disabled = false;
+    }
+
+    btnHint.addEventListener('click', showHint);
+    btnReset.addEventListener('click', resetGame);
+    btnSaveScore.addEventListener('click', saveScore);
+    btnNextLevel.addEventListener('click', nextLevel);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadLeaderboard();
+      buildRound();
+      render();
+    });
+  </script>
+</body>
+</html>

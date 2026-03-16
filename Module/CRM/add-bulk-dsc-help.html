@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Bulk DSC — CRM — CA Cloud Desk Help</title>
+  <meta name="description" content="Step-by-step guide to upload Digital Signature Certificates (DSC) in bulk using Import Utility and Document Vault in the CRM module of CA Cloud Desk.">
+  <meta name="keywords" content="CA Cloud Desk, CRM, DSC, bulk DSC, add bulk DSC, document vault, import utility, sample excel, excel mapping, data validation">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --background: #ffffff;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background-color: #fcfcfc;
+      color: var(--foreground);
+      line-height: 1.47;
+    }
+
+    .top-header {
+      background: #f0fdfb;
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-container img { height: 45px; }
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
+
+    .breadcrumb {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin-bottom: 0.5rem; }
+
+    .sidebar-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--muted);
+      color: var(--primary-dark);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(2, 218, 197, 0.1);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .content h1 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .content h1 svg {
+      color: var(--primary);
+      width: 36px;
+      height: 36px;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--muted-foreground);
+      margin-bottom: 2.5rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 100px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title svg {
+      color: var(--primary);
+      width: 22px;
+      height: 22px;
+    }
+
+    .path-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 1rem 0 1.5rem;
+    }
+
+    .path-indicator span {
+      color: var(--primary-dark);
+    }
+
+    .media-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1.25rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .media-box img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .media-caption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    .step-heading {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0.5rem 0 0.25rem;
+      color: var(--dark);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow);
+      font-size: 0.93rem;
+    }
+
+    .info-card h4 {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .info-card ul {
+      list-style: none;
+      padding-left: 0.75rem;
+    }
+
+    .info-card ul li {
+      position: relative;
+      padding-left: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .info-card ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      max-width: 1000px;
+      margin: 0 auto 2rem;
+    }
+
+    .footer-section h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.95;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section li { margin-bottom: 0.5rem; }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9375rem;
+      display: inline-block;
+    }
+
+    .footer-section a:hover {
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .contact-info p {
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    .contact-info a {
+      color: white;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    @media (max-width: 968px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a> /
+        <a href="crm-help.html">CRM</a> /
+        <span>Add Bulk DSC</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div style="margin-bottom: 1.5rem; color: var(--primary); opacity: 0.85;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          <path d="M12 11v6"/>
+          <line x1="9" y1="14" x2="15" y2="14"/>
+        </svg>
+      </div>
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview" class="active">Overview</a></li>
+        <li><a href="#login-settings">Login & open Settings</a></li>
+        <li><a href="#import-utility">Open Import Utility & Document Vault</a></li>
+        <li><a href="#upload-dsc">Upload DSC with Excel</a></li>
+        <li><a href="#next-steps">Excel Mapping & Data Validation</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          <path d="M12 11v6"/>
+          <line x1="9" y1="14" x2="15" y2="14"/>
+        </svg>
+        Add Bulk DSC (CRM)
+      </h1>
+      <p class="lead">
+        Use <strong>Add Bulk DSC</strong> to upload Digital Signature Certificates for multiple clients at once using an Excel file.
+        This saves time when you receive DSC details for many clients together.
+      </p>
+
+      <section id="overview" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          Overview
+        </h2>
+        <p>
+          From CRM you can upload DSC details in bulk using the <strong>Import Utility</strong> available under <strong>Settings → Document Vault</strong>.
+          This guide explains:
+        </p>
+        <ul style="margin: 1rem 0 0 1.5rem; color: var(--muted-foreground); line-height: 1.7;">
+          <li>How to login to <strong>CA CloudDesk Partnerdesk</strong> and open <strong>Settings</strong>.</li>
+          <li>How to open <strong>Import Utility</strong> and select <strong>Document Vault</strong>.</li>
+          <li>How to use the <strong>Upload DSC</strong> option with the <strong>sample Excel file</strong>.</li>
+          <li>What happens in the next steps: <strong>Excel Mapping</strong> and <strong>Data Validation</strong>.</li>
+        </ul>
+      </section>
+
+      <section id="login-settings" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          Step 1: Login & open Settings
+        </h2>
+
+        <div class="path-indicator">
+          <span>Path:</span>
+          Login → CRM dashboard → Settings (top‑right)
+        </div>
+
+        <div style="margin: 0 0 1rem 1.25rem; line-height: 1.8;">
+          <div class="step-heading">1. Login to Partnerdesk</div>
+          <p>Login to <strong>CA CloudDesk Partnerdesk</strong> with your credentials.</p>
+
+          <div class="step-heading">2. Open CRM and click Settings</div>
+          <p>
+            From the left side menu choose <strong>CRM</strong> to open the CRM dashboard. On the top‑right corner,
+            click on your profile/firm name and then select <strong>Settings</strong>.
+          </p>
+        </div>
+
+        <div class="media-box">
+          <img src="../../../../.cursor/projects/Users-cacloud-Downloads-Guide/assets/Add_Bulk_DSC_CA_CloudDesk-059c3e58-ba40-4f4f-bac9-a83b660d214a.png"
+               alt="CRM dashboard in CA CloudDesk with Settings highlighted on the top-right"
+               onerror="this.style.display='none'">
+          <div class="media-caption">
+            CRM dashboard — use the top‑right menu to open <strong>Settings</strong>.
+          </div>
+        </div>
+      </section>
+
+      <section id="import-utility" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <path d="M8 12h8"/>
+          </svg>
+          Step 2: Open Import Utility & Document Vault
+        </h2>
+
+        <div class="path-indicator">
+          <span>Path:</span>
+          Settings → <strong>Import Utility</strong> tab → <strong>Document Vault</strong>
+        </div>
+
+        <div style="margin: 0 0 1rem 1.25rem; line-height: 1.8;">
+          <div class="step-heading">1. Select Import Utility tab</div>
+          <p>
+            In the firm settings screen, click the <strong>Import Utility</strong> tab from the top tab bar.
+          </p>
+
+          <div class="step-heading">2. Choose Document Vault</div>
+          <p>
+            Inside Import Utility you will see different tiles. Click on the <strong>Document Vault</strong> tile to open
+            the document related import options.
+          </p>
+        </div>
+
+        <div class="media-box">
+          <img src="../../../../.cursor/projects/Users-cacloud-Downloads-Guide/assets/Add_Bulk_DSC_CA_CloudDesk2-239e7d27-798a-4c64-a3fe-8b754db9b655.png"
+               alt="Settings screen showing Import Utility tab and Document Vault tile"
+               onerror="this.style.display='none'">
+          <div class="media-caption">
+            Under <strong>Import Utility</strong>, select <strong>Document Vault</strong> to access DSC upload.
+          </div>
+        </div>
+
+        <div class="media-box">
+          <img src="../../../../.cursor/projects/Users-cacloud-Downloads-Guide/assets/Add_Bulk_DSC_CA_CloudDesk3-486bdb33-4437-47af-a5f3-8548acddfea5.png"
+               alt="Import Utility list with Upload DSC option highlighted"
+               onerror="this.style.display='none'">
+          <div class="media-caption">
+            In the <strong>Import Utility</strong> list for Document Vault, click <strong>Upload DSC</strong>.
+          </div>
+        </div>
+      </section>
+
+      <section id="upload-dsc" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 16 12 12 8 16"/>
+            <line x1="12" y1="12" x2="12" y2="21"/>
+            <path d="M20 21H4"/>
+            <path d="M12 3v9"/>
+          </svg>
+          Step 3: Upload DSC with Excel
+        </h2>
+
+        <div class="path-indicator">
+          <span>Path:</span>
+          Import Utility → Document Vault → Upload DSC → <strong>Upload</strong> step
+        </div>
+
+        <p>
+          The <strong>DSC Upload with Excel</strong> screen opens with three steps: <strong>Upload</strong>, <strong>Excel Mapping</strong> and
+          <strong>Data Validation</strong>. In this step you will prepare and upload the Excel file.
+        </p>
+
+        <div class="media-box">
+          <img src="../../../../.cursor/projects/Users-cacloud-Downloads-Guide/assets/Add_Bulk_DSC_CA_CloudDesk4-d4b04261-efdd-4585-84a2-a228eb65e926.png"
+               alt="DSC Upload with Excel screen showing Click to Upload and Upload & Next buttons"
+               onerror="this.style.display='none'">
+          <div class="media-caption">
+            Step 1 — <strong>Upload</strong> tab for DSC Upload with Excel.
+          </div>
+        </div>
+
+        <div style="margin: 0 0 0.5rem 1.25rem; line-height: 1.8;">
+          <div class="step-heading">1. Download the sample Excel file</div>
+          <p>
+            Click on the <strong>sample Excel file</strong> link. This file contains the exact column names and format that
+            CA CloudDesk expects for DSC upload.
+          </p>
+        </div>
+
+        <div class="media-box">
+          <img src="../../../../.cursor/projects/Users-cacloud-Downloads-Guide/assets/Add_Bulk_DSC_CA_CloudDesk5-703282ad-531a-42b3-8a1f-f5dd7d99faa2.png"
+               alt="Upload tab highlighting the sample Excel file link"
+               onerror="this.style.display='none'">
+          <div class="media-caption">
+            Download the <strong>sample Excel file</strong> and prepare your data according to the guidelines given in it.
+          </div>
+        </div>
+
+        <div style="margin: 0 0 0.5rem 1.25rem; line-height: 1.8;">
+          <div class="step-heading">2. Prepare your Excel</div>
+          <p>
+            Open the downloaded sample and fill in the DSC details for each client row
+            (for example Client Name, PAN, Certificate Number, Validity, etc.) exactly as per the guidelines in the sample file.
+          </p>
+
+          <div class="step-heading">3. Upload the Excel file</div>
+          <p>
+            When your Excel is ready, click <strong>Click to Upload</strong> and select the prepared file from your system.
+            Make sure the correct file is attached.
+          </p>
+
+          <div class="step-heading">4. Click Upload & Next</div>
+          <p>
+            After attaching the Excel file, click <strong>Upload &amp; Next</strong> to move to the next step.
+            The system will read the file and take you to the <strong>Excel Mapping</strong> screen.
+          </p>
+        </div>
+      </section>
+
+      <section id="next-steps" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          Step 4 & 5: Excel Mapping and Data Validation
+        </h2>
+
+        <p>
+          After the upload is successful, the remaining steps of the wizard help you confirm the data and create the DSC records.
+        </p>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <h4>Excel Mapping</h4>
+            <ul>
+              <li>System reads the column headers from your Excel file.</li>
+              <li>You map each Excel column to the corresponding field in CA CloudDesk (for example Client, PAN, DSC Serial).</li>
+              <li>Ensure every mandatory field is mapped correctly to avoid errors in the next step.</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h4>Data Validation</h4>
+            <ul>
+              <li>System validates each row and highlights issues such as missing mandatory values or incorrect formats.</li>
+              <li>You can review the list, correct the Excel (if required) and re‑upload in case of major errors.</li>
+              <li>Once all rows are valid, confirm to complete the <strong>Add Bulk DSC</strong> process and create DSC entries for all clients.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p style="margin-top: 1.25rem;">
+          After Data Validation is completed successfully, the DSC information becomes available in the respective clients'
+          records under the Document Vault. You can then use it for future filings and digital signing.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>CA CloudDesk</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
+            <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
+            <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
+            <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Essential Resources</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
+            <li><a href="#">Use Cases</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="../../index.html">Modules</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <div class="contact-info">
+            <p><strong>Law Seva Management (P) Ltd</strong></p>
+            <p>Address: BM-08 Ansal Sumedha Building RDC Ghaziabad Delhi NCR India 201001</p>
+            <p>Phone: 0120-4308902</p>
+            <p>Email: <a href="mailto:info@caclouddesk.com">info@caclouddesk.com</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        const href = link.getAttribute('href') || '';
+        if (href === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+

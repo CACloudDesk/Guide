@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CA Cloud Desk – Videos</title>
   <meta name="description" content="Video guides for CA Cloud Desk – Task Management, HRMS, Billing, Document Management, CRM, Litigation, Marketing.">
-  <link rel="icon" href="cacloud.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/cacloud.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -22,17 +22,17 @@
       --card: #ffffff;
       --radius: 12px;
     }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #f8fafc; color: var(--foreground); line-height: 1.6; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: #f8fafc; color: var(--foreground); line-height: 1.47; font-size: 17px; }
 
     .top-header {
-      background: rgba(10, 33, 35, 0.98);
+      background: #f0fdfb;
       backdrop-filter: blur(10px);
-      border-bottom: 2px solid #25b7a7;
+      border-bottom: 2px solid rgba(37, 183, 167, 0.4);
       padding: 0;
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
     .header-container {
       max-width: 1200px;
@@ -45,10 +45,10 @@
     }
     .logo-container a { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; }
     .logo-container img { height: 69px; width: auto; object-fit: contain; }
-    .logo-text { font-size: 1.25rem; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
+    .logo-text { font-size: 1.25rem; font-weight: 600; color: var(--dark); letter-spacing: -0.025em; }
     .nav-menu { display: flex; align-items: center; gap: 0.5rem; }
     .nav-menu a {
-      color: rgba(255, 255, 255, 0.9);
+      color: var(--foreground);
       text-decoration: none;
       font-weight: 500;
       font-size: 0.9375rem;
@@ -58,29 +58,33 @@
     }
     .nav-menu a { display: inline-flex; align-items: center; gap: 0.5rem; }
     .nav-menu a .nav-icon { width: 18px; height: 18px; flex-shrink: 0; }
-    .nav-menu a:hover { background: rgba(255, 255, 255, 0.1); color: white; }
-    .nav-menu a.guide-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(37, 183, 167, 0.5); color: white; }
-    .nav-menu a.guide-btn:hover { background: rgba(37, 183, 167, 0.3); color: white; }
+    .nav-menu a:hover { background: rgba(37, 183, 167, 0.12); color: var(--primary-dark); }
+    .nav-menu a.guide-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary-dark); }
+    .nav-menu a.guide-btn:hover { background: rgba(37, 183, 167, 0.12); color: var(--primary-dark); }
     .nav-menu a.videos-btn { background: var(--primary); color: white; }
     .nav-menu a.videos-btn:hover { background: var(--primary-dark); color: white; }
-    .nav-menu a.courses-btn { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(37, 183, 167, 0.5); color: white; }
-    .nav-menu a.courses-btn:hover { background: rgba(37, 183, 167, 0.3); color: white; }
+    .nav-menu a.courses-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary-dark); }
+    .nav-menu a.courses-btn:hover { background: rgba(37, 183, 167, 0.12); color: var(--primary-dark); }
+    .nav-menu a.tools-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary-dark); }
+    .nav-menu a.tools-btn:hover { background: rgba(37, 183, 167, 0.12); color: var(--primary-dark); }
+    .nav-menu a.games-btn { background: transparent; border: 1px solid var(--primary); color: var(--primary-dark); }
+    .nav-menu a.games-btn:hover { background: rgba(37, 183, 167, 0.12); color: var(--primary-dark); }
     .search-row {
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(37, 183, 167, 0.08);
       padding: 0.5rem 1.5rem;
     }
     .search-row .search-wrapper { max-width: 600px; margin: 0 auto; position: relative; }
     .search-row .search-container {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(2, 218, 197, 0.3);
+      background: white;
+      border: 1px solid rgba(37, 183, 167, 0.35);
       border-radius: 50px;
       padding: 0.25rem;
     }
-    .search-bar { flex: 1; padding: 0.75rem 1rem; border: none; background: transparent; color: rgba(255,255,255,0.9); font-size: 0.9375rem; outline: none; }
-    .search-bar::placeholder { color: rgba(255,255,255,0.5); }
-    .search-icon { width: 20px; height: 20px; color: rgba(255,255,255,0.7); margin-left: 1rem; flex-shrink: 0; }
+    .search-bar { flex: 1; padding: 0.75rem 1rem; border: none; background: transparent; color: var(--foreground); font-size: 0.9375rem; outline: none; }
+    .search-bar::placeholder { color: var(--muted-foreground); }
+    .search-icon { width: 20px; height: 20px; color: var(--muted-foreground); margin-left: 1rem; flex-shrink: 0; }
     .search-button {
       width: 40px; height: 40px; background: var(--primary); border: none; border-radius: 50%; color: white; cursor: pointer;
       display: flex; align-items: center; justify-content: center; margin-right: 0.25rem;
@@ -136,8 +140,10 @@
       min-width: 0;
     }
     .videos-page-title {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 2.25rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
       color: var(--dark);
       margin-bottom: 0.5rem;
       display: flex;
@@ -237,10 +243,70 @@
     .contact-info p { margin-bottom: 0.5rem; font-size: 0.9375rem; color: var(--muted-foreground); }
     .contact-info a { color: var(--primary); text-decoration: underline; }
     .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(37, 183, 167, 0.15); font-size: 0.875rem; color: var(--muted-foreground); }
+    .footer-social { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(37, 183, 167, 0.2); color: var(--primary-dark); transition: background 0.2s, color 0.2s, transform 0.2s; }
+    .footer-social a:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+    .footer-social a svg { width: 20px; height: 20px; }
 
     .category-section { margin-bottom: 2.5rem; }
     .category-section h2 { font-size: 1.25rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
     .category-section .videos-grid { margin-top: 0.5rem; }
+
+    /* HRMS sub-parts (Part A, B, C) */
+    .hrms-part { margin-bottom: 2rem; }
+    .hrms-part h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hrms-part .part-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 28px;
+      height: 22px;
+      padding: 0 0.5rem;
+      background: rgba(37, 183, 167, 0.15);
+      color: #25b7a7;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    /* Small video cards – compact, 10% brand tint */
+    .videos-grid.video-cards-compact {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .video-card.compact {
+      border: 1px solid rgba(37, 183, 167, 0.25);
+      background: linear-gradient(180deg, rgba(37, 183, 167, 0.06) 0%, var(--card) 100%);
+    }
+    .video-card.compact:hover {
+      border-color: #25b7a7;
+      background: rgba(37, 183, 167, 0.08);
+      box-shadow: 0 6px 16px rgba(37, 183, 167, 0.12);
+    }
+    .video-card.compact .video-card-thumb { aspect-ratio: 16/9; }
+    .video-card.compact .video-card-thumb .play-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(37, 183, 167, 0.92);
+    }
+    .video-card.compact .video-card-thumb .play-icon svg { width: 22px; height: 22px; margin-left: 3px; }
+    .video-card.compact .video-card-body { padding: 0.75rem; }
+    .video-card.compact .video-card-title { font-size: 0.875rem; margin-bottom: 0.25rem; }
+    .video-card.compact .video-card-tag {
+      margin-top: 0.35rem;
+      padding: 0.15rem 0.4rem;
+      font-size: 0.6875rem;
+      background: rgba(37, 183, 167, 0.12);
+      color: #25b7a7;
+    }
 
     @media (max-width: 900px) {
       .videos-layout { flex-direction: column; }
@@ -260,9 +326,8 @@
   <header class="top-header">
     <div class="header-container">
       <div class="logo-container">
-        <a href="index.html" class="logo-link" aria-label="CA Cloud Desk – Guide">
-          <img src="transparent%20logo.png" alt="CA Cloud Desk Logo" onerror="this.src='cacloud.svg'">
-          <div class="logo-text">CA Cloud Desk</div>
+        <a href="index.html" class="logo-link" aria-label="CA CloudDesk – Guide">
+          <img src="assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
         </a>
       </div>
       <nav class="nav-menu">
@@ -277,6 +342,14 @@
         <a href="courses.html" class="courses-btn">
           <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
           Courses
+        </a>
+        <a href="free-tools.html" class="tools-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          Free Tools
+        </a>
+        <a href="Games/games.html" class="games-btn">
+          <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          Games
         </a>
       </nav>
     </div>
@@ -342,36 +415,479 @@
         <!-- Task Management -->
         <div class="category-section" data-category="task">
           <h2>Task Management</h2>
-          <div class="videos-grid" data-videos-task></div>
-          <p class="no-videos" data-no-videos="task" style="color: var(--muted-foreground); font-size: 0.9375rem;">No videos yet. Add YouTube links here.</p>
+          <div class="videos-grid video-cards-compact" data-videos-task>
+            <a href="https://www.youtube.com/watch?v=QfDlQuWo67A" target="_blank" rel="noopener" class="video-card compact" data-title="Task Template">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/QfDlQuWo67A/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Task Template</div>
+                <span class="video-card-tag">Task</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=zFmN2rP5Ym0" target="_blank" rel="noopener" class="video-card compact" data-title="Create & Manage Task">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/zFmN2rP5Ym0/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Create & Manage Task</div>
+                <span class="video-card-tag">Task</span>
+              </div>
+            </a>
+          </div>
+          <p class="no-videos" data-no-videos="task" style="display: none; color: var(--muted-foreground); font-size: 0.875rem; margin-top: 0.5rem;">No more videos yet.</p>
         </div>
 
-        <!-- HRMS -->
+        <!-- HRMS (Part A, B, C) -->
         <div class="category-section" data-category="hrms">
           <h2>HRMS</h2>
-          <div class="videos-grid" data-videos-hrms></div>
-          <p class="no-videos" data-no-videos="hrms" style="color: var(--muted-foreground); font-size: 0.9375rem;">No videos yet. Add YouTube links here.</p>
+
+          <div class="hrms-part">
+            <h3><span class="part-badge">Part A</span> HRMS</h3>
+            <div class="videos-grid video-cards-compact" data-videos-hrms-a>
+              <a href="https://www.youtube.com/watch?v=kNgVBwVzXHE" target="_blank" rel="noopener" class="video-card compact" data-title="Add Employees">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/kNgVBwVzXHE/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Add Employees</div>
+                  <span class="video-card-tag">Part A</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=I8KLD9S1jJk" target="_blank" rel="noopener" class="video-card compact" data-title="Raise Grievance">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/I8KLD9S1jJk/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Raise Grievance</div>
+                  <span class="video-card-tag">Part A</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=CCL51IKa4iI" target="_blank" rel="noopener" class="video-card compact" data-title="My Leave">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/CCL51IKa4iI/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">My Leave</div>
+                  <span class="video-card-tag">Part A</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=4lxvmfccxhU" target="_blank" rel="noopener" class="video-card compact" data-title="Timesheet">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/4lxvmfccxhU/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Timesheet</div>
+                  <span class="video-card-tag">Part A</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=TnUeCE8wPyo" target="_blank" rel="noopener" class="video-card compact" data-title="Mark Attendance">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/TnUeCE8wPyo/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Mark Attendance</div>
+                  <span class="video-card-tag">Part A</span>
+                </div>
+              </a>
+            </div>
+            <p class="no-videos" data-no-videos="hrms-a" style="display: none; color: var(--muted-foreground); font-size: 0.875rem; margin-top: 0.5rem;">No more videos yet.</p>
+          </div>
+
+          <div class="hrms-part">
+            <h3><span class="part-badge">Part B</span> Payroll</h3>
+            <div class="videos-grid video-cards-compact" data-videos-hrms-b>
+              <a href="https://www.youtube.com/watch?v=IgdKFDUxYhM" target="_blank" rel="noopener" class="video-card compact" data-title="Payroll">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/IgdKFDUxYhM/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Payroll</div>
+                  <span class="video-card-tag">Part B</span>
+                </div>
+              </a>
+            </div>
+            <p class="no-videos" data-no-videos="hrms-b" style="display: none; color: var(--muted-foreground); font-size: 0.875rem; margin-top: 0.5rem;">No more videos yet.</p>
+          </div>
+
+          <div class="hrms-part">
+            <h3><span class="part-badge">Part C</span> HR Desk</h3>
+            <div class="videos-grid video-cards-compact" data-videos-hrms-c>
+              <a href="https://www.youtube.com/watch?v=GMcvgzhUWUY" target="_blank" rel="noopener" class="video-card compact" data-title="HRMS Notification">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/GMcvgzhUWUY/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">HRMS Notification</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=rApnmmEkjDc" target="_blank" rel="noopener" class="video-card compact" data-title="Leave Balance Quota">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/rApnmmEkjDc/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Leave Balance Quota</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=MNgP3FmEaTA" target="_blank" rel="noopener" class="video-card compact" data-title="HRMS DropDown Setting">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/MNgP3FmEaTA/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">HRMS DropDown Setting</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=fngUTOJ6r6Q" target="_blank" rel="noopener" class="video-card compact" data-title="Designation & Permission">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/fngUTOJ6r6Q/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Designation & Permission</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=wR51vb-_whw" target="_blank" rel="noopener" class="video-card compact" data-title="Leave Log-Employee Leave Tracking">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/wR51vb-_whw/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Leave Log – Employee Leave Tracking</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=XooRr7wPXjY" target="_blank" rel="noopener" class="video-card compact" data-title="Leave Count">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/XooRr7wPXjY/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Leave Count</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=mhD5z3bCH4E" target="_blank" rel="noopener" class="video-card compact" data-title="View Leave">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/mhD5z3bCH4E/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">View Leave</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=LmNE0kg_jB0" target="_blank" rel="noopener" class="video-card compact" data-title="Timesheet-HR">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/LmNE0kg_jB0/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Timesheet – HR</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=48bCwJ4PBpo" target="_blank" rel="noopener" class="video-card compact" data-title="Attendance Summary & Lock Attendance">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/48bCwJ4PBpo/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Attendance Summary & Lock Attendance</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=MIHlf1RxqDs" target="_blank" rel="noopener" class="video-card compact" data-title="HR Attendance">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/MIHlf1RxqDs/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">HR Attendance</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=D_3nwa3v8zg" target="_blank" rel="noopener" class="video-card compact" data-title="Club Rules">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/D_3nwa3v8zg/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Club Rules</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=TplvIY_LH74" target="_blank" rel="noopener" class="video-card compact" data-title="Smart Shift Scheduling">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/TplvIY_LH74/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Smart Shift Scheduling</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=9Ou-UDtbVz4" target="_blank" rel="noopener" class="video-card compact" data-title="HRMS Leave Quota">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/9Ou-UDtbVz4/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">HRMS Leave Quota</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=K_Ycs1_Gqwk" target="_blank" rel="noopener" class="video-card compact" data-title="Holiday Management">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/K_Ycs1_Gqwk/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Holiday Management</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=PCLLZCzrIEc" target="_blank" rel="noopener" class="video-card compact" data-title="Black List Leave">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/PCLLZCzrIEc/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Black List Leave</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=9HBWeWVADXI" target="_blank" rel="noopener" class="video-card compact" data-title="Manage Leave">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/9HBWeWVADXI/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Manage Leave</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+              <a href="https://www.youtube.com/watch?v=rNx7M_fVWos" target="_blank" rel="noopener" class="video-card compact" data-title="Compliance Calendar">
+                <div class="video-card-thumb">
+                  <img src="https://img.youtube.com/vi/rNx7M_fVWos/mqdefault.jpg" alt="" loading="lazy">
+                  <span class="play-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </span>
+                </div>
+                <div class="video-card-body">
+                  <div class="video-card-title">Compliance Calendar</div>
+                  <span class="video-card-tag">Part C</span>
+                </div>
+              </a>
+            </div>
+            <p class="no-videos" data-no-videos="hrms-c" style="display: none; color: var(--muted-foreground); font-size: 0.875rem; margin-top: 0.5rem;">No more videos yet.</p>
+          </div>
         </div>
 
         <!-- Billing -->
         <div class="category-section" data-category="billing">
           <h2>Billing</h2>
-          <div class="videos-grid" data-videos-billing></div>
-          <p class="no-videos" data-no-videos="billing" style="color: var(--muted-foreground); font-size: 0.9375rem;">No videos yet. Add YouTube links here.</p>
+          <div class="videos-grid video-cards-compact" data-videos-billing>
+            <a href="https://www.youtube.com/watch?v=3mXBdrB9MAs" target="_blank" rel="noopener" class="video-card compact" data-title="Credentials & Login">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/3mXBdrB9MAs/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Credentials & Login</div>
+                <span class="video-card-tag">Billing</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=3BeAJXwIbb0" target="_blank" rel="noopener" class="video-card compact" data-title="Add Branch">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/3BeAJXwIbb0/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Add Branch</div>
+                <span class="video-card-tag">Billing</span>
+              </div>
+            </a>
+          </div>
+          <p class="no-videos" data-no-videos="billing" style="display: none; color: var(--muted-foreground); font-size: 0.875rem; margin-top: 0.5rem;">No more videos yet.</p>
         </div>
 
         <!-- Document Management -->
         <div class="category-section" data-category="docs">
           <h2>Document Management</h2>
-          <div class="videos-grid" data-videos-docs></div>
-          <p class="no-videos" data-no-videos="docs" style="color: var(--muted-foreground); font-size: 0.9375rem;">No videos yet. Add YouTube links here.</p>
+          <div class="videos-grid video-cards-compact" data-videos-docs>
+            <a href="https://www.youtube.com/watch?v=Dg8kFQKQgNg" target="_blank" rel="noopener" class="video-card compact" data-title="Infographic">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/Dg8kFQKQgNg/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Infographic</div>
+                <span class="video-card-tag">Docs</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=DkGWLVev7_g" target="_blank" rel="noopener" class="video-card compact" data-title="Create Document">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/DkGWLVev7_g/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Create Document</div>
+                <span class="video-card-tag">Docs</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=PkwS41e3X7M" target="_blank" rel="noopener" class="video-card compact" data-title="Add DSC">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/PkwS41e3X7M/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Add DSC</div>
+                <span class="video-card-tag">Docs</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=t3Nu1faMlWk" target="_blank" rel="noopener" class="video-card compact" data-title="Document Creator">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/t3Nu1faMlWk/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Document Creator</div>
+                <span class="video-card-tag">Docs</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=16ivsZnS-E4" target="_blank" rel="noopener" class="video-card compact" data-title="Manage Documents">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/16ivsZnS-E4/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Manage Documents</div>
+                <span class="video-card-tag">Docs</span>
+              </div>
+            </a>
+          </div>
+          <p class="no-videos" data-no-videos="docs" style="display: none; color: var(--muted-foreground); font-size: 0.875rem; margin-top: 0.5rem;">No more videos yet.</p>
         </div>
 
         <!-- CRM : Client Desk -->
         <div class="category-section" data-category="crm">
           <h2>CRM : Client Desk</h2>
-          <div class="videos-grid" data-videos-crm></div>
-          <p class="no-videos" data-no-videos="crm" style="color: var(--muted-foreground); font-size: 0.9375rem;">No videos yet. Add YouTube links here.</p>
+          <div class="videos-grid video-cards-compact" data-videos-crm>
+            <a href="https://www.youtube.com/watch?v=EVMCiDGo9Dg" target="_blank" rel="noopener" class="video-card compact" data-title="Add Customers">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/EVMCiDGo9Dg/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+<div class="video-card-title">Add Customers</div>
+              <span class="video-card-tag">CRM</span>
+            </div>
+          </a>
+            <a href="https://www.youtube.com/watch?v=hevBSbOlcRA" target="_blank" rel="noopener" class="video-card compact" data-title="Add Custom Field">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/hevBSbOlcRA/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Add Custom Field</div>
+                <span class="video-card-tag">CRM</span>
+              </div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=UL0k6XHeJuk" target="_blank" rel="noopener" class="video-card compact" data-title="Create Customer Group">
+              <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/UL0k6XHeJuk/mqdefault.jpg" alt="" loading="lazy">
+                <span class="play-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </span>
+              </div>
+              <div class="video-card-body">
+                <div class="video-card-title">Create Customer Group</div>
+                <span class="video-card-tag">CRM</span>
+              </div>
+            </a>
+          </div>
+          <p class="no-videos" data-no-videos="crm" style="display: none; color: var(--muted-foreground); font-size: 0.875rem; margin-top: 0.5rem;">No more videos yet.</p>
         </div>
 
         <!-- Litigation -->
@@ -395,19 +911,18 @@
     <div class="footer-content">
       <div class="footer-grid">
         <div class="footer-section">
-          <h4>More</h4>
+          <h4>CA CloudDesk</h4>
           <ul>
             <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
             <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
             <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
-            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
             <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
           </ul>
         </div>
         <div class="footer-section">
           <h4>Essential Resources</h4>
           <ul>
-            <li><a href="https://utility.caclouddesk.com/">Free Tools and Utilities</a></li>
+            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
             <li><a href="https://caclouddesk.com/use-cases/">Use Cases</a></li>
             <li><a href="https://caclouddesk.com/features/">Features</a></li>
             <li><a href="https://caclouddesk.com/modules/">Modules</a></li>
@@ -424,6 +939,20 @@
         </div>
       </div>
       <div class="footer-bottom">
+        <div class="footer-social">
+          <a href="https://www.facebook.com/caclouddesk" target="_blank" rel="noopener" aria-label="CA Cloud Desk on Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@CACloudDesk" target="_blank" rel="noopener" aria-label="CA Cloud Desk on YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/caclouddesk/" target="_blank" rel="noopener" aria-label="CA Cloud Desk on Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.766 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.77-6.979-6.98C8.333.014 8.741 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
+          <a href="https://in.linkedin.com/company/caclouddesk?_l=en_US" target="_blank" rel="noopener" aria-label="CA Cloud Desk on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
         <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
       </div>
     </div>

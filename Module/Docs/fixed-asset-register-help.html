@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixed Asset Register — CA Cloud Desk Help</title>
+  <meta name="description" content="Step-by-step guide for Fixed Asset Register in CA Cloud Desk Document Vault: add asset categories and register assets with depreciation details.">
+  <meta name="keywords" content="CA Cloud Desk, Document Vault, Fixed Asset Register, FAR, asset register, depreciation, asset category">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #02dac5;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background-color: #fcfcfc;
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .top-header {
+      background: #f0fdfb;
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-container img { height: 45px; }
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      text-align: right;
+    }
+
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--primary-dark); }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li { margin-bottom: 0.5rem; }
+    .sidebar-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--muted);
+      color: var(--primary-dark);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(2, 218, 197, 0.1);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* PDF button below Tips */
+    .below-tips-pdf-button {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: center;
+    }
+
+    .below-tips-pdf-button .pdf-cart-button {
+      justify-content: center;
+      margin: 0;
+      font-size: 0.95rem;
+      padding: 0.95rem 1.25rem;
+      width: min(360px, 100%);
+    }
+
+    .pdf-cart-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      border: none;
+      margin: 0;
+    }
+
+    .pdf-cart-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.15), 0 4px 8px -4px rgb(0 0 0 / 0.1);
+    }
+
+    .pdf-cart-button svg { width: 24px; height: 24px; }
+
+    /* PDF Viewer Modal */
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+
+    .pdf-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pdf-modal-content {
+      position: relative;
+      width: 95%;
+      height: 95%;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .pdf-modal-header {
+      background: var(--dark);
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .pdf-modal-header h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .pdf-modal-close {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .pdf-modal-close:hover { background: rgba(255, 255, 255, 0.1); }
+
+    .pdf-modal-actions {
+      padding: 1rem 1.5rem;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pdf-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .pdf-download-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    .pdf-modal-body { flex: 1; padding: 0; }
+
+    .pdf-viewer { width: 100%; height: 100%; border: none; }
+
+    .content h1 {
+      font-size: 2.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .content h1 svg { color: var(--primary); width: 40px; height: 40px; }
+
+    .content .lead {
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 100px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title svg { color: var(--primary); width: 24px; height: 24px; }
+    .section p { margin-bottom: 1rem; }
+
+    .step-list {
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .step-list li {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.1rem;
+      counter-increment: step;
+    }
+
+    .step-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      width: 1.75rem;
+      height: 1.75rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.875rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .image-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .image-wrapper img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .media-caption {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    .callout {
+      padding: 1.25rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      background: rgba(2, 218, 197, 0.06);
+      margin: 1.5rem 0;
+    }
+
+    .callout strong { color: var(--primary-dark); }
+
+    details {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--dark);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+
+    .summary-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(2, 218, 197, 0.12);
+      color: var(--primary-dark);
+    }
+
+    .field-list {
+      margin-top: 0.75rem;
+      margin-left: 1.25rem;
+    }
+
+    .field-list li { margin-bottom: 0.4rem; }
+
+    .footer {
+      background: linear-gradient(135deg, #02dac5 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content { max-width: 1200px; margin: 0 auto; }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    @media (max-width: 968px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span>/</span>
+        <a href="document-help.html">Document Management</a>
+        <span>/</span>
+        <span>Fixed Asset Register</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div style="margin-bottom: 1rem; color: var(--primary);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+      </div>
+
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview" class="active">Overview</a></li>
+        <li><a href="#open-module">Open Fixed Asset Register</a></li>
+        <li><a href="#add-category">Add Asset Category</a></li>
+        <li><a href="#register-asset">Register an Asset</a></li>
+        <li><a href="#field-guide">Field Guide</a></li>
+        <li><a href="#tips">Tips</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+        Fixed Asset Register (Document Vault)
+      </h1>
+      <p class="lead">
+        Use <strong>Fixed Asset Register</strong> in <strong>Document Vault</strong> to keep a clean record of your firm’s assets (like laptops, furniture, etc.) with
+        <strong>purchase details</strong> and <strong>depreciation details</strong> in one place.
+      </p>
+
+      <section id="overview" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          Overview
+        </h2>
+        <p>
+          The Fixed Asset Register is used to <strong>register assets</strong>, assign them to an <strong>employee</strong> (if needed), and store depreciation inputs
+          such as method, percentage, frequency, life, and start date.
+        </p>
+        <div class="callout">
+          <strong>In this guide:</strong> open Fixed Asset Register, add asset categories (optional), then register a new asset and submit.
+        </div>
+      </section>
+
+      <section id="open-module" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          Login and Open Fixed Asset Register
+        </h2>
+        <ol class="step-list">
+          <li><strong>Login</strong> to CA Cloud Desk Partnerdesk.</li>
+          <li>From the left panel, click <strong>Document Vault</strong>.</li>
+          <li>From the available options, click <strong>Fixed Asset Register</strong>.</li>
+        </ol>
+
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/fixed-asset-step1-dashboard.png" alt="Dashboard with Document Vault highlighted on the left panel">
+          </div>
+          <p class="media-caption">Step 1 — From dashboard, click Document Vault.</p>
+        </div>
+
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/fixed-asset-step2-document-vault.png" alt="Document Vault screen with Fixed Asset Register option highlighted">
+          </div>
+          <p class="media-caption">Step 2 — On Document Vault, select Fixed Asset Register.</p>
+        </div>
+      </section>
+
+      <section id="add-category" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+          </svg>
+          Add Asset Category (optional)
+        </h2>
+        <p>
+          Categories help your team keep asset types consistent (for example: Laptop, Printer, Furniture, etc.).
+          Add a category once, then reuse it for every asset.
+        </p>
+        <ol class="step-list">
+          <li>On the Fixed Asset Register page, click the <strong>Settings</strong> (gear) icon.</li>
+          <li>Click the <strong>+</strong> icon to add a new category.</li>
+          <li>Enter the <strong>Fixed Asset Type Name</strong> and required depreciation defaults (if asked), then click <strong>Submit</strong>.</li>
+        </ol>
+
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/fixed-asset-step3-settings-add-category.png" alt="Fixed Asset Register screen showing settings icon and plus icon for Add Category">
+          </div>
+          <p class="media-caption">Add Category — use Settings → + and submit the new category.</p>
+        </div>
+      </section>
+
+      <section id="register-asset" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+          Register an Asset
+        </h2>
+        <ol class="step-list">
+          <li>Click the <strong>+</strong> icon to create a new asset entry.</li>
+          <li>Fill the asset details (basic, employee/branch/location, depreciation).</li>
+          <li>Click <strong>Submit</strong> to register the asset.</li>
+        </ol>
+
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/fixed-asset-step4-plus-register.png" alt="Fixed Asset Register list screen with plus icon highlighted">
+          </div>
+          <p class="media-caption">Register Asset — click the + icon to open the form.</p>
+        </div>
+
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/fixed-asset-step5-asset-form.png" alt="Register Asset form showing fields like asset type, name, description, employee, purchase details, branch, location, depreciation details and submit">
+          </div>
+          <p class="media-caption">Register Asset — fill all details and click Submit.</p>
+        </div>
+      </section>
+
+      <section id="field-guide" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 21h16"/>
+            <path d="M4 3h16"/>
+            <path d="M4 9h16"/>
+            <path d="M10 3v18"/>
+          </svg>
+          Field Guide (what to fill)
+        </h2>
+
+        <details>
+          <summary><span class="summary-pill">A</span>Basic asset details</summary>
+          <ul class="field-list">
+            <li><strong>Asset Type</strong>: Select asset type/category (example: Laptop).</li>
+            <li><strong>Name</strong>: Asset name (example: Laptop HP).</li>
+            <li><strong>Description</strong>: Optional notes/specifications.</li>
+            <li><strong>Employee</strong>: Select employee (if asset is assigned).</li>
+            <li><strong>Serial Number</strong>: Asset serial number (if available).</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="summary-pill">B</span>Purchase & valuation</summary>
+          <ul class="field-list">
+            <li><strong>Purchase Date</strong></li>
+            <li><strong>Warranty Expiry Date</strong></li>
+            <li><strong>Purchase Cost</strong></li>
+            <li><strong>Current Value</strong></li>
+            <li><strong>Salvage Value</strong></li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="summary-pill">C</span>Branch & location</summary>
+          <ul class="field-list">
+            <li><strong>Branch</strong>: Select the branch where asset belongs.</li>
+            <li><strong>Location</strong>: Select the location (for example: Office/Room/City).</li>
+            <li><strong>Status</strong>: Select status (Active/Inactive as per your setup).</li>
+            <li><strong>Remarks</strong>: Any internal remarks.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary><span class="summary-pill">D</span>Depreciation details</summary>
+          <ul class="field-list">
+            <li><strong>Depreciation Method</strong>: Select depreciation method.</li>
+            <li><strong>Depreciation Percentage</strong>: Enter percentage.</li>
+            <li><strong>Depreciation Frequency</strong>: Select frequency (Monthly/Quarterly/Yearly as available).</li>
+            <li><strong>Asset Life</strong>: Enter asset life in terms of months.</li>
+            <li><strong>Computation Type</strong>: Select computation type.</li>
+            <li><strong>Depreciation Start Date</strong>: Select start date.</li>
+          </ul>
+        </details>
+
+        <div class="callout">
+          <strong>Quick check:</strong> Before submit, confirm Branch + Location + Depreciation Start Date—these are the most common fields that cause confusion later.
+        </div>
+      </section>
+
+      <section id="tips" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+          Tips
+        </h2>
+        <ul class="field-list">
+          <li><strong>Use consistent categories</strong> (Laptop / Printer / Furniture) so reporting stays clean.</li>
+          <li><strong>Keep Serial Number</strong> filled when available—helps in audits and physical verification.</li>
+          <li><strong>Assign Employee</strong> only when the asset is actually issued to someone.</li>
+          <li><strong>Depreciation inputs</strong> should match your firm’s accounting policy (method, rate, life).</li>
+        </ul>
+      </section>
+
+      <div class="below-tips-pdf-button">
+        <button type="button" onclick="openPDFViewer()" class="pdf-cart-button" style="border: none; cursor: pointer;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          View PDF Guide
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020–26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PDF Viewer Modal -->
+  <div id="pdfModal" class="pdf-modal">
+    <div class="pdf-modal-content">
+      <div class="pdf-modal-header">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          Fixed Asset Register Guide PDF
+        </h3>
+        <button class="pdf-modal-close" onclick="closePDFViewer()" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="pdf-modal-actions">
+        <a href="assets/Guide-pdf-Fixed-Asset-Doc.pdf" download="Fixed-Asset-Register-Guide.pdf" class="pdf-download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </a>
+        <a href="assets/Guide-pdf-Fixed-Asset-Doc.pdf" target="_blank" rel="noopener" class="pdf-download-btn" style="margin-left: 0.5rem;">Open in new tab</a>
+      </div>
+      <div class="pdf-modal-body">
+        <p class="pdf-fallback-msg" style="margin:0 0 0.5rem 0; font-size:0.875rem; color:var(--muted-foreground);">If the PDF does not display below, use <strong>Open in new tab</strong> or <strong>Download PDF</strong> above.</p>
+        <iframe src="assets/Guide-pdf-Fixed-Asset-Doc.pdf#toolbar=1" class="pdf-viewer" type="application/pdf" title="Fixed Asset Register Guide PDF"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      function updateActive() {
+        var current = '';
+        var sections = document.querySelectorAll('.section');
+        sections.forEach(function(section) {
+          var top = section.getBoundingClientRect().top;
+          if (top <= 150) current = section.getAttribute('id');
+        });
+        navLinks.forEach(function(a) {
+          var href = a.getAttribute('href');
+          if (href === '#' + current) a.classList.add('active');
+          else a.classList.remove('active');
+        });
+      }
+      window.addEventListener('scroll', updateActive);
+      window.addEventListener('load', updateActive);
+
+      function openPDFViewer() {
+        var modal = document.getElementById('pdfModal');
+        if (modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+      }
+      function closePDFViewer() {
+        var modal = document.getElementById('pdfModal');
+        if (modal) { modal.classList.remove('active'); document.body.style.overflow = ''; }
+      }
+      window.openPDFViewer = openPDFViewer;
+      window.closePDFViewer = closePDFViewer;
+
+      var pdfModal = document.getElementById('pdfModal');
+      if (pdfModal) {
+        pdfModal.addEventListener('click', function(e) { if (e.target === pdfModal) closePDFViewer(); });
+      }
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePDFViewer(); });
+    })();
+  </script>
+</body>
+</html>
+

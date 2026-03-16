@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DSC Tracker — CA Cloud Desk Help</title>
+  <meta name="description" content="Step-by-step guide for the DSC Tracker module in CA Cloud Desk: record Digital Signature Certificates, track validity, and monitor expiring and expired DSCs.">
+  <meta name="keywords" content="CA Cloud Desk, Document Vault, DSC Tracker, Digital Signature Certificate, DSC expiry tracking">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #02dac5;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background-color: #fcfcfc;
+      color: var(--foreground);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .top-header {
+      background: #f0fdfb;
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-container img {
+      height: 45px;
+    }
+
+    .logo-text {
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--primary-dark);
+    }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-pdf-button {
+      margin-top: 1.5rem;
+    }
+
+    .pdf-guide-button {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+      text-decoration: none;
+    }
+
+    .pdf-guide-button svg {
+      flex-shrink: 0;
+    }
+
+    .pdf-guide-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(2, 218, 197, 0.35);
+      opacity: 0.95;
+    }
+
+    .pdf-guide-button:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow);
+      opacity: 1;
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      margin-bottom: 0;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--muted);
+      color: var(--primary-dark);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(2, 218, 197, 0.1);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .content h1 {
+      font-size: 2.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .content h1 svg {
+      color: var(--primary);
+      width: 40px;
+      height: 40px;
+    }
+
+    .content .lead {
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 100px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title svg {
+      color: var(--primary);
+      width: 24px;
+      height: 24px;
+    }
+
+    .section p {
+      margin-bottom: 1rem;
+    }
+
+    .media-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .image-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .image-wrapper img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    .media-caption {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    .step-list {
+      list-style: none;
+      counter-reset: step;
+    }
+
+    .step-list li {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.25rem;
+      counter-increment: step;
+    }
+
+    .step-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      width: 1.75rem;
+      height: 1.75rem;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-radius: 50%;
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .field-list {
+      margin-top: 0.5rem;
+      margin-left: 1.25rem;
+    }
+
+    .field-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    .callout {
+      padding: 1.25rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      background: rgba(2, 218, 197, 0.06);
+      margin: 1.5rem 0;
+    }
+
+    .callout strong {
+      color: var(--primary-dark);
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #02dac5 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    @media (max-width: 968px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span>/</span>
+        <a href="document-help.html">Document Management</a>
+        <span>/</span>
+        <span>DSC Tracker</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div style="margin-bottom: 1rem; color: var(--primary);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#overview" class="active">Overview</a></li>
+        <li><a href="#open-module">Open DSC Tracker</a></li>
+        <li><a href="#dashboard">Understand the Dashboard</a></li>
+        <li><a href="#add-dsc">Add a DSC</a></li>
+        <li><a href="#track-expiry">Track Expiring &amp; Expired DSCs</a></li>
+        <li><a href="#tips">Best Practices</a></li>
+      </ul>
+      <div class="sidebar-pdf-button">
+        <a href="assets/guide-pdf-DSC-Tracker.pdf" target="_blank" rel="noopener noreferrer" class="pdf-guide-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          View PDF Guide
+        </a>
+      </div>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        DSC Tracker
+      </h1>
+      <p class="lead">
+        Use the <strong>DSC Tracker</strong> in <strong>Document Vault</strong> to maintain a central register of all Digital Signature Certificates (DSCs)
+        for your clients—who holds them, where they are kept, and when they expire—so that you never miss a renewal.
+        Use the <strong>View PDF Guide</strong> button in the left sidebar to open the full guide in a new tab (same as opening a downloaded PDF).
+      </p>
+
+      <section id="overview" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          Overview
+        </h2>
+        <p>
+          The <strong>DSC Tracker</strong> lets you track all DSCs issued for your clients in one place.
+          You can see how many DSCs are active, which ones are expiring soon, which have already expired,
+          and which DSCs have no expiry date. You can also record where the physical token is kept and
+          who is responsible for handing it over or receiving it.
+        </p>
+        <p>
+          From this module you can:
+        </p>
+        <ul>
+          <li>Filter DSCs by <strong>Financial Year</strong>, <strong>Client</strong>, and <strong>Validity period</strong>.</li>
+          <li>Add new DSC records with complete details.</li>
+          <li>View <strong>active</strong>, <strong>recently expiring</strong>, and <strong>recently expired</strong> DSCs on a clear chart.</li>
+          <li>Switch to view only <strong>expired</strong> DSCs and export the list to <strong>Excel</strong>.</li>
+        </ul>
+      </section>
+
+      <section id="open-module" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Login and Open DSC Tracker
+        </h2>
+        <ol class="step-list">
+          <li><strong>Login</strong> to your <strong>CA Cloud Desk</strong> account.</li>
+          <li>From the <strong>left panel</strong>, click <strong>Document Vault</strong>.</li>
+          <li>On the Document Vault screen, select the <strong>DSC Tracker</strong> card.</li>
+        </ol>
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/dsc-tracker-step1-dashboard.png" alt="Dashboard with Document Vault highlighted in the left panel">
+          </div>
+          <p class="media-caption">From the dashboard, choose Document Vault from the left side panel.</p>
+        </div>
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/dsc-tracker-step2-card.png" alt="Document Vault screen with DSC Tracker card highlighted">
+          </div>
+          <p class="media-caption">In Document Vault, click the DSC Tracker card to open the module.</p>
+        </div>
+      </section>
+
+      <section id="dashboard" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17a3 3 0 0 0-6 0"/><circle cx="9" cy="13" r="2"/><path d="M9 11V7"/><path d="M12 13h4"/></svg>
+          Understand the DSC Tracker Dashboard
+        </h2>
+        <p>
+          On the <strong>DSC Tracker</strong> screen you will see a donut chart and a list of all DSCs matching your filters.
+        </p>
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/dsc-tracker-step3-main.png" alt="DSC Tracker dashboard with donut chart and DSC list">
+          </div>
+          <p class="media-caption">DSC Tracker dashboard – donut chart on top with the detailed DSC list below.</p>
+        </div>
+        <p><strong>Use the filters at the top:</strong></p>
+        <ul>
+          <li><strong>Financial Year</strong> – limit DSCs to a particular FY (optional).</li>
+          <li><strong>Client</strong> – view DSCs for a specific client or keep it blank to see all.</li>
+          <li><strong>Validity</strong> – choose a <strong>From</strong> and <strong>To</strong> date to see DSCs valid in that range.</li>
+          <li><strong>Expired toggle</strong> – keep this <strong>Off</strong> to see active and upcoming expiries only. Turn it <strong>On</strong> to see expired DSCs (explained below).</li>
+        </ul>
+        <p><strong>Read the donut chart:</strong></p>
+        <ul>
+          <li><strong>Active</strong> – DSCs currently valid.</li>
+          <li><strong>Recent Expiring</strong> – DSCs whose validity is ending soon (near your selected date range).</li>
+          <li><strong>Recent Expired</strong> – DSCs that have just expired.</li>
+          <li><strong>No Expiry Date</strong> – DSCs where no expiry date has been recorded.</li>
+        </ul>
+        <p>
+          The grid below the chart shows full details for each DSC: client name, DSC holder, signing partner, validity,
+          custodian, receiver, branch, and remarks. You can also use the <strong>Excel</strong> button to export the current list.
+        </p>
+      </section>
+
+      <section id="add-dsc" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Add a New DSC
+        </h2>
+        <p>
+          Whenever a new DSC is issued for any client, record it in the DSC Tracker.
+        </p>
+        <ol class="step-list">
+          <li>
+            On the DSC Tracker screen, click the <strong>Plus</strong> icon (<strong>Add DSC</strong>) on the top-right.
+          </li>
+          <li>
+            The <strong>Add Dsc</strong> form opens. Fill the details carefully:
+            <ul class="field-list">
+              <li><strong>Client</strong> – Select the client for whom the DSC is issued.</li>
+              <li><strong>PAN No.</strong> – Enter the PAN number of the DSC holder.</li>
+              <li><strong>Name of DSC Holder</strong> – Person or entity whose name is printed on the DSC token.</li>
+              <li><strong>Email</strong> and <strong>Mobile</strong> – Contact details linked with the DSC.</li>
+              <li><strong>Valid From</strong> and <strong>Valid To</strong> – Start and end dates of the DSC validity.</li>
+              <li><strong>Service</strong> – Select the service or purpose for which the DSC is used.</li>
+              <li><strong>DSC Type</strong> – Choose the DSC class/type (for example, Class 3, Token, etc.).</li>
+              <li><strong>Password</strong> – Store the DSC token password (as per your firm’s policy).</li>
+              <li><strong>DIN No.</strong> – Director Identification Number, if applicable.</li>
+              <li><strong>Physical Location</strong> – Where the DSC token is kept (for example, “Head Office locker” or “Branch – Delhi”).</li>
+              <li><strong>Category</strong> – Internal category you want to group this DSC under.</li>
+              <li><strong>DSC Number</strong> – Unique DSC / token number printed on the device or certificate.</li>
+              <li><strong>Is handed over to client</strong> – Turn this on if the token is handed over to the client.</li>
+              <li><strong>Handed Over By</strong> and <strong>Handed Over On</strong> – Who gave the token and on which date.</li>
+              <li><strong>Received By</strong> and <strong>Received On</strong> – Who received the token and when (for return / internal handover).</li>
+              <li><strong>Branch</strong> – Select the branch responsible for this DSC.</li>
+              <li><strong>Signing Person</strong> – Partner / authorized signatory who signs using this DSC.</li>
+              <li><strong>Any additional documents</strong> – Attach any supporting files (for example, approval letter or KYC documents).</li>
+              <li><strong>Notes</strong> – Add remarks such as “Use only for GST filings” or “Renew before month-end”.</li>
+            </ul>
+          </li>
+          <li>After filling all mandatory fields, click <strong>Save</strong>. The new DSC entry will appear in the list and in the chart counts.</li>
+        </ol>
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/dsc-tracker-step4-add-button.png" alt="DSC Tracker screen highlighting Add DSC plus icon">
+          </div>
+          <p class="media-caption">Use the plus (+) icon on the DSC Tracker to open the Add Dsc form.</p>
+        </div>
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/dsc-tracker-step5-add-form.png" alt="Add Dsc form with all DSC details fields">
+          </div>
+          <p class="media-caption">Add Dsc form – capture client details, validity, location, custodian, and important notes.</p>
+        </div>
+        <div class="callout">
+          <strong>Tip:</strong> Always update <strong>Physical Location</strong>, <strong>Handed Over By / Received By</strong>, and <strong>Notes</strong>
+          so anyone in your team can immediately know where the DSC is and how it is being used.
+        </div>
+      </section>
+
+      <section id="track-expiry" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Track Expiring and Expired DSCs
+        </h2>
+        <p>
+          Once DSCs are recorded, you can easily check which ones are about to expire or already expired.
+        </p>
+        <ol class="step-list">
+          <li>
+            Use the <strong>Validity</strong> date range to focus on DSCs near a particular period. The donut chart will highlight
+            <strong>Recent Expiring</strong> and <strong>Recent Expired</strong> segments.
+          </li>
+          <li>
+            To see only <strong>expired</strong> DSCs, enable the <strong>Expired</strong> toggle on the top-right. The chart and list will
+            refresh to show DSCs whose <strong>Valid To</strong> date has already passed.
+          </li>
+          <li>
+            Use the <strong>Excel</strong> button to download the expired DSC list and share it with your team for renewal planning.
+          </li>
+        </ol>
+        <div class="media-box">
+          <div class="image-wrapper">
+            <img src="assets/dsc-tracker-step6-expired-toggle.png" alt="DSC Tracker with Expired toggle enabled">
+          </div>
+          <p class="media-caption">Turn on the Expired toggle to focus only on DSCs whose validity has already ended.</p>
+        </div>
+        <div class="callout">
+          <strong>Reminder:</strong> Regularly review <strong>Recent Expiring</strong> and <strong>Expired</strong> DSCs so that renewal or new DSC
+          applications can be planned before important filings or submissions.
+        </div>
+      </section>
+
+      <section id="tips" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17h8v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/></svg>
+          Best Practices
+        </h2>
+        <ul>
+          <li><strong>Update immediately:</strong> Add or edit DSC entries as soon as a new DSC is issued or renewed.</li>
+          <li><strong>Maintain accurate locations:</strong> Keep <strong>Physical Location</strong> and custodian details up to date to avoid misplaced tokens.</li>
+          <li><strong>Use notes smartly:</strong> Record any restrictions (for example, “Only for ROC filings”) so your team uses DSCs correctly.</li>
+          <li><strong>Review regularly:</strong> At least once a week, filter by upcoming dates and check expiring DSCs to plan renewals.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020–26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var navLinks = document.querySelectorAll('.sidebar-nav a');
+      function updateActive() {
+        var current = '';
+        var sections = document.querySelectorAll('.section');
+        sections.forEach(function(section) {
+          var top = section.getBoundingClientRect().top;
+          if (top <= 150) current = section.getAttribute('id');
+        });
+        navLinks.forEach(function(a) {
+          var href = a.getAttribute('href');
+          if (href === '#' + current) {
+            a.classList.add('active');
+          } else {
+            a.classList.remove('active');
+          }
+        });
+      }
+      window.addEventListener('scroll', updateActive);
+      window.addEventListener('load', updateActive);
+    })();
+  </script>
+</body>
+</html>
+

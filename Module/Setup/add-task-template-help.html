@@ -6,7 +6,7 @@
   <title>Add Task Template — CA Cloud Desk Help</title>
   <meta name="description" content="Step-by-step guide to add a task template in CA Cloud Desk Setup. Create task templates with stages, subtasks, ECT, priority, assignee, service, and billing.">
   <meta name="keywords" content="CA Cloud Desk, setup, task template, Create Task Template, Add Template, stages, subtask, ECT, priority, assignee, service">
-  <link rel="icon" href="../../cacloud.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,14 +29,14 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       background-color: #fcfcfc;
       color: var(--foreground);
-      line-height: 1.6;
+      line-height: 1.47;
     }
 
     .top-header {
-      background: rgba(10, 33, 35, 0.98);
+      background: #f0fdfb;
       backdrop-filter: blur(10px);
       border-bottom: 2px solid var(--primary);
       padding: 0.75rem 1.5rem;
@@ -63,13 +63,13 @@
 
     .logo-container img { height: 45px; }
 
-    .logo-text { color: white; font-weight: 700; font-size: 1.25rem; }
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
 
     .breadcrumb {
       display: flex;
       gap: 0.5rem;
       font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--muted-foreground);
     }
 
     .breadcrumb a { color: var(--primary); text-decoration: none; }
@@ -100,7 +100,7 @@
       letter-spacing: 0.05em;
       color: var(--muted-foreground);
       margin-bottom: 1rem;
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .sidebar-nav { list-style: none; }
@@ -536,7 +536,7 @@
   <header class="top-header">
     <div class="header-container">
       <a href="../../index.html" class="logo-container">
-        <img src="../../transparent%20logo.png" alt="Logo" onerror="this.src='../../cacloud.svg'">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
         <div class="logo-text">CA Cloud Desk</div>
       </a>
       <nav class="breadcrumb">
@@ -561,15 +561,15 @@
         <li><a href="#tutorial">Video Tutorial</a></li>
       </ul>
       <div class="sidebar-pdf-button">
-        <button class="pdf-cart-button" onclick="openPDFViewer()">
+        <a href="../../assets/task-template-guide.pdf" target="_blank" rel="noopener" class="pdf-cart-button" style="text-decoration: none;">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
             <polyline points="14 2 14 8 20 8"/>
             <line x1="16" y1="13" x2="8" y2="13"/>
             <line x1="16" y1="17" x2="8" y2="17"/>
           </svg>
-          View Guide PDF
-        </button>
+          View PDF Guide
+        </a>
       </div>
     </aside>
 
@@ -636,8 +636,8 @@
           <p>Click the <strong>Settings</strong> (gear) icon on the Tasks screen, then select <strong>Add Template</strong> from the dropdown to create a task template.</p>
         </div>
         <div class="media-box">
-          <img src="../../assets/Screenshot_2026-02-13_at_5.28.12_PM-bacf2b6c-9ed0-4fc1-a7d6-d324e9f74b56.png" alt="Tasks screen: from the Settings icon select Add Template. Dropdown shows Add Template, Add Stages, Add Subtask, Task Setting" onerror="this.style.display='none'">
-          <div class="media-caption">Tasks screen: from the <strong>Settings</strong> icon (top right), select <strong>Add Template</strong> to open the Create Task Template form.</div>
+          <img src="../../assets/guide_task_ca_clouddesk-355de7d3-3725-4821-a6c3-92990b9d335d.png" alt="CA Cloud Desk Tasks screen: select Task in left panel; from the Settings icon select Add Template. Dropdown shows Add Template, Add Stages, Add Subtask, Task Setting" onerror="this.style.display='none'">
+          <div class="media-caption">Tasks screen: select <strong>Task</strong> in the left panel; from the <strong>Settings</strong> icon (top right), select <strong>Add Template</strong> to open the Create Task Template form.</div>
         </div>
 
         <h3 style="margin-top: 2.5rem; margin-bottom: 1rem; color: var(--dark); font-size: 1.35rem;">Create Task Template form — Basic information <span class="badge-mandatory">Mandatory</span></h3>
@@ -783,19 +783,18 @@
     <div class="footer-content">
       <div class="footer-grid">
         <div class="footer-section">
-          <h4>More</h4>
+          <h4>CA CloudDesk</h4>
           <ul>
             <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
             <li><a href="https://caclouddesk.com/about-us/">About Us</a></li>
             <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
-            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
             <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
           </ul>
         </div>
         <div class="footer-section">
           <h4>Essential Resources</h4>
           <ul>
-            <li><a href="https://utility.caclouddesk.com/">Free Tools and Utilities</a></li>
+            <li><a href="https://caclouddesk.com/blogs/">Blogs</a></li>
             <li><a href="https://caclouddesk.com/use-cases/">Use Cases</a></li>
             <li><a href="https://caclouddesk.com/features/">Features</a></li>
             <li><a href="../../index.html">Modules</a></li>
@@ -838,7 +837,7 @@
         </button>
       </div>
       <div class="pdf-modal-actions">
-        <a href="../../task-template-guide.pdf" download="Task-Template-Guide.pdf" class="pdf-download-btn">
+        <a href="../../assets/task-template-guide.pdf" download="Task-Template-Guide.pdf" class="pdf-download-btn">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
@@ -846,9 +845,11 @@
           </svg>
           Download PDF
         </a>
+        <a href="../../assets/task-template-guide.pdf" target="_blank" rel="noopener" class="pdf-download-btn" style="margin-left: 0.5rem;">Open in new tab</a>
       </div>
       <div class="pdf-modal-body">
-        <iframe src="../../task-template-guide.pdf#toolbar=1" class="pdf-viewer" type="application/pdf" title="Task Template Guide PDF"></iframe>
+        <p class="pdf-fallback-msg" style="margin:0 0 0.5rem 0; font-size:0.875rem; color:var(--muted-foreground);">If the PDF does not display below, use <strong>Open in new tab</strong> or <strong>Download PDF</strong> above.</p>
+        <iframe src="../../assets/task-template-guide.pdf#toolbar=1" class="pdf-viewer" type="application/pdf" title="Task Template Guide PDF"></iframe>
       </div>
     </div>
   </div>

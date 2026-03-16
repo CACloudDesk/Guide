@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll – Account Settings — CA Cloud Desk Help</title>
+  <meta name="description" content="Step-by-step guide for Payroll – Account Settings in CA Cloud Desk HRMS. Open Settings, choose Payroll, and configure Account Settings for payroll processing.">
+  <meta name="keywords" content="CA Cloud Desk, HRMS, payroll, account settings, payroll for HRs, salary processing, CA Cloud Desk settings">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #25b7a7;
+      --primary-dark: #00b8a9;
+      --dark: #0a2123;
+      --background: #ffffff;
+      --foreground: #0f172a;
+      --muted: #f1f5f9;
+      --muted-foreground: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      background-color: #fcfcfc;
+      color: var(--foreground);
+      line-height: 1.47;
+    }
+
+    .top-header {
+      background: #f0fdfb;
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--primary);
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      min-height: 70px;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .logo-container img { height: 45px; }
+
+    .logo-text {
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+      background: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-nav a {
+      color: var(--foreground);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      display: block;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      background: var(--muted);
+      color: var(--primary-dark);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(2, 218, 197, 0.1);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .path-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .path-indicator span {
+      color: var(--primary-dark);
+    }
+
+    .content h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .content h1 svg {
+      color: var(--primary);
+      width: 40px;
+      height: 40px;
+    }
+
+    .content .lead {
+      font-size: 1.125rem;
+      color: var(--muted-foreground);
+      margin-bottom: 2.5rem;
+    }
+
+    .section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 100px;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 1.65rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title svg {
+      color: var(--primary);
+      width: 24px;
+      height: 24px;
+    }
+
+    .steps-container {
+      margin-top: 0.5rem;
+    }
+
+    .step-card {
+      position: relative;
+      padding-left: 4rem;
+      padding-bottom: 2rem;
+      border-left: 2px solid var(--border);
+      margin-left: 1rem;
+    }
+
+    .step-card:last-child {
+      border-left-color: transparent;
+      padding-bottom: 0;
+    }
+
+    .step-number {
+      position: absolute;
+      left: -1.25rem;
+      top: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .step-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-card > p {
+      color: var(--muted-foreground);
+      margin-bottom: 1rem;
+    }
+
+    .media-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .media-box img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .media-caption {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      text-align: center;
+    }
+
+    .permission-category {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .permission-category h4 {
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .permission-category ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .permission-category ul li {
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .permission-category ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #000;
+      display: block;
+    }
+
+    .video-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.65));
+    }
+
+    .video-play-button {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .video-play-button svg {
+      width: 30px;
+      height: 30px;
+      color: white;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #25b7a7 0%, #00b8a9 100%);
+      color: white;
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.95;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9375rem;
+      display: inline-block;
+    }
+
+    .footer-section a:hover {
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .contact-info p {
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    .contact-info a {
+      color: white;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    @media (max-width: 968px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="header-container">
+      <a href="../../index.html" class="logo-container">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
+        <div class="logo-text">CA Cloud Desk</div>
+      </a>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Home</a> /
+        <a href="hrms-help.html">HRMS</a> /
+        <span>Payroll – Account Settings</span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div style="margin-bottom: 1.5rem; color: var(--primary); opacity: 0.85;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+          <line x1="1" y1="10" x2="23" y2="10"></line>
+        </svg>
+      </div>
+      <div class="sidebar-title">On this page</div>
+      <ul class="sidebar-nav">
+        <li><a href="#path" class="active">Path</a></li>
+        <li><a href="#steps">Steps</a></li>
+        <li><a href="#key-settings">Key settings</a></li>
+        <li><a href="#tutorial">Video Tutorial</a></li>
+        <li><a href="#related">Related</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+          <line x1="1" y1="10" x2="23" y2="10"></line>
+        </svg>
+        Payroll – Account Settings
+      </h1>
+      <p class="lead">Use Payroll – Account Settings to configure how payroll is processed in CA Cloud Desk: open Settings from the Dashboard, switch to the Payroll tab, and then open the Account Settings card to review and update master payroll preferences.</p>
+
+      <section id="path" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Path
+        </h2>
+        <div class="path-indicator">
+          <span>Dashboard</span> → <span>Settings (top-right)</span> → <span>Payroll</span> → <span>Account Settings</span>
+        </div>
+      </section>
+
+      <section id="steps" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+          Step-by-step instructions
+        </h2>
+
+        <div class="steps-container">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Open Dashboard and go to Settings</h3>
+            <p>Log in to CA Cloud Desk and make sure you are on the main Dashboard. On the top-right corner, click on your profile name to open the drop-down and select <strong>Settings</strong>.</p>
+            <div class="media-box">
+              <img src="../../assets/Payroll_HR_CA_CloudDesk-87453c1d-fbbc-46ca-989d-99434eac008f.png" alt="Dashboard with Settings highlighted on top-right" onerror="this.style.display='none'">
+              <div class="media-caption">Dashboard — use the top-right profile menu and choose Settings.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Select the Payroll tab</h3>
+            <p>Inside Settings you will see multiple tabs such as <strong>Profile</strong>, <strong>HRMS</strong>, <strong>Payroll</strong>, <strong>Import Utility</strong>, <strong>Notification</strong>, <strong>Accounts</strong>, <strong>Services</strong>, and <strong>Settings</strong>. Click the <strong>Payroll</strong> tab to open payroll-specific options.</p>
+            <div class="media-box">
+              <img src="../../assets/Payroll_HR_CA_CloudDesk2-6c6cc0cd-17b5-4bb7-b257-a8f251d1661a.png" alt="Settings screen with Payroll tab and Account Settings card highlighted" onerror="this.style.display='none'">
+              <div class="media-caption">Settings — select the Payroll tab, then locate the Account Settings card.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Open the Account Settings card</h3>
+            <p>Under the Payroll tab, click on the <strong>Account Settings</strong> card. This opens the main payroll configuration area where you define how salaries are calculated and processed.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3>View payroll configuration sections</h3>
+            <p>After selecting <strong>Account Settings</strong>, you will see the main payroll configuration sections on the page: <strong>DropDown Setting</strong>, <strong>Salary Ingredients</strong>, <strong>Constant Deduction</strong>, <strong>Pay Details</strong>, <strong>Overhead Expense</strong>, and <strong>Manual Costing</strong>. You should first start with the <strong>DropDown Setting</strong> section before configuring the remaining options.</p>
+            <div class="media-box">
+              <img src="../../assets/Payroll_HR_CA_CloudDesk3-96e604f1-7ffc-4b89-9bbc-a8f2551606d2.png" alt="Account Settings screen showing DropDown Setting, Salary Ingredients, Constant Deduction, Pay Details, Overhead Expense, Manual Costing tabs" onerror="this.style.display='none'">
+              <div class="media-caption">Account Settings — tabs for DropDown Setting, Salary Ingredients, Constant Deduction, Pay Details, Overhead Expense, and Manual Costing.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">5</div>
+            <h3>A. Dropdown Settings</h3>
+            <p>In the <strong>DropDown Setting</strong> tab, use the <strong>Name</strong> and <strong>Value</strong> fields to define reusable dropdown lists. You can configure: <strong>Additional Pay</strong>, <strong>Expense Type</strong>, <strong>Overhead Expense</strong>, <strong>Payment Options</strong>, and <strong>Variable Deductions</strong>. Additional Pay covers extra payments like Bonus, Gratuity, Festival Bonus, Food Allowance, Overtime Pay, and Performance Bonus. The other dropdown settings—<strong>Overhead Expense</strong>, <strong>Payment Options</strong>, and <strong>Variable Deductions</strong>—work the same way: choose the Name (dropdown type) and add Value entries that will appear in other payroll screens.</p>
+            <div class="media-box">
+              <img src="../../assets/Payroll_HR_CA_CloudDesk4-ac3fb49a-1f50-4f4f-9536-eaf66ec041b5.png" alt="Dropdown Settings tab showing Additional Pay, Expense Type, Overhead Expense, Payment Options, Variable Deductions" onerror="this.style.display='none'">
+              <div class="media-caption">Dropdown Settings — choose the master list (Additional Pay, Expense Type, Overhead Expense, Payment Options, Variable Deductions).</div>
+            </div>
+            <div class="media-box">
+              <img src="../../assets/Payroll_HR_CA_CloudDesk5-56ad01e1-052e-4887-9e3c-c24e9a709276.png" alt="Additional Pay dropdown values list such as Bonus, Gratuity, Food Allowance, Overtime Pay" onerror="this.style.display='none'">
+              <div class="media-caption">Additional Pay — example values like Bonus, Gratuity, Festival Bonus, Food Allowance, Overtime Pay, Performance Bonus, and more.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">6</div>
+            <h3>B. Expense Type</h3>
+            <p><strong>Expense Type</strong> is money spent by an employee for company work that the company later pays back. In the DropDown Setting tab, select <strong>Name</strong> as <strong>Expense Type</strong> and add <strong>Value</strong> entries for each type of reimbursable expense. Examples you can configure include:</p>
+            <ul style="list-style: none; padding-left: 0; margin: 0.75rem 0; font-size: 0.9375rem; color: var(--muted-foreground);">
+              <li>1. 2 Wheeler Expenses</li>
+              <li>2. Cab Expenses</li>
+              <li>3. Four-Wheeler Usage</li>
+              <li>4. GB SIR</li>
+              <li>5. Local Conveyance</li>
+              <li>6. Lodging &amp; Accommodation</li>
+              <li>7. Meals &amp; Food Expenses</li>
+              <li>8. Miscellaneous Expenses</li>
+              <li>9. Mobile and Internet Reimbursements</li>
+              <li>10. Parking &amp; Toll Charges</li>
+              <li>11. Two-Wheeler Usage</li>
+            </ul>
+            <p>You can add more expense types as needed and use <strong>Edit</strong> or <strong>Delete</strong> in the list to manage existing values.</p>
+            <div class="media-box">
+              <img src="../../assets/Payroll_HR_CA_CloudDesk7-752be6c3-5a3a-44fb-ade8-ca6520908e90.png" alt="Expense Type dropdown settings with list of expense types" onerror="this.style.display='none'">
+              <div class="media-caption">Expense Type — configure reimbursable expense types such as Cab Expenses, Local Conveyance, Meals &amp; Food, etc.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">7</div>
+            <h3>2. Salary Ingredients</h3>
+            <p><strong>Salary Ingredients</strong> are the different components that make up an employee's total salary package. Each component is added or deducted to calculate the final take-home salary.</p>
+            <p>Click the <strong>+</strong> (plus) icon to <strong>Add Salary Ingredients</strong>. The Add Salary Ingredients form includes the following options:</p>
+            <ul style="list-style: none; padding-left: 0; margin: 0.75rem 0; font-size: 0.9375rem; color: var(--muted-foreground);">
+              <li><strong>Name*</strong> — Name of the salary component (e.g. Basic, DA, HRA).</li>
+              <li><strong>Employee Head*</strong> — Corresponding head as shown to the employee.</li>
+              <li><strong>Order*</strong> — Display order of the component.</li>
+              <li><strong>Component Type*</strong> — e.g. Value Based or Formula Based.</li>
+              <li><strong>Nature*</strong> — e.g. MONTHLY.</li>
+              <li><strong>Nature type</strong> — Sub-type or nature option as per the dropdown.</li>
+              <li><strong>Tax Status*</strong> — Whether the component is taxable (Yes/No).</li>
+              <li><strong>Financial Year</strong> — Applicable financial year (optional).</li>
+              <li><strong>Show in Payslip or not</strong> — Checkbox to show or hide on the payslip.</li>
+            </ul>
+            <p>After filling the fields, click <strong>Save</strong> to add the salary ingredient.</p>
+            <div class="media-box">
+              <img src="../../assets/Salary_Ingredients_CA_CloudDesk1-ee398c2d-9daf-4641-a172-8047850d0e3b.png" alt="Salary Ingredients list with Add Salary Ingredients plus icon" onerror="this.style.display='none'">
+              <div class="media-caption">Salary Ingredients — list view; use the + icon to Add Salary Ingredients.</div>
+            </div>
+            <div class="media-box">
+              <img src="../../assets/Salary_Ingredients_CA_CloudDesk2-04348b4d-871d-4e7f-9288-e9487d6070de.png" alt="Add Salary Ingredients form with Name, Employee Head, Order, Component Type, Nature, Tax Status, Financial Year, Show in Payslip" onerror="this.style.display='none'">
+              <div class="media-caption">Add Salary Ingredients — form with Name, Employee Head, Order, Component Type, Nature, Tax Status, Financial Year, Show in Payslip, and Save.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">8</div>
+            <h3>3. Constant Deductions</h3>
+            <p><strong>Constant Deduction</strong> is a fixed deduction applied to an employee's salary every payroll cycle, such as PF or insurance, which remains unchanged unless modified.</p>
+            <p>From the <strong>+</strong> (add plus) button you can add constant settings. Add a constant deduction by filling the following details:</p>
+            <ul style="list-style: none; padding-left: 0; margin: 0.75rem 0; font-size: 0.9375rem; color: var(--muted-foreground);">
+              <li><strong>Name*</strong></li>
+              <li><strong>Employee Head*</strong></li>
+              <li><strong>Start Month*</strong> — Select month</li>
+              <li><strong>Deduction Type*</strong> — e.g. Deduction / Value Based</li>
+              <li><strong>Applicable on</strong></li>
+              <li><strong>Percentage Value</strong></li>
+              <li><strong>Max Value</strong></li>
+              <li><strong>Rounding</strong></li>
+              <li><strong>Type*</strong> — Nature type (e.g. MONTHLY)</li>
+              <li><strong>Tax Status</strong></li>
+              <li><strong>Order*</strong></li>
+              <li><strong>Attach with Tax Declaration</strong> — checkbox</li>
+              <li><strong>Show in payslip</strong> — checkbox</li>
+              <li><strong>Financial Year</strong></li>
+            </ul>
+            <p>Then click <strong>Save</strong> to add the constant deduction.</p>
+            <div class="media-box">
+              <img src="../../assets/Constant_Deduction_CA_CloudDesk2-19e94e44-2562-459f-be3b-9aba41022e26.png" alt="Constant Deduction list with Add Constant Setting plus button" onerror="this.style.display='none'">
+              <div class="media-caption">Constant Deduction — list view; use the + icon to Add Constant Setting.</div>
+            </div>
+            <div class="media-box">
+              <img src="../../assets/Constant_Deduction_CA_CloudDesk3-c21b748f-e2f6-43ce-916d-c6523568c063.png" alt="Add Constant Deduction form with Name, Employee Head, Start Month, Deduction Type, Tax Status, Show in payslip, Save" onerror="this.style.display='none'">
+              <div class="media-caption">Add Constant Deduction — form with Name, Employee Head, Start Month, Deduction Type, Applicable on, Percentage Value, Max Value, Rounding, Type, Tax Status, Order, Attach with Tax Declaration, Show in payslip, Financial Year, and Save.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">9</div>
+            <h3>4. Pay Details</h3>
+            <p>From the <strong>Pay Details</strong> tab you can add the pay details of each employee by clicking on the <strong>+</strong> icon. Pay details show the complete salary structure of an employee including earnings, deductions, gross salary, and net payable amount.</p>
+            <p>Add the following details for the employee:</p>
+            <ul style="list-style: none; padding-left: 0; margin: 0.75rem 0; font-size: 0.9375rem; color: var(--muted-foreground);">
+              <li><strong>Valid From*</strong> — Month from which these pay details are applicable.</li>
+              <li><strong>Employee*</strong> — Select Employee.</li>
+              <li><strong>Payment Mode*</strong> — e.g. Bank Account / NEFT / other modes.</li>
+              <li><strong>Account Name</strong></li>
+              <li><strong>Bank Account Number</strong></li>
+              <li><strong>IFSC Code</strong></li>
+              <li><strong>PAN No</strong></li>
+              <li><strong>UAN No</strong></li>
+              <li><strong>Aadhar No</strong></li>
+              <li><strong>Constant Deductions</strong> — link constant deductions defined earlier.</li>
+              <li><strong>Component</strong> — select salary components (Name and Value) such as DA, Basic, HRA, LTA, Branch A etc.</li>
+              <li><strong>Gross Salary</strong></li>
+              <li><strong>Notes</strong> — any additional remarks.</li>
+            </ul>
+            <p>After filling all details, click <strong>Save</strong> to store the employee’s pay details.</p>
+            <div class="media-box">
+              <img src="../../assets/Pay_Details_CA_CloudDesk1-5aa85b27-e2d6-4442-ab05-873c3af29428.png" alt="Pay Details list with Add Pay Details plus icon" onerror="this.style.display='none'">
+              <div class="media-caption">Pay Details — list view; use the + icon to Add Pay Details for each employee.</div>
+            </div>
+            <div class="media-box">
+              <img src="../../assets/Pay_Details_CA_CloudDesk2-da6f3ac5-a115-4a95-8ccd-8aeb7532b820.png" alt="Add Pay Bills form with Valid From, Employee, Payment Mode, Account, bank details, components, Gross Salary, Notes" onerror="this.style.display='none'">
+              <div class="media-caption">Add Pay Bills — form with Valid From, Employee, Payment Mode, bank details, Constant Deductions, components (DA, Basic, HRA, etc.), Gross Salary, and Notes.</div>
+            </div>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">10</div>
+            <h3>Confirm earnings, deductions, and statutory settings</h3>
+            <p>Go through the earnings and deduction heads, along with statutory preferences such as PF/ESI/Professional Tax or TDS options. Make sure they align with your organisation’s policies so that payroll calculations and statutory reports are accurate.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">11</div>
+            <h3>Save changes</h3>
+            <p>After updating any fields in Account Settings, use the <strong>Save</strong> or <strong>Update</strong> button at the bottom of the screen. The new configuration will apply to upcoming payroll runs and related reports.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="key-settings" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+            <line x1="9" y1="12" x2="21" y2="12"></line>
+          </svg>
+          Key options in Account Settings
+        </h2>
+        <p>While the exact layout may vary by version, you will typically find these groups of options in Payroll – Account Settings. Use them to keep your payroll configuration consistent and compliant.</p>
+
+        <div class="permission-category">
+          <h4>Organisation &amp; payroll period</h4>
+          <ul>
+            <li><strong>Financial year</strong> — confirms the financial year for which payroll is being configured.</li>
+            <li><strong>Payroll cycle</strong> — start and end dates, or custom cut-off, used to group salary periods.</li>
+            <li><strong>Branch or location mapping</strong> — if enabled, links payroll configuration to specific branches.</li>
+          </ul>
+        </div>
+
+        <div class="permission-category">
+          <h4>Earnings &amp; deduction structure</h4>
+          <ul>
+            <li><strong>Earning components</strong> — salary heads such as Basic, HRA, allowances or other earnings.</li>
+            <li><strong>Deduction components</strong> — statutory and non-statutory deductions like PF, ESI, professional tax, advances, and other recoveries.</li>
+            <li><strong>Calculation preferences</strong> — high-level rules for how earnings and deductions are calculated for each payroll run.</li>
+          </ul>
+        </div>
+
+        <div class="permission-category">
+          <h4>Bank &amp; payment details</h4>
+          <ul>
+            <li><strong>Payout bank account</strong> — default bank from which salaries are assumed to be paid.</li>
+            <li><strong>Payment mode</strong> — such as bank transfer, cheque, or other modes supported in your practice.</li>
+            <li><strong>File / export format</strong> — if available, controls the structure of bank upload or payment advice files.</li>
+          </ul>
+        </div>
+
+        <div class="permission-category">
+          <h4>Statutory &amp; compliance</h4>
+          <ul>
+            <li><strong>PF/ESI/Professional Tax</strong> — enable or review statutory settings based on applicable laws.</li>
+            <li><strong>TDS and tax regime</strong> — high-level defaults for how tax is calculated and reported for employees.</li>
+            <li><strong>Other statutory preferences</strong> — options that affect statutory registers or period-end payroll reports.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="tutorial" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+          Video Tutorial
+        </h2>
+        <p>Watch the Payroll – Account Settings walkthrough from 0:00 to 7:14. It follows the same flow described above: open Settings from Dashboard, select the Payroll tab, open Account Settings, and review key configuration options.</p>
+        <div class="media-box">
+          <a href="https://www.youtube.com/watch?v=IgdKFDUxYhM&t=434s" target="_blank" rel="noopener" class="video-wrapper" aria-label="Open Payroll – Account Settings video tutorial on YouTube">
+            <img src="https://img.youtube.com/vi/IgdKFDUxYhM/hqdefault.jpg" alt="Payroll – Account Settings video thumbnail from YouTube">
+            <div class="video-overlay">
+              <div class="video-play-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="8 5 19 12 8 19 8 5"></polygon>
+                </svg>
+              </div>
+            </div>
+          </a>
+          <div class="media-caption">Payroll – Account Settings module — click the thumbnail card to open the video tutorial on YouTube.</div>
+        </div>
+      </section>
+
+      <section id="related" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+          Related
+        </h2>
+        <p><a href="hrms-help.html">HRMS</a> — view other HRMS and Payroll for HRs guides such as Employee Declaration and Transaction.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4>CA CloudDesk</h4>
+          <ul>
+            <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
+            <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
+            <li><a href="https://caclouddesk.com/policy/">Policies</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="../../index.html">Modules</a></li>
+            <li><a href="hrms-help.html">HRMS</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <div class="contact-info">
+            <p>Law Seva Management (P) Ltd</p>
+            <p>Phone: 0120-4308902</p>
+            <p>Email: <a href="mailto:info@caclouddesk.com">info@caclouddesk.com</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Law Seva Management Private Limited © 2020-26. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+    window.onscroll = () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 150) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+      });
+    };
+  </script>
+</body>
+</html>
+

@@ -6,24 +6,24 @@
   <title>Add Pay Details — CA Cloud Desk Help</title>
   <meta name="description" content="Step-by-step guide to add pay details in CA Cloud Desk. Part A: Profile → Payroll → Account setting → Pay details (manual). Part B: Import utility → HRMS → upload pay details Excel.">
   <meta name="keywords" content="CA Cloud Desk, setup, pay details, payroll, account setting, payment mode, bank account, IFSC, PAN, UAN, Aadhar, import utility, HRMS">
-  <link rel="icon" href="../../cacloud.svg" type="image/svg+xml">
+  <link rel="icon" href="../../assets/cacloud.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root { --primary: #25b7a7; --primary-dark: #00b8a9; --dark: #0a2123; --foreground: #0f172a; --muted: #f1f5f9; --muted-foreground: #64748b; --border: #e2e8f0; --radius: 12px; --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px rgb(0 0 0 / 0.1); }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; color: var(--foreground); line-height: 1.6; }
-    .top-header { background: rgba(10, 33, 35, 0.98); border-bottom: 2px solid var(--primary); padding: 0.75rem 1.5rem; position: sticky; top: 0; z-index: 1000; min-height: 70px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; background-color: #fcfcfc; color: var(--foreground); line-height: 1.47; font-size: 17px; }
+    .top-header { background: #f0fdfb; border-bottom: 2px solid var(--primary); padding: 0.75rem 1.5rem; position: sticky; top: 0; z-index: 1000; min-height: 70px; }
     .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .logo-container { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .logo-container img { height: 45px; }
-    .logo-text { color: white; font-weight: 700; font-size: 1.25rem; }
-    .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.875rem; color: rgba(255, 255, 255, 0.7); }
+    .logo-text { color: var(--dark); font-weight: 600; font-size: 1.25rem; }
+    .breadcrumb { display: flex; gap: 0.5rem; font-size: 0.875rem; color: var(--muted-foreground); }
     .breadcrumb a { color: var(--primary); text-decoration: none; }
     .layout { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; display: grid; grid-template-columns: 280px 1fr; gap: 3rem; }
     .sidebar { position: sticky; top: 100px; height: fit-content; background: white; padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
-    .sidebar-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-foreground); margin-bottom: 1rem; font-weight: 700; }
+    .sidebar-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-foreground); margin-bottom: 1rem; font-weight: 600; }
     .sidebar-nav { list-style: none; }
     .sidebar-nav li { margin-bottom: 0.5rem; }
     .sidebar-nav a { color: var(--foreground); text-decoration: none; font-size: 0.9375rem; display: block; padding: 0.5rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
@@ -69,6 +69,30 @@
     .upload-options { list-style: none; padding-left: 0; margin: 0.75rem 0; }
     .upload-options li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; font-size: 0.9375rem; }
     .upload-options li::before { content: "•"; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+    .sidebar-pdf-button { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .sidebar-pdf-button .pdf-cart-button { width: 100%; justify-content: center; margin: 0; font-size: 0.9375rem; padding: 0.875rem 1.25rem; }
+    .pdf-cart-button { display: inline-flex; align-items: center; gap: 0.75rem; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 1rem 1.5rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; box-shadow: var(--shadow); cursor: pointer; border: none; margin: 1.5rem 0; }
+    .pdf-cart-button:hover { transform: translateY(-2px); box-shadow: 0 6px 12px -2px rgb(0 0 0 / 0.15), 0 4px 8px -4px rgb(0 0 0 / 0.1); }
+    .pdf-cart-button svg { width: 24px; height: 24px; }
+    .pdf-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 2000; backdrop-filter: blur(5px); }
+    .pdf-modal.active { display: flex; align-items: center; justify-content: center; }
+    .pdf-modal-content { position: relative; width: 95%; height: 95%; background: white; border-radius: var(--radius); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); display: flex; flex-direction: column; overflow: hidden; }
+    .pdf-modal-header { background: var(--dark); color: white; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--primary); }
+    .pdf-modal-header h3 { display: flex; align-items: center; gap: 0.75rem; margin: 0; font-size: 1.1rem; font-weight: 600; }
+    .pdf-modal-close { background: none; border: none; color: white; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: all 0.3s ease; }
+    .pdf-modal-close:hover { background: rgba(255, 255, 255, 0.1); }
+    .pdf-modal-actions { padding: 1rem 1.5rem; background: #f8fafc; border-bottom: 1px solid var(--border); }
+    .pdf-download-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--primary); color: white; padding: 0.75rem 1.25rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; }
+    .pdf-download-btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+    .pdf-modal-body { flex: 1; padding: 0; }
+    .pdf-viewer { width: 100%; height: 100%; border: none; }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000; cursor: pointer; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; z-index: 10; background: #000; }
+    .video-preview { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s ease; overflow: hidden; }
+    .video-preview img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+    .play-button { width: 80px; height: 80px; background: rgba(255, 255, 255, 0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); position: relative; z-index: 2; }
+    .play-button:hover { background: rgba(255, 255, 255, 1); transform: scale(1.1); box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4); }
+    .play-button svg { width: 32px; height: 32px; margin-left: 4px; color: var(--primary-dark); }
     @media (max-width: 968px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } }
     @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
   </style>
@@ -77,7 +101,7 @@
   <header class="top-header">
     <div class="header-container">
       <a href="../../index.html" class="logo-container">
-        <img src="../../transparent%20logo.png" alt="Logo" onerror="this.src='../../cacloud.svg'">
+        <img src="../../assets/ca-clouddesk-logo.png" alt="CA CloudDesk Logo">
         <div class="logo-text">CA Cloud Desk</div>
       </a>
       <nav class="breadcrumb">
@@ -96,8 +120,20 @@
         <li><a href="#path" class="active">Path</a></li>
         <li><a href="#part-a">Part A — Manual (Steps 1–4)</a></li>
         <li><a href="#part-b">Part B — Import (Steps 1–3)</a></li>
+        <li><a href="#tutorial">Video Tutorial</a></li>
         <li><a href="#related">Related</a></li>
       </ul>
+      <div class="sidebar-pdf-button">
+        <a href="../../assets/Add-Pay_Details_setup_CA_CloudDesk.pdf" target="_blank" rel="noopener" class="pdf-cart-button" style="text-decoration: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          View PDF Guide
+        </a>
+      </div>
     </aside>
 
     <div class="content">
@@ -126,6 +162,10 @@
           Part A
         </h2>
         <p class="lead" style="margin-bottom: 1.5rem;">Add pay details manually from the CA Cloud Desk dashboard: go to Profile setting → Payroll → Account setting → Pay details, click the plus icon, fill all fields and save.</p>
+        <div class="media-box">
+          <img src="../../assets/pay-details-flowchart-part-a.png" alt="Flowchart Part A: Dashboard → Profile Setting → Payroll → Accounting Setting → Pay Details → + icon" onerror="this.style.display='none'">
+          <p class="media-caption">Flowchart (Part A) — Dashboard → Profile Setting → Payroll → Accounting Setting → Pay Details → + icon.</p>
+        </div>
 
         <div class="steps-container">
           <div class="step-card">
@@ -150,11 +190,19 @@
             <div class="step-number">3</div>
             <h3>From Account setting, select Pay details, then click the plus icon</h3>
             <p>Under <strong>Account setting</strong>, select <strong>Pay details</strong>, then click the <strong>+</strong> (plus) icon to add new pay details.</p>
+            <div class="media-box">
+              <img src="../../assets/pay-details-step3.png" alt="Account Settings with Pay Details tab selected and plus icon to add new pay details" onerror="this.style.display='none'">
+              <p class="media-caption">Step 3 — Select the <strong>Pay Details</strong> tab (1), then click the <strong>+</strong> button (2) to add new pay details.</p>
+            </div>
           </div>
           <div class="step-card">
             <div class="step-number">4</div>
             <h3>Fill all the details and click Save</h3>
             <p>Fill in all required and optional fields in the form, then click <strong>Save</strong>.</p>
+            <div class="media-box">
+              <img src="../../assets/pay-details-step4.png" alt="Pay details form with Valid From, Employee, Payment Mode, bank details, Component table and Save button" onerror="this.style.display='none'">
+              <p class="media-caption">Step 4 — Fill in Valid From, Employee, Payment Mode, account and bank details, Component values, Notes, then click <strong>Save</strong>.</p>
+            </div>
             <div class="form-fields">
               <h4>Pay details form fields</h4>
               <ul>
@@ -194,17 +242,29 @@
           Part B
         </h2>
         <p class="lead" style="margin-bottom: 1.5rem;">Upload pay details in bulk using the Import utility. Go to Profile setting → Import utility → HRMS, select Pay details, download the sample Excel file, prepare your file as per the guidelines, and upload.</p>
+        <div class="media-box">
+          <img src="../../assets/pay-details-flowchart-part-b.png" alt="Flowchart Part B: Dashboard → Profile Setting → Import Utility → HRMS → Upload Pay Details" onerror="this.style.display='none'">
+          <p class="media-caption">Flowchart (Part B) — Dashboard → Profile Setting → Import Utility → HRMS → Upload Pay Details.</p>
+        </div>
 
         <div class="steps-container">
           <div class="step-card">
             <div class="step-number">1</div>
             <h3>Go to the dashboard, then select Profile setting</h3>
             <p>From the <strong>Dashboard</strong>, click <strong>Profile setting</strong> (profile icon in the top right) to open your profile and organization settings.</p>
+            <div class="media-box">
+              <img src="../../assets/pay-details-b-step1.png" alt="CA Cloud Desk dashboard with Dashboard selected and Profile setting (company/user name) in the top right" onerror="this.style.display='none'">
+              <p class="media-caption">Step 1 — Ensure <strong>Dashboard</strong> is selected (1) in the left menu, then click your profile/company name (2) in the top right for Profile setting.</p>
+            </div>
           </div>
           <div class="step-card">
             <div class="step-number">2</div>
             <h3>Select Import utility, then from Clients, Task, Billing, HRMS and Document vault select HRMS</h3>
             <p>Select <strong>Import utility</strong>. From the options (Clients, Task, Billing, <strong>HRMS</strong>, Document vault), select <strong>HRMS</strong> to import HRMS data.</p>
+            <div class="media-box">
+              <img src="../../assets/pay-details-b-step2.png" alt="Profile screen with Import Utility tab and HRMS card highlighted" onerror="this.style.display='none'">
+              <p class="media-caption">Step 2 — Click <strong>Import Utility</strong> (1) in the top menu, then select the <strong>HRMS</strong> card (2).</p>
+            </div>
           </div>
           <div class="step-card">
             <div class="step-number">3</div>
@@ -215,13 +275,36 @@
               <li><strong>2. Pay Details</strong></li>
               <li><strong>3. Payable Days</strong></li>
             </ul>
+            <div class="media-box">
+              <img src="../../assets/pay-details-b-step3.png" alt="Import Utility table with Employee, Pay Details, Payable Days and Upload Pay Details button" onerror="this.style.display='none'">
+              <p class="media-caption">Step 3 — In the Import Utility table, find the <strong>Pay Details</strong> row and click <strong>Upload Pay Details</strong>.</p>
+            </div>
             <p style="margin-top: 1rem;">Then:</p>
             <ul class="upload-options">
               <li><strong>Download the sample Excel file</strong> and prepare your data according to the guidelines mentioned in the sample Excel file.</li>
               <li>Click <strong>Click to upload</strong> and upload your prepared Excel file.</li>
             </ul>
+            <div class="media-box">
+              <img src="../../assets/pay-details-b-step4.png" alt="Excel Import modal with sample file link, Click to Upload and Upload button" onerror="this.style.display='none'">
+              <p class="media-caption">Step 3 — In the Excel Import dialog, use the <strong>sample Excel file</strong> link to download the template, prepare your file, then use <strong>Click to Upload</strong> and click <strong>Upload</strong> to complete.</p>
+            </div>
             <p style="margin-top: 1rem;">Your pay details will be imported in bulk according to the uploaded file.</p>
           </div>
+        </div>
+      </section>
+
+      <section id="tutorial" class="section">
+        <h2 class="section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          Video Tutorial
+        </h2>
+        <p>A video walkthrough for adding pay details in CA Cloud Desk will be available here—Part A (manual: Profile → Payroll → Account setting → Pay details) and Part B (bulk: Import utility → HRMS → Upload Pay Details). You can also use the <strong>View PDF Guide</strong> button in the left sidebar to open or download the full guide.</p>
+
+        <div class="media-box">
+          <div class="video-wrapper" style="background: var(--muted); display: flex; align-items: center; justify-content: center;">
+            <p style="color: var(--muted-foreground); font-size: 1rem; padding: 2rem; text-align: center;">Video tutorial link will be added here.</p>
+          </div>
+          <p class="media-caption">Tutorial: Add Pay Details in CA Cloud Desk — video link to be added.</p>
         </div>
       </section>
 
@@ -240,7 +323,7 @@
     <div class="footer-content">
       <div class="footer-grid">
         <div class="footer-section">
-          <h4>More</h4>
+          <h4>CA CloudDesk</h4>
           <ul>
             <li><a href="https://caclouddesk.com/pricing/">Pricing</a></li>
             <li><a href="https://caclouddesk.com/contact/">Contact Us</a></li>
@@ -270,6 +353,44 @@
     </div>
   </footer>
 
+  <!-- PDF Viewer Modal -->
+  <div id="pdfModal" class="pdf-modal">
+    <div class="pdf-modal-content">
+      <div class="pdf-modal-header">
+        <h3>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          Add Pay Details setup — CA CloudDesk
+        </h3>
+        <button class="pdf-modal-close" onclick="closePDFViewer()" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="pdf-modal-actions">
+        <a href="../../assets/Add-Pay_Details_setup_CA_CloudDesk.pdf" download="Add-Pay_Details_setup_CA_CloudDesk.pdf" class="pdf-download-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download PDF
+        </a>
+        <a href="../../assets/Add-Pay_Details_setup_CA_CloudDesk.pdf" target="_blank" rel="noopener" class="pdf-download-btn" style="margin-left: 0.5rem;">Open in new tab</a>
+      </div>
+      <div class="pdf-modal-body">
+        <p class="pdf-fallback-msg" style="margin:0 0 0.5rem 0; font-size:0.875rem; color:var(--muted-foreground);">If the PDF does not display below, use <strong>Open in new tab</strong> or <strong>Download PDF</strong> above.</p>
+        <iframe src="../../assets/Add-Pay_Details_setup_CA_CloudDesk.pdf#toolbar=1" class="pdf-viewer" id="pdfViewerIframe" type="application/pdf" title="Add Pay Details setup CA CloudDesk"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
     const sections = document.querySelectorAll('.section');
     const navLinks = document.querySelectorAll('.sidebar-nav a');
@@ -283,6 +404,26 @@
         if (link.getAttribute('href') === '#' + current) link.classList.add('active');
       });
     };
+
+    function openPDFViewer() {
+      var modal = document.getElementById('pdfModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePDFViewer() {
+      var modal = document.getElementById('pdfModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('pdfModal').addEventListener('click', function(e) {
+      if (e.target === this) closePDFViewer();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePDFViewer();
+    });
   </script>
 </body>
 </html>
